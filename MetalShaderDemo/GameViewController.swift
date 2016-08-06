@@ -10,8 +10,31 @@ import SceneKit
 import QuartzCore
 
 class GameViewController: NSViewController {
+    struct ShaderInfo {
+        let name: String
+        let program: SCNProgram
+        let setup: (material: SCNMaterial) -> ()
+        
+        init(name: String, vertexName: String, fragmentName: String, setup: ((material: SCNMaterial) -> ())) {
+            let program = SCNProgram()
+            program.vertexFunctionName = vertexName
+            program.fragmentFunctionName = fragmentName
+
+            self.name = name
+            self.program = program
+            self.setup = setup
+        }
+    }
     
+    struct ColorBuffer {
+        var color: float4
+    }
+    
+    private(set) var shaderList = [ShaderInfo]()
+
+    private weak var torusNode: SCNNode!
     @IBOutlet weak var gameView: GameView!
+    @IBOutlet weak var shaderMenu: NSMenu!
     
     override func awakeFromNib(){
         super.awakeFromNib()
@@ -22,6 +45,7 @@ class GameViewController: NSViewController {
         let torus = SCNNode(geometry: SCNTorus(ringRadius: 3, pipeRadius: 1))
         torus.name = "torus"
         scene.rootNode.addChildNode(torus)
+        torusNode = torus
         
         // create and add a camera to the scene
         let cameraNode = SCNNode()
@@ -45,15 +69,12 @@ class GameViewController: NSViewController {
         ambientLightNode.light!.color = NSColor.darkGray
         scene.rootNode.addChildNode(ambientLightNode)
         
-        // retrieve the torus node
-        let ship = scene.rootNode.childNode(withName: "torus", recursively: true)!
-        
         // animate the 3d object
         let animation = CABasicAnimation(keyPath: "rotation")
         animation.toValue = NSValue(scnVector4: SCNVector4(x: CGFloat(1), y: CGFloat(0), z: CGFloat(1), w: CGFloat(M_PI)*2))
         animation.duration = 3
         animation.repeatCount = MAXFLOAT //repeat forever
-        ship.add(animation, forKey: nil)
+        torus.add(animation, forKey: nil)
 
         // set the scene to the view
         self.gameView!.scene = scene
@@ -65,6 +86,46 @@ class GameViewController: NSViewController {
         self.gameView!.showsStatistics = true
         
         // configure the view
-        self.gameView!.backgroundColor = NSColor.black
+        self.gameView!.backgroundColor = NSColor.white
+        
+        loadShader()
+        shaderList.enumerated().forEach { index, shader in
+            let menu = NSMenuItem(title: shader.name, action: #selector(tapShaderMenu), keyEquivalent: "")
+            menu.tag = index
+            shaderMenu.addItem(menu)
+        }
+    }
+    
+    func tapShaderMenu(sender: NSMenuItem) {
+        guard let material = torusNode.geometry?.firstMaterial else { return }
+
+        applyShader(index: sender.tag, target: material)
+    }
+    
+    @IBAction func tapSaderReset(sender: NSMenuItem) {
+        guard let material = torusNode.geometry?.firstMaterial else { return }
+
+        material.program = nil
+    }
+    
+    private func loadShader() {
+        shaderList = [
+            ShaderInfo(name: "VertexColor",
+                       vertexName: "colorVertex",
+                       fragmentName: "colorFragment",
+                       setup: { material in
+                        // マテリアルに設定されているテクスチャをシェーダ用に設定
+                        var custom = ColorBuffer(color: float4(1, 0, 0, 1))
+                        material.setValue(NSData(bytes: &custom, length:sizeof(ColorBuffer.self)), forKey: "custom")
+            }),
+        ]
+    }
+    
+    private func applyShader(index: Int, target: SCNMaterial) {
+        guard shaderList.indices.contains(index) else { return }
+        
+        let shader = shaderList[index]
+        target.program = shader.program
+        shader.setup(material: target)
     }
 }

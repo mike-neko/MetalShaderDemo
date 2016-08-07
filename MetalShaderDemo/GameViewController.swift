@@ -86,7 +86,7 @@ class GameViewController: NSViewController {
         self.gameView!.showsStatistics = true
         
         // configure the view
-        self.gameView!.backgroundColor = NSColor.white
+        self.gameView!.backgroundColor = NSColor.lightGray
         
         loadShader()
         shaderList.enumerated().forEach { index, shader in
@@ -114,9 +114,14 @@ class GameViewController: NSViewController {
                        vertexName: "colorVertex",
                        fragmentName: "colorFragment",
                        setup: { material in
-                        // マテリアルに設定されているテクスチャをシェーダ用に設定
                         var custom = ColorBuffer(color: float4(1, 0, 0, 1))
                         material.setValue(NSData(bytes: &custom, length:sizeof(ColorBuffer.self)), forKey: "custom")
+            }),
+            ShaderInfo(name: "TextureColor",
+                       vertexName: "textureVertex",
+                       fragmentName: "textureFragment",
+                       setup: { material in
+                        material.setValue(SCNMaterialProperty(contents: NSImage(named: "texture")!), forKey: "texture")
             }),
         ]
     }

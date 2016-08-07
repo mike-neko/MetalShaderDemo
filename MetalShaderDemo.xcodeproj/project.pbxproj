@@ -13,6 +13,8 @@
 		0E2352CF1D5638D200A05B7F /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 0E2352CE1D5638D200A05B7F /* Assets.xcassets */; };
 		0E2352D21D5638D200A05B7F /* MainMenu.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0E2352D01D5638D200A05B7F /* MainMenu.xib */; };
 		0E2352E01D56519700A05B7F /* VertexColor.metal in Sources */ = {isa = PBXBuildFile; fileRef = 0E2352DF1D56519700A05B7F /* VertexColor.metal */; };
+		0E2352E31D57101F00A05B7F /* texture.png in Resources */ = {isa = PBXBuildFile; fileRef = 0E2352E21D57101F00A05B7F /* texture.png */; };
+		0E2352E51D57117E00A05B7F /* TextureColor.metal in Sources */ = {isa = PBXBuildFile; fileRef = 0E2352E41D57117E00A05B7F /* TextureColor.metal */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -24,6 +26,8 @@
 		0E2352D11D5638D200A05B7F /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/MainMenu.xib; sourceTree = "<group>"; };
 		0E2352D31D5638D200A05B7F /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		0E2352DF1D56519700A05B7F /* VertexColor.metal */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.metal; path = VertexColor.metal; sourceTree = "<group>"; };
+		0E2352E21D57101F00A05B7F /* texture.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = texture.png; sourceTree = "<group>"; };
+		0E2352E41D57117E00A05B7F /* TextureColor.metal */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.metal; path = TextureColor.metal; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -59,6 +63,7 @@
 				0E2352C61D5638D200A05B7F /* AppDelegate.swift */,
 				0E2352C81D5638D200A05B7F /* GameView.swift */,
 				0E2352CA1D5638D200A05B7F /* GameViewController.swift */,
+				0E2352E21D57101F00A05B7F /* texture.png */,
 				0E2352E11D56519C00A05B7F /* shader */,
 				0E2352CE1D5638D200A05B7F /* Assets.xcassets */,
 				0E2352D01D5638D200A05B7F /* MainMenu.xib */,
@@ -71,6 +76,7 @@
 			isa = PBXGroup;
 			children = (
 				0E2352DF1D56519700A05B7F /* VertexColor.metal */,
+				0E2352E41D57117E00A05B7F /* TextureColor.metal */,
 			);
 			name = shader;
 			sourceTree = "<group>";
@@ -137,6 +143,7 @@
 			files = (
 				0E2352CF1D5638D200A05B7F /* Assets.xcassets in Resources */,
 				0E2352D21D5638D200A05B7F /* MainMenu.xib in Resources */,
+				0E2352E31D57101F00A05B7F /* texture.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -151,6 +158,7 @@
 				0E2352CB1D5638D200A05B7F /* GameViewController.swift in Sources */,
 				0E2352C71D5638D200A05B7F /* AppDelegate.swift in Sources */,
 				0E2352E01D56519700A05B7F /* VertexColor.metal in Sources */,
+				0E2352E51D57117E00A05B7F /* TextureColor.metal in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

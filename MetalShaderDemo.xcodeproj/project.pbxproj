@@ -15,6 +15,7 @@
 		0E2352E01D56519700A05B7F /* VertexColor.metal in Sources */ = {isa = PBXBuildFile; fileRef = 0E2352DF1D56519700A05B7F /* VertexColor.metal */; };
 		0E2352E31D57101F00A05B7F /* texture.png in Resources */ = {isa = PBXBuildFile; fileRef = 0E2352E21D57101F00A05B7F /* texture.png */; };
 		0E2352E51D57117E00A05B7F /* TextureColor.metal in Sources */ = {isa = PBXBuildFile; fileRef = 0E2352E41D57117E00A05B7F /* TextureColor.metal */; };
+		0E2352E71D571A9300A05B7F /* normal.png in Resources */ = {isa = PBXBuildFile; fileRef = 0E2352E61D571A9300A05B7F /* normal.png */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -28,6 +29,7 @@
 		0E2352DF1D56519700A05B7F /* VertexColor.metal */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.metal; path = VertexColor.metal; sourceTree = "<group>"; };
 		0E2352E21D57101F00A05B7F /* texture.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = texture.png; sourceTree = "<group>"; };
 		0E2352E41D57117E00A05B7F /* TextureColor.metal */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.metal; path = TextureColor.metal; sourceTree = "<group>"; };
+		0E2352E61D571A9300A05B7F /* normal.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = normal.png; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -64,6 +66,7 @@
 				0E2352C81D5638D200A05B7F /* GameView.swift */,
 				0E2352CA1D5638D200A05B7F /* GameViewController.swift */,
 				0E2352E21D57101F00A05B7F /* texture.png */,
+				0E2352E61D571A9300A05B7F /* normal.png */,
 				0E2352E11D56519C00A05B7F /* shader */,
 				0E2352CE1D5638D200A05B7F /* Assets.xcassets */,
 				0E2352D01D5638D200A05B7F /* MainMenu.xib */,
@@ -78,7 +81,7 @@
 				0E2352DF1D56519700A05B7F /* VertexColor.metal */,
 				0E2352E41D57117E00A05B7F /* TextureColor.metal */,
 			);
-			name = shader;
+			path = shader;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -143,6 +146,7 @@
 			files = (
 				0E2352CF1D5638D200A05B7F /* Assets.xcassets in Resources */,
 				0E2352D21D5638D200A05B7F /* MainMenu.xib in Resources */,
+				0E2352E71D571A9300A05B7F /* normal.png in Resources */,
 				0E2352E31D57101F00A05B7F /* texture.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

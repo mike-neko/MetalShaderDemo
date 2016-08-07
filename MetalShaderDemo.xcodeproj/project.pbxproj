@@ -65,9 +65,8 @@
 				0E2352C61D5638D200A05B7F /* AppDelegate.swift */,
 				0E2352C81D5638D200A05B7F /* GameView.swift */,
 				0E2352CA1D5638D200A05B7F /* GameViewController.swift */,
-				0E2352E21D57101F00A05B7F /* texture.png */,
-				0E2352E61D571A9300A05B7F /* normal.png */,
-				0E2352E11D56519C00A05B7F /* shader */,
+				0E2352E81D571B8A00A05B7F /* Resources */,
+				0E2352E11D56519C00A05B7F /* Shaders */,
 				0E2352CE1D5638D200A05B7F /* Assets.xcassets */,
 				0E2352D01D5638D200A05B7F /* MainMenu.xib */,
 				0E2352D31D5638D200A05B7F /* Info.plist */,
@@ -75,13 +74,23 @@
 			path = MetalShaderDemo;
 			sourceTree = "<group>";
 		};
-		0E2352E11D56519C00A05B7F /* shader */ = {
+		0E2352E11D56519C00A05B7F /* Shaders */ = {
 			isa = PBXGroup;
 			children = (
 				0E2352DF1D56519700A05B7F /* VertexColor.metal */,
 				0E2352E41D57117E00A05B7F /* TextureColor.metal */,
 			);
-			path = shader;
+			name = Shaders;
+			path = Shaderes;
+			sourceTree = "<group>";
+		};
+		0E2352E81D571B8A00A05B7F /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				0E2352E21D57101F00A05B7F /* texture.png */,
+				0E2352E61D571A9300A05B7F /* normal.png */,
+			);
+			path = Resources;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */

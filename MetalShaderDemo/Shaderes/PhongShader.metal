@@ -24,14 +24,15 @@ struct NodeBuffer {
 };
 
 struct LightData {
-    float3 position;
-    float3 color;
+    float4 position;
+    float4 color;
 };
 
 struct MaterialData {
-    float3 diffuse;
-    float3 specular;
-    float shine;
+    float4 diffuse;
+    float4 specular;
+    float shininess;
+    float4 emmision;
 };
 
 struct VertexOut {
@@ -44,21 +45,21 @@ struct VertexOut {
 };
 
 vertex VertexOut phongVertex(VertexInput in [[ stage_in ]],
-                               constant SCNSceneBuffer& scn_frame [[ buffer(0) ]],
-                               constant NodeBuffer& scn_node [[ buffer(1) ]],
-                               constant LightData& light [[ buffer(2) ]]) {
+                             constant SCNSceneBuffer& scn_frame [[ buffer(0) ]],
+                             constant NodeBuffer& scn_node [[ buffer(1) ]],
+                             constant LightData& light [[ buffer(2) ]]) {
     VertexOut out;
     out.position = scn_node.modelViewProjectionTransform * in.position;
     out.texcoord = in.texcoord;
     out.ambient = scn_frame.ambientLightingColor;
-    out.normal = normalize(in.normal);
+    out.normal = in.normal;
     
     auto eyeDirection = -(scn_node.inverseModelTransform * in.position);
     out.eye = normalize(eyeDirection);
     
-    auto lightDirection = (scn_node.inverseModelTransform * float4(light.position, 1));
+    auto lightDirection = (scn_node.inverseModelTransform * light.position);
     out.light = normalize(lightDirection + eyeDirection);
-
+    
     return out;
 }
 
@@ -66,19 +67,60 @@ fragment half4 phongFragment(VertexOut in [[ stage_in ]],
                              texture2d<float> texture [[ texture(0) ]],
                              constant LightData& light [[ buffer(2) ]],
                              constant MaterialData& material [[ buffer(3) ]]) {
-    constexpr sampler defaultSampler;
-
-    auto lightColor = float4(light.color, 1);
+    auto lightColor = light.color;
     auto N = in.normal;
     auto L = in.light;
-    auto E = in.eye;
+    auto V = in.eye;
     auto NdotL = saturate(dot(N, L));
-    auto R = -L + 2.0f * NdotL * N;
-    auto EdotR = saturate(dot(E, R));
- 
-    auto ambient = in.ambient;
-    auto diffuse = lightColor * NdotL * float4(material.diffuse, 1);
-    auto specular = float4(material.specular, 1) * lightColor * pow(EdotR, material.shine);
     
-    return half4(ambient + diffuse + specular);
+    auto ambient = in.ambient;
+    auto emmision = material.emmision;
+    
+    float4 color = ambient + emmision;
+    
+    if (NdotL > 0.f) {
+        constexpr sampler defaultSampler;
+        auto decal = texture.sample(defaultSampler, in.texcoord);
+        auto diffuse = lightColor * NdotL * material.diffuse * decal;
+        
+        auto R = -L + 2.0f * NdotL * N;     // =reflect(-L, N)
+        auto VdotR = saturate(dot(V, R));
+        auto specular = material.specular * pow(VdotR, material.shininess);
+        
+        color += diffuse + specular;
+    }
+    
+    return half4(color);
 }
+
+fragment half4 blinnPhongFragment(VertexOut in [[ stage_in ]],
+                                  texture2d<float> texture [[ texture(0) ]],
+                                  constant LightData& light [[ buffer(2) ]],
+                                  constant MaterialData& material [[ buffer(3) ]]) {
+    
+    auto lightColor = light.color;
+    auto N = in.normal;
+    auto L = in.light;
+    auto V = in.eye;
+    auto NdotL = saturate(dot(N, L));
+    
+    auto ambient = in.ambient;
+    auto emmision = material.emmision;
+    
+    float4 color = ambient + emmision;
+    
+    if (NdotL > 0.f) {
+        constexpr sampler defaultSampler;
+        auto decal = texture.sample(defaultSampler, in.texcoord);
+        auto diffuse = lightColor * NdotL * material.diffuse * decal;
+        
+        auto H = normalize(L + V);
+        auto NdotH = saturate(dot(N, H));
+        auto specular = material.specular * pow(NdotH, material.shininess);
+        
+        color += diffuse + specular;
+    }
+    
+    return half4(color);
+}
+

@@ -31,19 +31,22 @@ class GameViewController: NSViewController {
     }
     
     struct LightData {
-        var position: float3
-        var color: float3
+        var position: float4
+        var color: float4
     }
-
+    
     struct MaterialData {
-        var diffuse: float3
-        var specular: float3
-        var shine: Float
-        
-        var pad1: Float
-        var pad2: Float
-        var pad3: Float
+        var diffuse: float4
+        var specular: float4
+        var shininess: Float
+        var emission: float4
+//        private let padding = [UInt8](count: 3, repeatedValue: 0)
     }
+    
+    let defaultDiffuseColor = float4(1, 1, 1, 1)
+    let defaultSpecularColor = float4(1, 1, 1, 1)
+    let defaultSpecularShininess = Float(200)
+    let defaultEmmisionColor = float4(0, 0, 0, 1)
 
     private(set) var shaderList = [ShaderInfo]()
 
@@ -75,7 +78,7 @@ class GameViewController: NSViewController {
         let light = SCNNode()
         light.light = SCNLight()
         light.light!.type = SCNLightTypeOmni
-        light.position = SCNVector3(x: 0, y: 10, z: 10)
+        light.position = SCNVector3(x: 0, y: 0, z: 15)
         scene.rootNode.addChildNode(light)
         lightNode = light
         
@@ -83,7 +86,7 @@ class GameViewController: NSViewController {
         let ambientLightNode = SCNNode()
         ambientLightNode.light = SCNLight()
         ambientLightNode.light!.type = SCNLightTypeAmbient
-        ambientLightNode.light!.color = NSColor.darkGray
+        ambientLightNode.light!.color = NSColor(calibratedWhite: 0.1, alpha: 1)
         scene.rootNode.addChildNode(ambientLightNode)
         
         // animate the 3d object
@@ -93,6 +96,11 @@ class GameViewController: NSViewController {
         animation.repeatCount = MAXFLOAT //repeat forever
         torus.add(animation, forKey: nil)
       
+        let base = SCNNode(geometry: SCNTorus(ringRadius: 3, pipeRadius: 1))
+        scene.rootNode.addChildNode(base)
+        base.position = SCNVector3(x: -6, y: 0, z: 0)
+        base.add(animation, forKey: nil)
+
         // set the scene to the view
         self.gameView!.scene = scene
         
@@ -113,12 +121,9 @@ class GameViewController: NSViewController {
         }
         
         // TEST:
+//        torus.rotation = SCNVector4(x: CGFloat(1), y: CGFloat(0), z: CGFloat(1), w: CGFloat(M_PI) / 4)
         applyShader(index: 2, target: torusNode.geometry!.firstMaterial!)
-        
-        let base = SCNNode(geometry: SCNTorus(ringRadius: 3, pipeRadius: 1))
-        scene.rootNode.addChildNode(base)
-        base.position = SCNVector3(x: -6, y: 0, z: 0)
-        base.add(animation, forKey: nil)
+        applyShader(index: 3, target: base.geometry!.firstMaterial!)
     }
     
     func tapShaderMenu(sender: NSMenuItem) {
@@ -134,9 +139,12 @@ class GameViewController: NSViewController {
     }
     
     private func loadShader() {
-        let color = lightNode.light!.color as! NSColor
-        let light = float3(Float(color.redComponent), Float(color.greenComponent), Float(color.blueComponent))
-        let pos = float3(Float(lightNode.position.x), Float(lightNode.position.y), Float(lightNode.position.z))
+        var light = LightData(position: float4(vector3: self.lightNode.position, w: 0),
+                              color: (self.lightNode.light!.color as! NSColor).rgba)
+        var mat = MaterialData(diffuse: defaultDiffuseColor,
+                               specular: defaultSpecularColor,
+                               shininess: defaultSpecularShininess,
+                               emission: defaultEmmisionColor)
         
         shaderList = [
             ShaderInfo(
@@ -160,9 +168,16 @@ class GameViewController: NSViewController {
                 fragmentName: "phongFragment",
                 setup: { material in
                     material.setValue(SCNMaterialProperty(contents: NSImage(named: "texture")!), forKey: "texture")
-                    var light = LightData(position: pos, color: light)
                     material.setValue(NSData(bytes: &light, length:sizeof(LightData.self)), forKey: "light")
-                    var mat = MaterialData(diffuse: float3(1, 0, 1), specular: float3(0, 1, 1), shine: 100, pad1: 0, pad2: 0, pad3: 0)
+                    material.setValue(NSData(bytes: &mat, length:sizeof(MaterialData.self)), forKey: "material")
+            }),
+            ShaderInfo(
+                name: "Blinn Phong Shader",
+                vertexName: "phongVertex",
+                fragmentName: "blinnPhongFragment",
+                setup: { material in
+                    material.setValue(SCNMaterialProperty(contents: NSImage(named: "texture")!), forKey: "texture")
+                    material.setValue(NSData(bytes: &light, length:sizeof(LightData.self)), forKey: "light")
                     material.setValue(NSData(bytes: &mat, length:sizeof(MaterialData.self)), forKey: "material")
             }),
         ]

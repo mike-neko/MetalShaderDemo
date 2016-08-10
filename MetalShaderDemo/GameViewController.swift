@@ -127,8 +127,8 @@ class GameViewController: NSViewController {
         
         // TEST:
 //        torus.rotation = SCNVector4(x: CGFloat(1), y: CGFloat(0), z: CGFloat(1), w: CGFloat(M_PI) / 4)
-        applyShader(index: 4, target: torusNode.geometry!.firstMaterial!)
-        applyShader(index: 5, target: base.geometry!.firstMaterial!)
+        applyShader(index: 6, target: torusNode.geometry!.firstMaterial!)
+        applyShader(index: 2, target: base.geometry!.firstMaterial!)
     }
     
     func tapShaderMenu(sender: NSMenuItem) {
@@ -208,6 +208,15 @@ class GameViewController: NSViewController {
                     mat.shininess = 2
                     mat.microfacet = 0.3
                     //                    material.setValue(SCNMaterialProperty(contents: NSImage(named: "texture")!), forKey: "texture")
+                    material.setValue(NSData(bytes: &light, length:sizeof(LightData.self)), forKey: "light")
+                    material.setValue(NSData(bytes: &mat, length:sizeof(MaterialData.self)), forKey: "material")
+            }),
+            ShaderInfo(
+                name: "Lambert Shader",
+                vertexName: "lambertVertex",
+                fragmentName: "lambertFragment",
+                setup: { material in
+                    material.setValue(SCNMaterialProperty(contents: NSImage(named: "texture")!), forKey: "texture")
                     material.setValue(NSData(bytes: &light, length:sizeof(LightData.self)), forKey: "light")
                     material.setValue(NSData(bytes: &mat, length:sizeof(MaterialData.self)), forKey: "material")
             }),

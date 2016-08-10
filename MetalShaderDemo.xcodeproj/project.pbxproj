@@ -19,6 +19,7 @@
 		0E2352EA1D57355A00A05B7F /* PhongShader.metal in Sources */ = {isa = PBXBuildFile; fileRef = 0E2352E91D57355A00A05B7F /* PhongShader.metal */; };
 		0E2352ED1D5A1C1100A05B7F /* NSColor+simd.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E2352EC1D5A1C1100A05B7F /* NSColor+simd.swift */; };
 		0E2352EF1D5A1C4800A05B7F /* simd+Convert.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E2352EE1D5A1C4800A05B7F /* simd+Convert.swift */; };
+		0EE487C21D5B95C600E7D9C5 /* Lambert.metal in Sources */ = {isa = PBXBuildFile; fileRef = 0EE487C11D5B95C600E7D9C5 /* Lambert.metal */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -36,6 +37,7 @@
 		0E2352E91D57355A00A05B7F /* PhongShader.metal */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.metal; path = PhongShader.metal; sourceTree = "<group>"; };
 		0E2352EC1D5A1C1100A05B7F /* NSColor+simd.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "NSColor+simd.swift"; sourceTree = "<group>"; };
 		0E2352EE1D5A1C4800A05B7F /* simd+Convert.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "simd+Convert.swift"; sourceTree = "<group>"; };
+		0EE487C11D5B95C600E7D9C5 /* Lambert.metal */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.metal; path = Lambert.metal; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -87,6 +89,7 @@
 				0E2352DF1D56519700A05B7F /* VertexColorShader.metal */,
 				0E2352E41D57117E00A05B7F /* TextureShader.metal */,
 				0E2352E91D57355A00A05B7F /* PhongShader.metal */,
+				0EE487C11D5B95C600E7D9C5 /* Lambert.metal */,
 			);
 			name = Shaders;
 			path = Shaderes;
@@ -191,6 +194,7 @@
 				0E2352E51D57117E00A05B7F /* TextureShader.metal in Sources */,
 				0E2352ED1D5A1C1100A05B7F /* NSColor+simd.swift in Sources */,
 				0E2352EF1D5A1C4800A05B7F /* simd+Convert.swift in Sources */,
+				0EE487C21D5B95C600E7D9C5 /* Lambert.metal in Sources */,
 				0E2352EA1D57355A00A05B7F /* PhongShader.metal in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

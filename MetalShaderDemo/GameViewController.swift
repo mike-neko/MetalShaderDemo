@@ -31,7 +31,8 @@ class GameViewController: NSViewController {
     }
     
     struct LightData {
-        var position: float4
+        var normalizedLightDirection: float3
+        var normalizedEyeDirection: float3
         var color: float4
     }
     
@@ -43,15 +44,16 @@ class GameViewController: NSViewController {
 //        private let padding = [UInt8](count: 3, repeatedValue: 0)
     }
     
-    let defaultDiffuseColor = float4(1, 1, 1, 1)
+    let defaultDiffuseColor = float4(1, 0, 0, 1)
     let defaultSpecularColor = float4(1, 1, 1, 1)
-    let defaultSpecularShininess = Float(200)
+    let defaultSpecularShininess = Float(100)
     let defaultEmmisionColor = float4(0, 0, 0, 1)
-
+    
     private(set) var shaderList = [ShaderInfo]()
 
     private weak var torusNode: SCNNode!
     private weak var lightNode: SCNNode!
+    private weak var cameraNode: SCNNode!
     @IBOutlet weak var gameView: GameView!
     @IBOutlet weak var shaderMenu: NSMenu!
     
@@ -67,12 +69,11 @@ class GameViewController: NSViewController {
         torusNode = torus
         
         // create and add a camera to the scene
-        let cameraNode = SCNNode()
-        cameraNode.camera = SCNCamera()
-        scene.rootNode.addChildNode(cameraNode)
-        
-        // place the camera
-        cameraNode.position = SCNVector3(x: 0, y: 0, z: 15)
+        let camera = SCNNode()
+        camera.camera = SCNCamera()
+        scene.rootNode.addChildNode(camera)
+        camera.position = SCNVector3(x: 0, y: 0, z: 15)
+        cameraNode = camera
         
         // create and add a light to the scene
         let light = SCNNode()
@@ -87,7 +88,7 @@ class GameViewController: NSViewController {
         ambientLightNode.light = SCNLight()
         ambientLightNode.light!.type = SCNLightTypeAmbient
         ambientLightNode.light!.color = NSColor(calibratedWhite: 0.1, alpha: 1)
-        scene.rootNode.addChildNode(ambientLightNode)
+//        scene.rootNode.addChildNode(ambientLightNode)
         
         // animate the 3d object
         let animation = CABasicAnimation(keyPath: "rotation")
@@ -139,8 +140,9 @@ class GameViewController: NSViewController {
     }
     
     private func loadShader() {
-        var light = LightData(position: float4(vector3: self.lightNode.position, w: 0),
-                              color: (self.lightNode.light!.color as! NSColor).rgba)
+        var light = LightData(normalizedLightDirection: normalize(float3(lightNode.position)),
+                              normalizedEyeDirection: normalize(float3(lightNode.position)),
+                              color: (lightNode.light!.color as! NSColor).rgba)
         var mat = MaterialData(diffuse: defaultDiffuseColor,
                                specular: defaultSpecularColor,
                                shininess: defaultSpecularShininess,

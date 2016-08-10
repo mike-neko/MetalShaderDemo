@@ -12,9 +12,9 @@ using namespace metal;
 
 // 頂点属性
 struct VertexInput {
-    float4 position [[ attribute(SCNVertexSemanticPosition) ]];
+    float3 position [[ attribute(SCNVertexSemanticPosition) ]];
     float2 texcoord [[ attribute(SCNVertexSemanticTexcoord0) ]];
-    float4 normal   [[ attribute(SCNVertexSemanticNormal) ]];
+    float3 normal   [[ attribute(SCNVertexSemanticNormal) ]];
 };
 
 // モデルデータ
@@ -24,7 +24,8 @@ struct NodeBuffer {
 };
 
 struct LightData {
-    float4 position;
+    float3 normalizedLightDirection;
+    float3 normalizedEyeDirection;
     float4 color;
 };
 
@@ -39,9 +40,9 @@ struct VertexOut {
     float4 position [[position]];
     float2 texcoord;
     float4 ambient;
-    float4 normal;
-    float4 light;
-    float4 eye;
+    float3 normal;
+    float3 light;
+    float3 eye;
 };
 
 vertex VertexOut phongVertex(VertexInput in [[ stage_in ]],
@@ -49,43 +50,41 @@ vertex VertexOut phongVertex(VertexInput in [[ stage_in ]],
                              constant NodeBuffer& scn_node [[ buffer(1) ]],
                              constant LightData& light [[ buffer(2) ]]) {
     VertexOut out;
-    out.position = scn_node.modelViewProjectionTransform * in.position;
+    out.position = scn_node.modelViewProjectionTransform * float4(in.position, 1);
     out.texcoord = in.texcoord;
     out.ambient = scn_frame.ambientLightingColor;
     out.normal = in.normal;
-    
-    auto eyeDirection = -(scn_node.inverseModelTransform * in.position);
-    out.eye = normalize(eyeDirection);
-    
-    auto lightDirection = (scn_node.inverseModelTransform * light.position);
-    out.light = normalize(lightDirection + eyeDirection);
-    
+    out.light = (scn_node.inverseModelTransform * float4(light.normalizedLightDirection, 0)).xyz;
+    out.eye = (scn_node.inverseModelTransform * float4(light.normalizedEyeDirection, 0)).xyz;
     return out;
 }
 
 fragment half4 phongFragment(VertexOut in [[ stage_in ]],
                              texture2d<float> texture [[ texture(0) ]],
+                             constant NodeBuffer& scn_node [[ buffer(1) ]],
                              constant LightData& light [[ buffer(2) ]],
                              constant MaterialData& material [[ buffer(3) ]]) {
+    
     auto lightColor = light.color;
-    auto N = in.normal;
-    auto L = in.light;
-    auto V = in.eye;
-    auto NdotL = saturate(dot(N, L));
+    auto N = normalize(in.normal);
+    auto L = normalize(in.light);
+    auto V = normalize(in.eye);
+    auto NL = saturate(dot(N, L));
     
     auto ambient = in.ambient;
     auto emmision = material.emmision;
     
     float4 color = ambient + emmision;
     
-    if (NdotL > 0.f) {
+    if (NL > 0.f) {
         constexpr sampler defaultSampler;
         auto decal = texture.sample(defaultSampler, in.texcoord);
-        auto diffuse = lightColor * NdotL * material.diffuse * decal;
         
-        auto R = -L + 2.0f * NdotL * N;     // =reflect(-L, N)
-        auto VdotR = saturate(dot(V, R));
-        auto specular = material.specular * pow(VdotR, material.shininess);
+        auto diffuse = lightColor * float4(float3(NL), 1) * material.diffuse * decal;
+        
+        auto R = -L + 2.0f * NL * N; // =reflect(-L, N)
+        auto VR = saturate(dot(V, R));
+        auto specular = material.specular * float4(float3(pow(VR, material.shininess)), 1) * lightColor;
         
         color += diffuse + specular;
     }
@@ -95,32 +94,36 @@ fragment half4 phongFragment(VertexOut in [[ stage_in ]],
 
 fragment half4 blinnPhongFragment(VertexOut in [[ stage_in ]],
                                   texture2d<float> texture [[ texture(0) ]],
+                                  constant NodeBuffer& scn_node [[ buffer(1) ]],
                                   constant LightData& light [[ buffer(2) ]],
                                   constant MaterialData& material [[ buffer(3) ]]) {
     
     auto lightColor = light.color;
-    auto N = in.normal;
-    auto L = in.light;
-    auto V = in.eye;
-    auto NdotL = saturate(dot(N, L));
+    auto N = normalize(in.normal);
+    auto L = normalize(in.light);
+    auto V = normalize(in.eye);
+    auto NL = saturate(dot(N, L));
     
     auto ambient = in.ambient;
     auto emmision = material.emmision;
     
     float4 color = ambient + emmision;
     
-    if (NdotL > 0.f) {
+    if (NL > 0.f) {
         constexpr sampler defaultSampler;
         auto decal = texture.sample(defaultSampler, in.texcoord);
-        auto diffuse = lightColor * NdotL * material.diffuse * decal;
+        
+        auto diffuse = lightColor * float4(float3(NL), 1) * material.diffuse * decal;
         
         auto H = normalize(L + V);
-        auto NdotH = saturate(dot(N, H));
-        auto specular = material.specular * pow(NdotH, material.shininess);
+        auto NH = saturate(dot(N, H));
+        auto specular = material.specular * float4(float3(pow(NH, material.shininess)), 1) * lightColor;
         
         color += diffuse + specular;
     }
     
     return half4(color);
 }
+
+
 

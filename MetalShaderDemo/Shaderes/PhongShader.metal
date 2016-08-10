@@ -65,7 +65,6 @@ vertex VertexOut phongVertex(VertexInput in [[ stage_in ]],
 
 fragment half4 phongFragment(VertexOut in [[ stage_in ]],
                              texture2d<float> texture [[ texture(0) ]],
-                             constant NodeBuffer& scn_node [[ buffer(1) ]],
                              constant LightData& light [[ buffer(2) ]],
                              constant MaterialData& material [[ buffer(3) ]]) {
     
@@ -98,7 +97,6 @@ fragment half4 phongFragment(VertexOut in [[ stage_in ]],
 
 fragment half4 blinnPhongFragment(VertexOut in [[ stage_in ]],
                                   texture2d<float> texture [[ texture(0) ]],
-                                  constant NodeBuffer& scn_node [[ buffer(1) ]],
                                   constant LightData& light [[ buffer(2) ]],
                                   constant MaterialData& material [[ buffer(3) ]]) {
     

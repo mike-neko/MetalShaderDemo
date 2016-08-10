@@ -31,8 +31,8 @@ class GameViewController: NSViewController {
     }
     
     struct LightData {
-        var normalizedLightDirection: float3
-        var normalizedEyeDirection: float3
+        var lightPosition: float3
+        var eyePosition: float3
         var color: float4
     }
     
@@ -79,7 +79,7 @@ class GameViewController: NSViewController {
         let light = SCNNode()
         light.light = SCNLight()
         light.light!.type = SCNLightTypeOmni
-        light.position = SCNVector3(x: 0, y: 0, z: 15)
+        light.position = SCNVector3(x: 0, y: 5, z: 15)
         scene.rootNode.addChildNode(light)
         lightNode = light
         
@@ -140,8 +140,8 @@ class GameViewController: NSViewController {
     }
     
     private func loadShader() {
-        var light = LightData(normalizedLightDirection: normalize(float3(lightNode.position)),
-                              normalizedEyeDirection: normalize(float3(lightNode.position)),
+        var light = LightData(lightPosition: float3(lightNode.position),
+                              eyePosition: float3(cameraNode.position),
                               color: (lightNode.light!.color as! NSColor).rgba)
         var mat = MaterialData(diffuse: defaultDiffuseColor,
                                specular: defaultSpecularColor,

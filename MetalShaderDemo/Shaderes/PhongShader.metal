@@ -24,8 +24,8 @@ struct NodeBuffer {
 };
 
 struct LightData {
-    float3 normalizedLightDirection;
-    float3 normalizedEyeDirection;
+    float3 lightPosition;
+    float3 eyePosition;
     float4 color;
 };
 
@@ -54,8 +54,9 @@ vertex VertexOut phongVertex(VertexInput in [[ stage_in ]],
     out.texcoord = in.texcoord;
     out.ambient = scn_frame.ambientLightingColor;
     out.normal = in.normal;
-    out.light = (scn_node.inverseModelTransform * float4(light.normalizedLightDirection, 0)).xyz;
-    out.eye = (scn_node.inverseModelTransform * float4(light.normalizedEyeDirection, 0)).xyz;
+    out.light = (scn_node.inverseModelTransform * float4(normalize(light.lightPosition), 0)).xyz;
+    auto eyepos = light.eyePosition - in.position;
+    out.eye = (scn_node.inverseModelTransform * float4(normalize(eyepos), 0)).xyz;
     return out;
 }
 
@@ -124,6 +125,4 @@ fragment half4 blinnPhongFragment(VertexOut in [[ stage_in ]],
     
     return half4(color);
 }
-
-
 

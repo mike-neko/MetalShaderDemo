@@ -35,8 +35,8 @@ struct MaterialData {
     float shininess;
     float4 emmision;
     
-    // CookTorrance
-    float microfacet;
+    // CookTorrance(microfacet)
+    float roughness;
 };
 
 struct VertexOut {
@@ -171,7 +171,7 @@ fragment half4 cookTorranceFragment(VertexOut in [[ stage_in ]],
         auto NV = saturate(dot(N, V));
         
         // D: Beckman
-        auto D = bechmannDistribution(NH, material.microfacet);
+        auto D = bechmannDistribution(NH, material.roughness);
         
         // G: 幾何減衰率
         auto G = min(1.f, min(2 * NH * NV / VH, 2 * NH * NL / VH));

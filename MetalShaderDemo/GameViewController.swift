@@ -42,8 +42,7 @@ class GameViewController: NSViewController {
         var shininess: Float
         var emission: float4
         
-        // CookTorrance
-        var microfacet: Float
+        var roughness: Float
 
         private let padding = [UInt8](repeating: 0, count: 12)
     }
@@ -151,7 +150,7 @@ class GameViewController: NSViewController {
                                specular: defaultSpecularColor,
                                shininess: defaultSpecularShininess,
                                emission: defaultEmmisionColor,
-                               microfacet: 0)
+                               roughness: 1)
         
         shaderList = [
             ShaderInfo(
@@ -194,7 +193,7 @@ class GameViewController: NSViewController {
                 setup: { material in
                     mat.diffuse = float4(0.1, 0.1, 0.1, 1)
                     mat.shininess = 2   //2
-                    mat.microfacet = 0.2
+                    mat.roughness = 0.2
                     //                    material.setValue(SCNMaterialProperty(contents: NSImage(named: "texture")!), forKey: "texture")
                     material.setValue(NSData(bytes: &light, length:sizeof(LightData.self)), forKey: "light")
                     material.setValue(NSData(bytes: &mat, length:sizeof(MaterialData.self)), forKey: "material")
@@ -206,7 +205,7 @@ class GameViewController: NSViewController {
                 setup: { material in
                     mat.diffuse = float4(0.1, 0.1, 0.1, 1)
                     mat.shininess = 2
-                    mat.microfacet = 0.3
+                    mat.roughness = 0.3
                     //                    material.setValue(SCNMaterialProperty(contents: NSImage(named: "texture")!), forKey: "texture")
                     material.setValue(NSData(bytes: &light, length:sizeof(LightData.self)), forKey: "light")
                     material.setValue(NSData(bytes: &mat, length:sizeof(MaterialData.self)), forKey: "material")

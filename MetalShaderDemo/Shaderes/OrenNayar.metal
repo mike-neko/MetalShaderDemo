@@ -35,8 +35,7 @@ struct MaterialData {
     float shininess;
     float4 emmision;
     
-    // CookTorrance
-    float microfacet;
+    float roughness;
 };
 
 struct VertexOut {
@@ -68,7 +67,7 @@ fragment half4 orenNayarFragment(VertexOut in [[ stage_in ]],
                              constant LightData& light [[ buffer(2) ]],
                              constant MaterialData& material [[ buffer(3) ]]) {
     
-    auto roughness = 1;
+    auto roughness = material.roughness;
     auto lightColor = light.color;
     auto N = normalize(in.normal);
     auto L = normalize(in.light);

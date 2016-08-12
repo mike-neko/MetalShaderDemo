@@ -35,8 +35,7 @@ struct MaterialData {
     float shininess;
     float4 emmision;
     
-    // CookTorrance
-    float microfacet;
+    float roughness;
 };
 
 struct VertexOut {

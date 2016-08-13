@@ -60,6 +60,7 @@ vertex VertexOut bumpVertex(VertexInput in [[ stage_in ]],
     
     
     auto normal = normalize(in.normal);
+    // auto tangent = normalize(in.tangent);    // Error!!
     auto tangent = normalize(cross(normal, float3(0.0, 1.0, 0.0)));
     auto bitangent = cross(normal, tangent);
     
@@ -85,10 +86,6 @@ fragment half4 bumpFragment(VertexOut in [[ stage_in ]],
     auto L = normalize(in.light);
     auto V = normalize(in.eye);
 
-    
-    
-    
-    
     auto lightColor = light.color;
     auto NL = saturate(dot(N, L));
     

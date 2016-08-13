@@ -21,6 +21,7 @@
 		0E2352EF1D5A1C4800A05B7F /* simd+Convert.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E2352EE1D5A1C4800A05B7F /* simd+Convert.swift */; };
 		0EE487C21D5B95C600E7D9C5 /* Lambert.metal in Sources */ = {isa = PBXBuildFile; fileRef = 0EE487C11D5B95C600E7D9C5 /* Lambert.metal */; };
 		0EE487C41D5CE30900E7D9C5 /* OrenNayar.metal in Sources */ = {isa = PBXBuildFile; fileRef = 0EE487C31D5CE30900E7D9C5 /* OrenNayar.metal */; };
+		0EE487C61D5E1E4C00E7D9C5 /* BumpMapping.metal in Sources */ = {isa = PBXBuildFile; fileRef = 0EE487C51D5E1E4C00E7D9C5 /* BumpMapping.metal */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -40,6 +41,7 @@
 		0E2352EE1D5A1C4800A05B7F /* simd+Convert.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "simd+Convert.swift"; sourceTree = "<group>"; };
 		0EE487C11D5B95C600E7D9C5 /* Lambert.metal */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.metal; path = Lambert.metal; sourceTree = "<group>"; };
 		0EE487C31D5CE30900E7D9C5 /* OrenNayar.metal */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.metal; path = OrenNayar.metal; sourceTree = "<group>"; };
+		0EE487C51D5E1E4C00E7D9C5 /* BumpMapping.metal */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.metal; path = BumpMapping.metal; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -93,6 +95,7 @@
 				0E2352E91D57355A00A05B7F /* PhongShader.metal */,
 				0EE487C11D5B95C600E7D9C5 /* Lambert.metal */,
 				0EE487C31D5CE30900E7D9C5 /* OrenNayar.metal */,
+				0EE487C51D5E1E4C00E7D9C5 /* BumpMapping.metal */,
 			);
 			name = Shaders;
 			path = Shaderes;
@@ -196,6 +199,7 @@
 				0E2352C71D5638D200A05B7F /* AppDelegate.swift in Sources */,
 				0E2352E01D56519700A05B7F /* VertexColorShader.metal in Sources */,
 				0E2352E51D57117E00A05B7F /* TextureShader.metal in Sources */,
+				0EE487C61D5E1E4C00E7D9C5 /* BumpMapping.metal in Sources */,
 				0E2352ED1D5A1C1100A05B7F /* NSColor+simd.swift in Sources */,
 				0E2352EF1D5A1C4800A05B7F /* simd+Convert.swift in Sources */,
 				0EE487C21D5B95C600E7D9C5 /* Lambert.metal in Sources */,

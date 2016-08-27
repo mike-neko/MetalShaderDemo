@@ -13,9 +13,9 @@ class GameViewController: NSViewController {
     struct ShaderInfo {
         let name: String
         let program: SCNProgram
-        let setup: (material: SCNMaterial) -> ()
+        let setup: (_ material: SCNMaterial) -> ()
         
-        init(name: String, vertexName: String, fragmentName: String, setup: ((material: SCNMaterial) -> ())) {
+        init(name: String, vertexName: String, fragmentName: String, setup: ((_ material: SCNMaterial) -> ())) {
             let program = SCNProgram()
             program.vertexFunctionName = vertexName
             program.fragmentFunctionName = fragmentName
@@ -81,7 +81,7 @@ class GameViewController: NSViewController {
         // create and add a light to the scene
         let light = SCNNode()
         light.light = SCNLight()
-        light.light!.type = SCNLightTypeOmni
+        light.light!.type = SCNLight.LightType.omni
         light.position = SCNVector3(x: 0, y: 5, z: 15)
         scene.rootNode.addChildNode(light)
         lightNode = light
@@ -89,7 +89,7 @@ class GameViewController: NSViewController {
         // create and add an ambient light to the scene
         let ambientLightNode = SCNNode()
         ambientLightNode.light = SCNLight()
-        ambientLightNode.light!.type = SCNLightTypeAmbient
+        ambientLightNode.light!.type = SCNLight.LightType.ambient
         ambientLightNode.light!.color = NSColor(calibratedWhite: 0.1, alpha: 1)
 //        scene.rootNode.addChildNode(ambientLightNode)
         
@@ -98,12 +98,12 @@ class GameViewController: NSViewController {
         animation.toValue = NSValue(scnVector4: SCNVector4(x: CGFloat(1), y: CGFloat(0), z: CGFloat(1), w: CGFloat(M_PI)*2))
         animation.duration = 3
         animation.repeatCount = MAXFLOAT //repeat forever
-        torus.add(animation, forKey: nil)
+        torus.addAnimation(animation, forKey: nil)
       
         let base = SCNNode(geometry: SCNTorus(ringRadius: 3, pipeRadius: 1))
         scene.rootNode.addChildNode(base)
         base.position = SCNVector3(x: -6, y: 0, z: 0)
-        base.add(animation, forKey: nil)
+        base.addAnimation(animation, forKey: nil)
 
         // set the scene to the view
         self.gameView!.scene = scene
@@ -161,7 +161,7 @@ class GameViewController: NSViewController {
                 fragmentName: "colorFragment",
                 setup: { material in
                     var custom = ColorBuffer(color: float4(1, 0, 0, 1))
-                    material.setValue(NSData(bytes: &custom, length:sizeof(ColorBuffer.self)), forKey: "custom")
+                    material.setValue(NSData(bytes: &custom, length: MemoryLayout<ColorBuffer>.size), forKey: "custom")
             }),
             ShaderInfo(
                 name: "TextureColor",
@@ -176,8 +176,8 @@ class GameViewController: NSViewController {
                 fragmentName: "phongFragment",
                 setup: { material in
                     material.setValue(SCNMaterialProperty(contents: NSImage(named: "texture")!), forKey: "texture")
-                    material.setValue(NSData(bytes: &light, length:sizeof(LightData.self)), forKey: "light")
-                    material.setValue(NSData(bytes: &mat, length:sizeof(MaterialData.self)), forKey: "material")
+                    material.setValue(NSData(bytes: &light, length: MemoryLayout<LightData>.size), forKey: "light")
+                    material.setValue(NSData(bytes: &mat, length: MemoryLayout<MaterialData>.size), forKey: "material")
             }),
             ShaderInfo(
                 name: "Blinn Phong Shader",
@@ -185,8 +185,8 @@ class GameViewController: NSViewController {
                 fragmentName: "blinnPhongFragment",
                 setup: { material in
                     material.setValue(SCNMaterialProperty(contents: NSImage(named: "texture")!), forKey: "texture")
-                    material.setValue(NSData(bytes: &light, length:sizeof(LightData.self)), forKey: "light")
-                    material.setValue(NSData(bytes: &mat, length:sizeof(MaterialData.self)), forKey: "material")
+                    material.setValue(NSData(bytes: &light, length: MemoryLayout<LightData>.size), forKey: "light")
+                    material.setValue(NSData(bytes: &mat, length: MemoryLayout<MaterialData>.size), forKey: "material")
             }),
             ShaderInfo(
                 name: "Cook Torrance Shader",
@@ -197,8 +197,8 @@ class GameViewController: NSViewController {
                     mat.shininess = 2   //2
                     mat.roughness = 0.2
                     //                    material.setValue(SCNMaterialProperty(contents: NSImage(named: "texture")!), forKey: "texture")
-                    material.setValue(NSData(bytes: &light, length:sizeof(LightData.self)), forKey: "light")
-                    material.setValue(NSData(bytes: &mat, length:sizeof(MaterialData.self)), forKey: "material")
+                    material.setValue(NSData(bytes: &light, length: MemoryLayout<LightData>.size), forKey: "light")
+                    material.setValue(NSData(bytes: &mat, length: MemoryLayout<MaterialData>.size), forKey: "material")
             }),
             ShaderInfo(
                 name: "Cook Torrance Shader",
@@ -209,8 +209,8 @@ class GameViewController: NSViewController {
                     mat.shininess = 2
                     mat.roughness = 0.3
                     //                    material.setValue(SCNMaterialProperty(contents: NSImage(named: "texture")!), forKey: "texture")
-                    material.setValue(NSData(bytes: &light, length:sizeof(LightData.self)), forKey: "light")
-                    material.setValue(NSData(bytes: &mat, length:sizeof(MaterialData.self)), forKey: "material")
+                    material.setValue(NSData(bytes: &light, length: MemoryLayout<LightData>.size), forKey: "light")
+                    material.setValue(NSData(bytes: &mat, length: MemoryLayout<MaterialData>.size), forKey: "material")
             }),
             ShaderInfo(
                 name: "Lambert Shader",
@@ -218,8 +218,8 @@ class GameViewController: NSViewController {
                 fragmentName: "lambertFragment",
                 setup: { material in
                     material.setValue(SCNMaterialProperty(contents: NSImage(named: "texture")!), forKey: "texture")
-                    material.setValue(NSData(bytes: &light, length:sizeof(LightData.self)), forKey: "light")
-                    material.setValue(NSData(bytes: &mat, length:sizeof(MaterialData.self)), forKey: "material")
+                    material.setValue(NSData(bytes: &light, length: MemoryLayout<LightData>.size), forKey: "light")
+                    material.setValue(NSData(bytes: &mat, length: MemoryLayout<MaterialData>.size), forKey: "material")
             }),
             ShaderInfo(
                 name: "Oren-Nayar Shader",
@@ -227,8 +227,8 @@ class GameViewController: NSViewController {
                 fragmentName: "orenNayarFragment",
                 setup: { material in
                     material.setValue(SCNMaterialProperty(contents: NSImage(named: "texture")!), forKey: "texture")
-                    material.setValue(NSData(bytes: &light, length:sizeof(LightData.self)), forKey: "light")
-                    material.setValue(NSData(bytes: &mat, length:sizeof(MaterialData.self)), forKey: "material")
+                    material.setValue(NSData(bytes: &light, length: MemoryLayout<LightData>.size), forKey: "light")
+                    material.setValue(NSData(bytes: &mat, length: MemoryLayout<MaterialData>.size), forKey: "material")
             }),
             ShaderInfo(
                 name: "Bump Mapping Shader",
@@ -242,8 +242,8 @@ class GameViewController: NSViewController {
                     bumpmat.specular = float4(0)
                     material.setValue(SCNMaterialProperty(contents: NSImage(named: "texture")!), forKey: "texture")
                     material.setValue(SCNMaterialProperty(contents: NSImage(named: "normal")!), forKey: "normalmap")
-                    material.setValue(NSData(bytes: &bumplight, length:sizeof(LightData.self)), forKey: "light")
-                    material.setValue(NSData(bytes: &bumpmat, length:sizeof(MaterialData.self)), forKey: "material")
+                    material.setValue(NSData(bytes: &bumplight, length: MemoryLayout<LightData>.size), forKey: "light")
+                    material.setValue(NSData(bytes: &bumpmat, length: MemoryLayout<MaterialData>.size), forKey: "material")
             }),
             ShaderInfo(
                 name: "Rim Lighting Shader",
@@ -253,8 +253,8 @@ class GameViewController: NSViewController {
                     var rimmat = mat
                     rimmat.roughness = 10
                     material.setValue(SCNMaterialProperty(contents: NSImage(named: "texture")!), forKey: "texture")
-                    material.setValue(NSData(bytes: &light, length:sizeof(LightData.self)), forKey: "light")
-                    material.setValue(NSData(bytes: &rimmat, length:sizeof(MaterialData.self)), forKey: "material")
+                    material.setValue(NSData(bytes: &light, length: MemoryLayout<LightData>.size), forKey: "light")
+                    material.setValue(NSData(bytes: &rimmat, length: MemoryLayout<MaterialData>.size), forKey: "material")
             }),
         ]
     }
@@ -264,6 +264,6 @@ class GameViewController: NSViewController {
         
         let shader = shaderList[index]
         target.program = shader.program
-        shader.setup(material: target)
+        shader.setup(target)
     }
 }

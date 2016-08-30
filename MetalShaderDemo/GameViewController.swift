@@ -82,7 +82,7 @@ class GameViewController: NSViewController {
         let light = SCNNode()
         light.light = SCNLight()
         light.light!.type = SCNLight.LightType.omni
-        light.position = SCNVector3(x: 0, y: 5, z: 15)
+        light.position = SCNVector3(x: 0, y: 5, z: 5)
         scene.rootNode.addChildNode(light)
         lightNode = light
         
@@ -128,7 +128,7 @@ class GameViewController: NSViewController {
         //torus.rotation = SCNVector4(x: CGFloat(0), y: CGFloat(0), z: CGFloat(1), w: CGFloat(M_PI) / 2)
         torusNode.geometry!.firstMaterial!.diffuse.contents = NSImage(named: "texture")
         //torus.rotation = SCNVector4(x: CGFloat(0), y: CGFloat(0), z: CGFloat(1), w: CGFloat(M_PI) / 2)
-        applyShader(index: 9, target: torusNode.geometry!.firstMaterial!)
+        applyShader(index: 10, target: torusNode.geometry!.firstMaterial!)
         applyShader(index: 3, target: base.geometry!.firstMaterial!)
     }
     
@@ -255,6 +255,15 @@ class GameViewController: NSViewController {
                     material.setValue(SCNMaterialProperty(contents: NSImage(named: "texture")!), forKey: "texture")
                     material.setValue(NSData(bytes: &light, length: MemoryLayout<LightData>.size), forKey: "light")
                     material.setValue(NSData(bytes: &rimmat, length: MemoryLayout<MaterialData>.size), forKey: "material")
+            }),
+            ShaderInfo(
+                name: "Cube Mapping Shader",
+                vertexName: "cubemapVertex",
+                fragmentName: "cubemapFragment",
+                setup: { material in
+                    material.setValue(SCNMaterialProperty(contents: ["px", "nx", "py", "ny", "pz", "nz"]), forKey: "texture")
+                    material.setValue(NSData(bytes: &light, length: MemoryLayout<LightData>.size), forKey: "light")
+                    material.setValue(NSData(bytes: &mat, length: MemoryLayout<MaterialData>.size), forKey: "material")
             }),
         ]
     }

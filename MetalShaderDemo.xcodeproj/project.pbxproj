@@ -20,6 +20,14 @@
 		0E2352ED1D5A1C1100A05B7F /* NSColor+simd.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E2352EC1D5A1C1100A05B7F /* NSColor+simd.swift */; };
 		0E2352EF1D5A1C4800A05B7F /* simd+Convert.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E2352EE1D5A1C4800A05B7F /* simd+Convert.swift */; };
 		0E3E1D7D1D60B2D000F6EC64 /* RimLightingShader.metal in Sources */ = {isa = PBXBuildFile; fileRef = 0E3E1D7C1D60B2D000F6EC64 /* RimLightingShader.metal */; };
+		0EE0588F1D75CDEE002CA9C2 /* CubemappingShader.metal in Sources */ = {isa = PBXBuildFile; fileRef = 0EE0588E1D75CDEE002CA9C2 /* CubemappingShader.metal */; };
+		0EE058961D75D4A7002CA9C2 /* nx.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 0EE058901D75D4A7002CA9C2 /* nx.jpg */; };
+		0EE058971D75D4A7002CA9C2 /* ny.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 0EE058911D75D4A7002CA9C2 /* ny.jpg */; };
+		0EE058981D75D4A7002CA9C2 /* nz.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 0EE058921D75D4A7002CA9C2 /* nz.jpg */; };
+		0EE058991D75D4A7002CA9C2 /* px.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 0EE058931D75D4A7002CA9C2 /* px.jpg */; };
+		0EE0589A1D75D4A7002CA9C2 /* py.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 0EE058941D75D4A7002CA9C2 /* py.jpg */; };
+		0EE0589B1D75D4A7002CA9C2 /* pz.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 0EE058951D75D4A7002CA9C2 /* pz.jpg */; };
+		0EE0589D1D75DF31002CA9C2 /* Author.txt in Resources */ = {isa = PBXBuildFile; fileRef = 0EE0589C1D75DF31002CA9C2 /* Author.txt */; };
 		0EE487C21D5B95C600E7D9C5 /* Lambert.metal in Sources */ = {isa = PBXBuildFile; fileRef = 0EE487C11D5B95C600E7D9C5 /* Lambert.metal */; };
 		0EE487C41D5CE30900E7D9C5 /* OrenNayar.metal in Sources */ = {isa = PBXBuildFile; fileRef = 0EE487C31D5CE30900E7D9C5 /* OrenNayar.metal */; };
 		0EE487C61D5E1E4C00E7D9C5 /* BumpMapping.metal in Sources */ = {isa = PBXBuildFile; fileRef = 0EE487C51D5E1E4C00E7D9C5 /* BumpMapping.metal */; };
@@ -41,6 +49,14 @@
 		0E2352EC1D5A1C1100A05B7F /* NSColor+simd.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "NSColor+simd.swift"; sourceTree = "<group>"; };
 		0E2352EE1D5A1C4800A05B7F /* simd+Convert.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "simd+Convert.swift"; sourceTree = "<group>"; };
 		0E3E1D7C1D60B2D000F6EC64 /* RimLightingShader.metal */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.metal; path = RimLightingShader.metal; sourceTree = "<group>"; };
+		0EE0588E1D75CDEE002CA9C2 /* CubemappingShader.metal */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.metal; path = CubemappingShader.metal; sourceTree = "<group>"; };
+		0EE058901D75D4A7002CA9C2 /* nx.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; name = nx.jpg; path = cubemap/nx.jpg; sourceTree = "<group>"; };
+		0EE058911D75D4A7002CA9C2 /* ny.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; name = ny.jpg; path = cubemap/ny.jpg; sourceTree = "<group>"; };
+		0EE058921D75D4A7002CA9C2 /* nz.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; name = nz.jpg; path = cubemap/nz.jpg; sourceTree = "<group>"; };
+		0EE058931D75D4A7002CA9C2 /* px.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; name = px.jpg; path = cubemap/px.jpg; sourceTree = "<group>"; };
+		0EE058941D75D4A7002CA9C2 /* py.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; name = py.jpg; path = cubemap/py.jpg; sourceTree = "<group>"; };
+		0EE058951D75D4A7002CA9C2 /* pz.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; name = pz.jpg; path = cubemap/pz.jpg; sourceTree = "<group>"; };
+		0EE0589C1D75DF31002CA9C2 /* Author.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = Author.txt; sourceTree = "<group>"; };
 		0EE487C11D5B95C600E7D9C5 /* Lambert.metal */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.metal; path = Lambert.metal; sourceTree = "<group>"; };
 		0EE487C31D5CE30900E7D9C5 /* OrenNayar.metal */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.metal; path = OrenNayar.metal; sourceTree = "<group>"; };
 		0EE487C51D5E1E4C00E7D9C5 /* BumpMapping.metal */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.metal; path = BumpMapping.metal; sourceTree = "<group>"; };
@@ -99,6 +115,7 @@
 				0EE487C31D5CE30900E7D9C5 /* OrenNayar.metal */,
 				0EE487C51D5E1E4C00E7D9C5 /* BumpMapping.metal */,
 				0E3E1D7C1D60B2D000F6EC64 /* RimLightingShader.metal */,
+				0EE0588E1D75CDEE002CA9C2 /* CubemappingShader.metal */,
 			);
 			name = Shaders;
 			path = Shaderes;
@@ -109,6 +126,7 @@
 			children = (
 				0E2352E21D57101F00A05B7F /* texture.png */,
 				0E2352E61D571A9300A05B7F /* normal.png */,
+				0EE0588D1D75CD42002CA9C2 /* cubemap */,
 			);
 			path = Resources;
 			sourceTree = "<group>";
@@ -120,6 +138,20 @@
 				0E2352EE1D5A1C4800A05B7F /* simd+Convert.swift */,
 			);
 			path = Extensions;
+			sourceTree = "<group>";
+		};
+		0EE0588D1D75CD42002CA9C2 /* cubemap */ = {
+			isa = PBXGroup;
+			children = (
+				0EE0589C1D75DF31002CA9C2 /* Author.txt */,
+				0EE058901D75D4A7002CA9C2 /* nx.jpg */,
+				0EE058911D75D4A7002CA9C2 /* ny.jpg */,
+				0EE058921D75D4A7002CA9C2 /* nz.jpg */,
+				0EE058931D75D4A7002CA9C2 /* px.jpg */,
+				0EE058941D75D4A7002CA9C2 /* py.jpg */,
+				0EE058951D75D4A7002CA9C2 /* pz.jpg */,
+			);
+			name = cubemap;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -182,9 +214,16 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				0EE058961D75D4A7002CA9C2 /* nx.jpg in Resources */,
 				0E2352CF1D5638D200A05B7F /* Assets.xcassets in Resources */,
 				0E2352D21D5638D200A05B7F /* MainMenu.xib in Resources */,
+				0EE0589A1D75D4A7002CA9C2 /* py.jpg in Resources */,
+				0EE0589D1D75DF31002CA9C2 /* Author.txt in Resources */,
 				0E2352E71D571A9300A05B7F /* normal.png in Resources */,
+				0EE0589B1D75D4A7002CA9C2 /* pz.jpg in Resources */,
+				0EE058971D75D4A7002CA9C2 /* ny.jpg in Resources */,
+				0EE058991D75D4A7002CA9C2 /* px.jpg in Resources */,
+				0EE058981D75D4A7002CA9C2 /* nz.jpg in Resources */,
 				0E2352E31D57101F00A05B7F /* texture.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -198,6 +237,7 @@
 			files = (
 				0E2352C91D5638D200A05B7F /* GameView.swift in Sources */,
 				0E2352CB1D5638D200A05B7F /* GameViewController.swift in Sources */,
+				0EE0588F1D75CDEE002CA9C2 /* CubemappingShader.metal in Sources */,
 				0EE487C41D5CE30900E7D9C5 /* OrenNayar.metal in Sources */,
 				0E2352C71D5638D200A05B7F /* AppDelegate.swift in Sources */,
 				0E2352E01D56519700A05B7F /* VertexColorShader.metal in Sources */,

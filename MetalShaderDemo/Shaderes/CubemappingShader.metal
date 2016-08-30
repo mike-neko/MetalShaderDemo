@@ -69,24 +69,22 @@ fragment half4 cubemapFragment(VertexOut in [[ stage_in ]],
                                constant LightData& light [[ buffer(2) ]],
                                constant MaterialData& material [[ buffer(3) ]]) {
     
-    auto lightColor = light.color;
     auto N = normalize(in.normal);
-    auto L = normalize(in.light);
     auto V = normalize(in.eye);
-    auto NL = saturate(dot(N, L));
     
     auto ambient = in.ambient;
     auto emmision = material.emmision;
     
     float4 color = ambient + emmision;
     
-    auto pos = reflect(V, N);
-    constexpr sampler defaultSampler;
-    auto env = texture.sample(defaultSampler, pos);
+    auto uv = reflect(V, N);
+    constexpr sampler cubeSampler(filter::linear, mip_filter::linear);
+    auto env = texture.sample(cubeSampler, uv);
+
+    auto diffuse = material.diffuse * env;
+    color += diffuse;
     
-    //    float4 color = reflect(-V, N);
-    
-    return half4(env);
+    return half4(color);
 }
 
 

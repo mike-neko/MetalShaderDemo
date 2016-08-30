@@ -261,9 +261,11 @@ class GameViewController: NSViewController {
                 vertexName: "cubemapVertex",
                 fragmentName: "cubemapFragment",
                 setup: { material in
+                    var cubemat = mat
+                    cubemat.diffuse = float4(1, 1, 1, 1)
                     material.setValue(SCNMaterialProperty(contents: ["px", "nx", "py", "ny", "pz", "nz"]), forKey: "texture")
                     material.setValue(NSData(bytes: &light, length: MemoryLayout<LightData>.size), forKey: "light")
-                    material.setValue(NSData(bytes: &mat, length: MemoryLayout<MaterialData>.size), forKey: "material")
+                    material.setValue(NSData(bytes: &cubemat, length: MemoryLayout<MaterialData>.size), forKey: "material")
             }),
         ]
     }

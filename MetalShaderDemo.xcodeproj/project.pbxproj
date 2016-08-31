@@ -28,6 +28,7 @@
 		0EE0589A1D75D4A7002CA9C2 /* py.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 0EE058941D75D4A7002CA9C2 /* py.jpg */; };
 		0EE0589B1D75D4A7002CA9C2 /* pz.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 0EE058951D75D4A7002CA9C2 /* pz.jpg */; };
 		0EE0589D1D75DF31002CA9C2 /* Author.txt in Resources */ = {isa = PBXBuildFile; fileRef = 0EE0589C1D75DF31002CA9C2 /* Author.txt */; };
+		0EE0589F1D75E8E8002CA9C2 /* RefractionShader.metal in Sources */ = {isa = PBXBuildFile; fileRef = 0EE0589E1D75E8E8002CA9C2 /* RefractionShader.metal */; };
 		0EE487C21D5B95C600E7D9C5 /* Lambert.metal in Sources */ = {isa = PBXBuildFile; fileRef = 0EE487C11D5B95C600E7D9C5 /* Lambert.metal */; };
 		0EE487C41D5CE30900E7D9C5 /* OrenNayar.metal in Sources */ = {isa = PBXBuildFile; fileRef = 0EE487C31D5CE30900E7D9C5 /* OrenNayar.metal */; };
 		0EE487C61D5E1E4C00E7D9C5 /* BumpMapping.metal in Sources */ = {isa = PBXBuildFile; fileRef = 0EE487C51D5E1E4C00E7D9C5 /* BumpMapping.metal */; };
@@ -57,6 +58,7 @@
 		0EE058941D75D4A7002CA9C2 /* py.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; name = py.jpg; path = cubemap/py.jpg; sourceTree = "<group>"; };
 		0EE058951D75D4A7002CA9C2 /* pz.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; name = pz.jpg; path = cubemap/pz.jpg; sourceTree = "<group>"; };
 		0EE0589C1D75DF31002CA9C2 /* Author.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = Author.txt; sourceTree = "<group>"; };
+		0EE0589E1D75E8E8002CA9C2 /* RefractionShader.metal */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.metal; path = RefractionShader.metal; sourceTree = "<group>"; };
 		0EE487C11D5B95C600E7D9C5 /* Lambert.metal */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.metal; path = Lambert.metal; sourceTree = "<group>"; };
 		0EE487C31D5CE30900E7D9C5 /* OrenNayar.metal */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.metal; path = OrenNayar.metal; sourceTree = "<group>"; };
 		0EE487C51D5E1E4C00E7D9C5 /* BumpMapping.metal */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.metal; path = BumpMapping.metal; sourceTree = "<group>"; };
@@ -116,6 +118,7 @@
 				0EE487C51D5E1E4C00E7D9C5 /* BumpMapping.metal */,
 				0E3E1D7C1D60B2D000F6EC64 /* RimLightingShader.metal */,
 				0EE0588E1D75CDEE002CA9C2 /* CubemappingShader.metal */,
+				0EE0589E1D75E8E8002CA9C2 /* RefractionShader.metal */,
 			);
 			name = Shaders;
 			path = Shaderes;
@@ -238,6 +241,7 @@
 				0E2352C91D5638D200A05B7F /* GameView.swift in Sources */,
 				0E2352CB1D5638D200A05B7F /* GameViewController.swift in Sources */,
 				0EE0588F1D75CDEE002CA9C2 /* CubemappingShader.metal in Sources */,
+				0EE0589F1D75E8E8002CA9C2 /* RefractionShader.metal in Sources */,
 				0EE487C41D5CE30900E7D9C5 /* OrenNayar.metal in Sources */,
 				0E2352C71D5638D200A05B7F /* AppDelegate.swift in Sources */,
 				0E2352E01D56519700A05B7F /* VertexColorShader.metal in Sources */,

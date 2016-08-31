@@ -128,8 +128,8 @@ class GameViewController: NSViewController {
         //torus.rotation = SCNVector4(x: CGFloat(0), y: CGFloat(0), z: CGFloat(1), w: CGFloat(M_PI) / 2)
         torusNode.geometry!.firstMaterial!.diffuse.contents = NSImage(named: "texture")
         //torus.rotation = SCNVector4(x: CGFloat(0), y: CGFloat(0), z: CGFloat(1), w: CGFloat(M_PI) / 2)
-        applyShader(index: 10, target: torusNode.geometry!.firstMaterial!)
-        applyShader(index: 3, target: base.geometry!.firstMaterial!)
+        applyShader(index: 11, target: torusNode.geometry!.firstMaterial!)
+        applyShader(index: 2, target: base.geometry!.firstMaterial!)
     }
     
     func tapShaderMenu(sender: NSMenuItem) {
@@ -263,6 +263,18 @@ class GameViewController: NSViewController {
                 setup: { material in
                     var cubemat = mat
                     cubemat.diffuse = float4(1, 1, 1, 1)
+                    material.setValue(SCNMaterialProperty(contents: ["px", "nx", "py", "ny", "pz", "nz"]), forKey: "texture")
+                    material.setValue(NSData(bytes: &light, length: MemoryLayout<LightData>.size), forKey: "light")
+                    material.setValue(NSData(bytes: &cubemat, length: MemoryLayout<MaterialData>.size), forKey: "material")
+            }),
+            ShaderInfo(
+                name: "Refraction Mapping Shader",
+                vertexName: "refractionVertex",
+                fragmentName: "refractionFragment",
+                setup: { material in
+                    var cubemat = mat
+                    cubemat.diffuse = float4(1, 1, 1, 1)
+                    cubemat.roughness = 0.5
                     material.setValue(SCNMaterialProperty(contents: ["px", "nx", "py", "ny", "pz", "nz"]), forKey: "texture")
                     material.setValue(NSData(bytes: &light, length: MemoryLayout<LightData>.size), forKey: "light")
                     material.setValue(NSData(bytes: &cubemat, length: MemoryLayout<MaterialData>.size), forKey: "material")

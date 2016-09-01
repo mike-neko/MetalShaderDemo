@@ -82,7 +82,7 @@ class GameViewController: NSViewController {
         let light = SCNNode()
         light.light = SCNLight()
         light.light!.type = SCNLight.LightType.omni
-        light.position = SCNVector3(x: 0, y: 5, z: 5)
+        light.position = SCNVector3(x: 0, y: 1, z: 0)
         scene.rootNode.addChildNode(light)
         lightNode = light
         
@@ -126,10 +126,10 @@ class GameViewController: NSViewController {
         
         // TEST:
         //torus.rotation = SCNVector4(x: CGFloat(0), y: CGFloat(0), z: CGFloat(1), w: CGFloat(M_PI) / 2)
-        torusNode.geometry!.firstMaterial!.diffuse.contents = NSImage(named: "texture")
+//        torusNode.geometry!.firstMaterial!.diffuse.contents = NSImage(named: "texture")
         //torus.rotation = SCNVector4(x: CGFloat(0), y: CGFloat(0), z: CGFloat(1), w: CGFloat(M_PI) / 2)
-        applyShader(index: 11, target: torusNode.geometry!.firstMaterial!)
-        applyShader(index: 2, target: base.geometry!.firstMaterial!)
+        applyShader(index: 3, target: torusNode.geometry!.firstMaterial!)
+        applyShader(index: 5, target: base.geometry!.firstMaterial!)
     }
     
     func tapShaderMenu(sender: NSMenuItem) {
@@ -145,7 +145,7 @@ class GameViewController: NSViewController {
     }
     
     private func loadShader() {
-        var light = LightData(lightPosition: float3(lightNode.position),
+        var light = LightData(lightPosition: float3() - float3(lightNode.position),
                               eyePosition: float3(cameraNode.position),
                               color: (lightNode.light!.color as! NSColor).rgba)
         var mat = MaterialData(diffuse: defaultDiffuseColor,
@@ -175,7 +175,7 @@ class GameViewController: NSViewController {
                 vertexName: "phongVertex",
                 fragmentName: "phongFragment",
                 setup: { material in
-                    material.setValue(SCNMaterialProperty(contents: NSImage(named: "texture")!), forKey: "texture")
+                    material.setValue(SCNMaterialProperty(contents: "texture"), forKey: "texture")
                     material.setValue(NSData(bytes: &light, length: MemoryLayout<LightData>.size), forKey: "light")
                     material.setValue(NSData(bytes: &mat, length: MemoryLayout<MaterialData>.size), forKey: "material")
             }),
@@ -184,7 +184,7 @@ class GameViewController: NSViewController {
                 vertexName: "phongVertex",
                 fragmentName: "blinnPhongFragment",
                 setup: { material in
-                    material.setValue(SCNMaterialProperty(contents: NSImage(named: "texture")!), forKey: "texture")
+                    material.setValue(SCNMaterialProperty(contents: "texture"), forKey: "texture")
                     material.setValue(NSData(bytes: &light, length: MemoryLayout<LightData>.size), forKey: "light")
                     material.setValue(NSData(bytes: &mat, length: MemoryLayout<MaterialData>.size), forKey: "material")
             }),
@@ -201,23 +201,12 @@ class GameViewController: NSViewController {
                     material.setValue(NSData(bytes: &mat, length: MemoryLayout<MaterialData>.size), forKey: "material")
             }),
             ShaderInfo(
-                name: "Cook Torrance Shader",
-                vertexName: "phongVertex",
-                fragmentName: "cookTorranceFragment",
-                setup: { material in
-                    mat.diffuse = float4(0.1, 0.1, 0.1, 1)
-                    mat.shininess = 2
-                    mat.roughness = 0.3
-                    //                    material.setValue(SCNMaterialProperty(contents: NSImage(named: "texture")!), forKey: "texture")
-                    material.setValue(NSData(bytes: &light, length: MemoryLayout<LightData>.size), forKey: "light")
-                    material.setValue(NSData(bytes: &mat, length: MemoryLayout<MaterialData>.size), forKey: "material")
-            }),
-            ShaderInfo(
                 name: "Lambert Shader",
                 vertexName: "lambertVertex",
                 fragmentName: "lambertFragment",
                 setup: { material in
-                    material.setValue(SCNMaterialProperty(contents: NSImage(named: "texture")!), forKey: "texture")
+                    mat.diffuse = float4(1, 1, 1, 1)
+//                    material.setValue(SCNMaterialProperty(contents: NSImage(named: "texture")!), forKey: "texture")
                     material.setValue(NSData(bytes: &light, length: MemoryLayout<LightData>.size), forKey: "light")
                     material.setValue(NSData(bytes: &mat, length: MemoryLayout<MaterialData>.size), forKey: "material")
             }),

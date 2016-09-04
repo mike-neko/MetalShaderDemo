@@ -6,22 +6,39 @@
 //  Copyright © 2016年 M.Ike. All rights reserved.
 //
 
-import Cocoa
+import SceneKit
 
 class ShaderListViewController: NSViewController, NSTableViewDataSource, NSTableViewDelegate {
     @IBOutlet weak var listView: NSTableView!
+    
+    @IBOutlet weak var propertyView: NSScrollView!
+    @IBOutlet weak var color: ColorEditorView!
 
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do view setup here.
         
-        
+        color.color = float4(1, 0, 0, 1)
+        color.changedColorCallback = { newColor in
+            print(newColor)
+        }
     }
     
     override func viewWillAppear() {
         super.viewWillAppear()
         
         ShaderManager.sharedInstance.apply(index: 0)
+        listView.selectRowIndexes(IndexSet(integer: 0), byExtendingSelection: false)
+ 
+        let size = propertyView.bounds.size
+        color.frame = NSRect(origin: CGPoint(x: 0, y: size.height - color.bounds.size.height),
+                             size: CGSize(width: size.width, height: color.bounds.size.height))
+        
+        propertyView.addSubview(color)
+   }
+    
+    override func viewDidAppear() {
+        super.viewDidAppear()
     }
     
     func numberOfRows(in tableView: NSTableView) -> Int {
@@ -30,5 +47,9 @@ class ShaderListViewController: NSViewController, NSTableViewDataSource, NSTable
     
     func tableView(_ tableView: NSTableView, objectValueFor tableColumn: NSTableColumn?, row: Int) -> Any? {
         return ShaderManager.sharedInstance.name(index: row)
+    }
+    
+    func tableViewSelectionDidChange(_ notification: Notification) {
+        ShaderManager.sharedInstance.apply(index: listView.selectedRow)
     }
 }

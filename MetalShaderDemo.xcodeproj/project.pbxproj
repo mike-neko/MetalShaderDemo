@@ -37,6 +37,7 @@
 		0EE740411D7C1C0100642B0E /* ShaderManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0EE740401D7C1C0100642B0E /* ShaderManager.swift */; };
 		0EE740431D7C229B00642B0E /* PreviewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0EE740421D7C229B00642B0E /* PreviewController.swift */; };
 		0EE740451D7C304300642B0E /* ShaderCommon.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0EE740441D7C304300642B0E /* ShaderCommon.swift */; };
+		0EE740491D7C859C00642B0E /* ColorEditorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0EE740481D7C859C00642B0E /* ColorEditorView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -72,6 +73,7 @@
 		0EE740401D7C1C0100642B0E /* ShaderManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ShaderManager.swift; sourceTree = "<group>"; };
 		0EE740421D7C229B00642B0E /* PreviewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PreviewController.swift; sourceTree = "<group>"; };
 		0EE740441D7C304300642B0E /* ShaderCommon.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ShaderCommon.swift; sourceTree = "<group>"; };
+		0EE740481D7C859C00642B0E /* ColorEditorView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ColorEditorView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -111,6 +113,7 @@
 				0EE740421D7C229B00642B0E /* PreviewController.swift */,
 				0EE740401D7C1C0100642B0E /* ShaderManager.swift */,
 				0EE740441D7C304300642B0E /* ShaderCommon.swift */,
+				0EE740481D7C859C00642B0E /* ColorEditorView.swift */,
 				0E2352EB1D5A1BFA00A05B7F /* Extensions */,
 				0E2352E81D571B8A00A05B7F /* Resources */,
 				0E2352E11D56519C00A05B7F /* Shaders */,
@@ -269,6 +272,7 @@
 				0EE7403F1D7C1A0800642B0E /* ShaderListViewController.swift in Sources */,
 				0E2352ED1D5A1C1100A05B7F /* NSColor+simd.swift in Sources */,
 				0E2352EF1D5A1C4800A05B7F /* simd+Convert.swift in Sources */,
+				0EE740491D7C859C00642B0E /* ColorEditorView.swift in Sources */,
 				0EE740451D7C304300642B0E /* ShaderCommon.swift in Sources */,
 				0EE487C21D5B95C600E7D9C5 /* Lambert.metal in Sources */,
 				0E2352EA1D57355A00A05B7F /* PhongShader.metal in Sources */,

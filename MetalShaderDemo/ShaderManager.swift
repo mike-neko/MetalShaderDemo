@@ -14,7 +14,7 @@ class ShaderManager {
         let name: String
         let vertexName: String
         let fragmentName: String
-        let parameters: [ShaderParameter]
+        let Propertys: [ShaderProperty]
     }
 
     static let sharedInstance = ShaderManager()
@@ -29,9 +29,9 @@ class ShaderManager {
     private init() {
         list = [
             Shader(name: "VertexColor", vertexName: "colorVertex", fragmentName: "colorFragment",
-                   parameters: [ColorParameter(key: "custom", value: NSColor.red.rgba)]),
+                   Propertys: [ColorProperty(key: "custom", value: NSColor.red.rgba)]),
             Shader(name: "TextureColor", vertexName: "textureVertex", fragmentName: "textureFragment",
-                   parameters: [TextureParameter(key: "texture", textureName: "texture")])
+                   Propertys: [TextureProperty(key: "texture", textureName: "texture")])
         ]
     }
 
@@ -56,7 +56,7 @@ class ShaderManager {
         guard let material = targetMaterial else { return false }
 
         material.program = program
-        shader.parameters.forEach { material.setValue($0.data, forKey: $0.key) }
+        shader.Propertys.forEach { material.setValue($0.data, forKey: $0.key) }
         return true
     }
 }

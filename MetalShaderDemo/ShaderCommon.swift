@@ -28,20 +28,19 @@ struct MaterialData {
 }
 
 // MARK: -
-
-typealias ColorParameter = ValueParameter<float4>
-typealias LightParameter = ValueParameter<LightData>
-typealias MaterialParameter = ValueParameter<MaterialData>
+typealias ColorProperty = ValueProperty<float4>
+typealias LightProperty = ValueProperty<LightData>
+typealias MaterialProperty = ValueProperty<MaterialData>
 
 
 // MARK: -
 
-protocol ShaderParameter {
+protocol ShaderProperty {
     var key: String { get }
     var data: Any { get }
 }
 
-class ValueParameter<T>: ShaderParameter {
+class ValueProperty<T>: ShaderProperty {
     let key: String
     var data: Any {
         return NSData(bytes: &value, length: MemoryLayout<T>.size)
@@ -55,7 +54,7 @@ class ValueParameter<T>: ShaderParameter {
     }
 }
 
-class TextureParameter: ShaderParameter {
+class TextureProperty: ShaderProperty {
     let key: String
     var data: Any {
         return SCNMaterialProperty(contents: textureName)
@@ -69,7 +68,7 @@ class TextureParameter: ShaderParameter {
     }
 }
 
-class TextureListParameter: ShaderParameter {
+class TextureListProperty: ShaderProperty {
     let key: String
     var data: Any {
         return SCNMaterialProperty(contents: textureNames)

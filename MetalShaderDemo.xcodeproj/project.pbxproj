@@ -32,6 +32,11 @@
 		0EE487C21D5B95C600E7D9C5 /* Lambert.metal in Sources */ = {isa = PBXBuildFile; fileRef = 0EE487C11D5B95C600E7D9C5 /* Lambert.metal */; };
 		0EE487C41D5CE30900E7D9C5 /* OrenNayar.metal in Sources */ = {isa = PBXBuildFile; fileRef = 0EE487C31D5CE30900E7D9C5 /* OrenNayar.metal */; };
 		0EE487C61D5E1E4C00E7D9C5 /* BumpMapping.metal in Sources */ = {isa = PBXBuildFile; fileRef = 0EE487C51D5E1E4C00E7D9C5 /* BumpMapping.metal */; };
+		0EE7403B1D7C141400642B0E /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 0EE7403A1D7C141400642B0E /* Main.storyboard */; };
+		0EE7403F1D7C1A0800642B0E /* ShaderListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0EE7403E1D7C1A0800642B0E /* ShaderListViewController.swift */; };
+		0EE740411D7C1C0100642B0E /* ShaderManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0EE740401D7C1C0100642B0E /* ShaderManager.swift */; };
+		0EE740431D7C229B00642B0E /* PreviewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0EE740421D7C229B00642B0E /* PreviewController.swift */; };
+		0EE740451D7C304300642B0E /* ShaderCommon.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0EE740441D7C304300642B0E /* ShaderCommon.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -62,6 +67,11 @@
 		0EE487C11D5B95C600E7D9C5 /* Lambert.metal */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.metal; path = Lambert.metal; sourceTree = "<group>"; };
 		0EE487C31D5CE30900E7D9C5 /* OrenNayar.metal */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.metal; path = OrenNayar.metal; sourceTree = "<group>"; };
 		0EE487C51D5E1E4C00E7D9C5 /* BumpMapping.metal */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.metal; path = BumpMapping.metal; sourceTree = "<group>"; };
+		0EE7403A1D7C141400642B0E /* Main.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; name = Main.storyboard; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
+		0EE7403E1D7C1A0800642B0E /* ShaderListViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ShaderListViewController.swift; sourceTree = "<group>"; };
+		0EE740401D7C1C0100642B0E /* ShaderManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ShaderManager.swift; sourceTree = "<group>"; };
+		0EE740421D7C229B00642B0E /* PreviewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PreviewController.swift; sourceTree = "<group>"; };
+		0EE740441D7C304300642B0E /* ShaderCommon.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ShaderCommon.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -97,11 +107,16 @@
 				0E2352C61D5638D200A05B7F /* AppDelegate.swift */,
 				0E2352C81D5638D200A05B7F /* GameView.swift */,
 				0E2352CA1D5638D200A05B7F /* GameViewController.swift */,
+				0EE7403E1D7C1A0800642B0E /* ShaderListViewController.swift */,
+				0EE740421D7C229B00642B0E /* PreviewController.swift */,
+				0EE740401D7C1C0100642B0E /* ShaderManager.swift */,
+				0EE740441D7C304300642B0E /* ShaderCommon.swift */,
 				0E2352EB1D5A1BFA00A05B7F /* Extensions */,
 				0E2352E81D571B8A00A05B7F /* Resources */,
 				0E2352E11D56519C00A05B7F /* Shaders */,
 				0E2352CE1D5638D200A05B7F /* Assets.xcassets */,
 				0E2352D01D5638D200A05B7F /* MainMenu.xib */,
+				0EE7403A1D7C141400642B0E /* Main.storyboard */,
 				0E2352D31D5638D200A05B7F /* Info.plist */,
 			);
 			path = MetalShaderDemo;
@@ -220,6 +235,7 @@
 				0EE058961D75D4A7002CA9C2 /* nx.jpg in Resources */,
 				0E2352CF1D5638D200A05B7F /* Assets.xcassets in Resources */,
 				0E2352D21D5638D200A05B7F /* MainMenu.xib in Resources */,
+				0EE7403B1D7C141400642B0E /* Main.storyboard in Resources */,
 				0EE0589A1D75D4A7002CA9C2 /* py.jpg in Resources */,
 				0EE0589D1D75DF31002CA9C2 /* Author.txt in Resources */,
 				0E2352E71D571A9300A05B7F /* normal.png in Resources */,
@@ -238,8 +254,10 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				0EE740411D7C1C0100642B0E /* ShaderManager.swift in Sources */,
 				0E2352C91D5638D200A05B7F /* GameView.swift in Sources */,
 				0E2352CB1D5638D200A05B7F /* GameViewController.swift in Sources */,
+				0EE740431D7C229B00642B0E /* PreviewController.swift in Sources */,
 				0EE0588F1D75CDEE002CA9C2 /* CubemappingShader.metal in Sources */,
 				0EE0589F1D75E8E8002CA9C2 /* RefractionShader.metal in Sources */,
 				0EE487C41D5CE30900E7D9C5 /* OrenNayar.metal in Sources */,
@@ -248,8 +266,10 @@
 				0E3E1D7D1D60B2D000F6EC64 /* RimLightingShader.metal in Sources */,
 				0E2352E51D57117E00A05B7F /* TextureShader.metal in Sources */,
 				0EE487C61D5E1E4C00E7D9C5 /* BumpMapping.metal in Sources */,
+				0EE7403F1D7C1A0800642B0E /* ShaderListViewController.swift in Sources */,
 				0E2352ED1D5A1C1100A05B7F /* NSColor+simd.swift in Sources */,
 				0E2352EF1D5A1C4800A05B7F /* simd+Convert.swift in Sources */,
+				0EE740451D7C304300642B0E /* ShaderCommon.swift in Sources */,
 				0EE487C21D5B95C600E7D9C5 /* Lambert.metal in Sources */,
 				0E2352EA1D57355A00A05B7F /* PhongShader.metal in Sources */,
 			);

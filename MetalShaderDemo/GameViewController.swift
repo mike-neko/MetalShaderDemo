@@ -60,12 +60,12 @@ class GameViewController: NSViewController {
     @IBOutlet weak var gameView: GameView!
     @IBOutlet weak var shaderMenu: NSMenu!
     
-    override func awakeFromNib(){
-        super.awakeFromNib()
+    override func viewDidLoad() {
+        super.viewDidLoad()
         
         // create a new scene
         let scene = SCNScene()
-
+        
         let torus = SCNNode(geometry: SCNTorus(ringRadius: 3, pipeRadius: 1))
         torus.name = "torus"
         scene.rootNode.addChildNode(torus)
@@ -91,7 +91,7 @@ class GameViewController: NSViewController {
         ambientLightNode.light = SCNLight()
         ambientLightNode.light!.type = SCNLight.LightType.ambient
         ambientLightNode.light!.color = NSColor(calibratedWhite: 0.1, alpha: 1)
-//        scene.rootNode.addChildNode(ambientLightNode)
+        //        scene.rootNode.addChildNode(ambientLightNode)
         
         // animate the 3d object
         let animation = CABasicAnimation(keyPath: "rotation")
@@ -99,12 +99,12 @@ class GameViewController: NSViewController {
         animation.duration = 3
         animation.repeatCount = MAXFLOAT //repeat forever
         torus.addAnimation(animation, forKey: nil)
-      
+        
         let base = SCNNode(geometry: SCNTorus(ringRadius: 3, pipeRadius: 1))
         scene.rootNode.addChildNode(base)
         base.position = SCNVector3(x: -6, y: 0, z: 0)
         base.addAnimation(animation, forKey: nil)
-
+        
         // set the scene to the view
         self.gameView!.scene = scene
         
@@ -121,38 +121,48 @@ class GameViewController: NSViewController {
         shaderList.enumerated().forEach { index, shader in
             let menu = NSMenuItem(title: shader.name, action: #selector(tapShaderMenu), keyEquivalent: "")
             menu.tag = index
-            shaderMenu.addItem(menu)
+//            shaderMenu.addItem(menu)
         }
         
         // TEST:
         //torus.rotation = SCNVector4(x: CGFloat(0), y: CGFloat(0), z: CGFloat(1), w: CGFloat(M_PI) / 2)
-//        torusNode.geometry!.firstMaterial!.diffuse.contents = NSImage(named: "texture")
+        //        torusNode.geometry!.firstMaterial!.diffuse.contents = NSImage(named: "texture")
         //torus.rotation = SCNVector4(x: CGFloat(0), y: CGFloat(0), z: CGFloat(1), w: CGFloat(M_PI) / 2)
         applyShader(index: 3, target: torusNode.geometry!.firstMaterial!)
         applyShader(index: 5, target: base.geometry!.firstMaterial!)
+        
+
+        
+    }
+    
+    override func awakeFromNib(){
+        super.awakeFromNib()
+        
     }
     
     func tapShaderMenu(sender: NSMenuItem) {
         guard let material = torusNode.geometry?.firstMaterial else { return }
 
-        applyShader(index: sender.tag, target: material)
+//        applyShader(index: sender.tag, target: material)
     }
     
     @IBAction func tapSaderReset(sender: NSMenuItem) {
         guard let material = torusNode.geometry?.firstMaterial else { return }
 
-        material.program = nil
+        mat.diffuse = float4(1, 1, 0, 1)
+        material.setValue(NSData(bytes: &mat, length: MemoryLayout<MaterialData>.size), forKey: "material")
     }
+    var mat = MaterialData(diffuse: float4(1, 0, 0, 1),
+                           specular: float4(0),
+                           shininess: 100,
+                           emission: float4(0),
+                           roughness: 1)
     
     private func loadShader() {
         var light = LightData(lightPosition: float3() - float3(lightNode.position),
                               eyePosition: float3(cameraNode.position),
                               color: (lightNode.light!.color as! NSColor).rgba)
-        var mat = MaterialData(diffuse: defaultDiffuseColor,
-                               specular: defaultSpecularColor,
-                               shininess: defaultSpecularShininess,
-                               emission: defaultEmmisionColor,
-                               roughness: 1)
+        var mat = self.mat
         
         shaderList = [
             ShaderInfo(

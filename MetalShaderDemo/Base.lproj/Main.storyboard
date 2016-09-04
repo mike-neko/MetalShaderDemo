@@ -1,0 +1,136 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.Cocoa.Storyboard.XIB" version="3.0" toolsVersion="11198.2" systemVersion="16A313a" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES" initialViewController="kxg-Zx-p7v">
+    <dependencies>
+        <deployment identifier="macosx"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="11198.2"/>
+        <plugIn identifier="com.apple.SceneKitIBPlugin" version="11198.2"/>
+    </dependencies>
+    <scenes>
+        <!--MetalShaderDemo-->
+        <scene sceneID="VfQ-8E-9Bh">
+            <objects>
+                <splitViewController title="MetalShaderDemo" id="kxg-Zx-p7v" sceneMemberID="viewController">
+                    <splitViewItems>
+                        <splitViewItem id="nD7-sr-uQm"/>
+                        <splitViewItem id="4ze-Ug-dfX"/>
+                    </splitViewItems>
+                    <splitView key="splitView" dividerStyle="thin" vertical="YES" id="3mC-ga-hNh">
+                        <rect key="frame" x="0.0" y="0.0" width="450" height="458"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </splitView>
+                    <connections>
+                        <segue destination="qaP-7D-0zB" kind="relationship" relationship="splitItems" id="zjP-JX-iKv"/>
+                        <segue destination="HDI-1H-Hpk" kind="relationship" relationship="splitItems" id="eZv-gY-dbl"/>
+                    </connections>
+                </splitViewController>
+                <customObject id="x2U-Fb-5Ra" userLabel="First Responder" customClass="NSResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-579" y="188"/>
+        </scene>
+        <!--Shader List View Controller-->
+        <scene sceneID="jG7-PA-v8Y">
+            <objects>
+                <viewController id="qaP-7D-0zB" customClass="ShaderListViewController" customModule="MetalShaderDemo" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" id="QQs-aQ-bLL">
+                        <rect key="frame" x="0.0" y="0.0" width="450" height="300"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                        <subviews>
+                            <customView translatesAutoresizingMaskIntoConstraints="NO" id="bbv-Sc-D6u">
+                                <rect key="frame" x="225" y="0.0" width="225" height="300"/>
+                            </customView>
+                            <scrollView autohidesScrollers="YES" horizontalLineScroll="19" horizontalPageScroll="10" verticalLineScroll="19" verticalPageScroll="10" usesPredominantAxisScrolling="NO" translatesAutoresizingMaskIntoConstraints="NO" id="KgY-na-aeo">
+                                <rect key="frame" x="0.0" y="0.0" width="225" height="300"/>
+                                <clipView key="contentView" id="sc5-sg-lpm">
+                                    <rect key="frame" x="1" y="23" width="223" height="276"/>
+                                    <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                    <subviews>
+                                        <tableView verticalHuggingPriority="750" allowsExpansionToolTips="YES" columnAutoresizingStyle="lastColumnOnly" columnSelection="YES" multipleSelection="NO" autosaveColumns="NO" headerView="i7Y-mm-wbt" id="2qk-Mq-qrb" customClass="ShaderListView" customModule="MetalShaderDemo" customModuleProvider="target">
+                                            <rect key="frame" x="0.0" y="0.0" width="241" height="276"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <size key="intercellSpacing" width="3" height="2"/>
+                                            <color key="backgroundColor" name="controlBackgroundColor" catalog="System" colorSpace="catalog"/>
+                                            <color key="gridColor" name="gridColor" catalog="System" colorSpace="catalog"/>
+                                            <tableColumns>
+                                                <tableColumn editable="NO" width="238" minWidth="40" maxWidth="1000" id="ueD-6g-PHR">
+                                                    <tableHeaderCell key="headerCell" lineBreakMode="truncatingTail" borderStyle="border" title="Shader">
+                                                        <font key="font" metaFont="smallSystem"/>
+                                                        <color key="textColor" name="headerTextColor" catalog="System" colorSpace="catalog"/>
+                                                        <color key="backgroundColor" name="headerColor" catalog="System" colorSpace="catalog"/>
+                                                    </tableHeaderCell>
+                                                    <textFieldCell key="dataCell" lineBreakMode="truncatingTail" selectable="YES" editable="YES" title="Text Cell" id="sPC-TH-tSJ">
+                                                        <font key="font" metaFont="system"/>
+                                                        <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
+                                                        <color key="backgroundColor" name="controlBackgroundColor" catalog="System" colorSpace="catalog"/>
+                                                    </textFieldCell>
+                                                    <tableColumnResizingMask key="resizingMask" resizeWithTable="YES" userResizable="YES"/>
+                                                </tableColumn>
+                                            </tableColumns>
+                                            <connections>
+                                                <outlet property="dataSource" destination="qaP-7D-0zB" id="fkV-88-fX5"/>
+                                                <outlet property="delegate" destination="qaP-7D-0zB" id="k1O-Lj-zYm"/>
+                                            </connections>
+                                        </tableView>
+                                    </subviews>
+                                </clipView>
+                                <scroller key="horizontalScroller" verticalHuggingPriority="750" horizontal="YES" id="1o9-x2-btM">
+                                    <rect key="frame" x="1" y="283" width="223" height="16"/>
+                                    <autoresizingMask key="autoresizingMask"/>
+                                </scroller>
+                                <scroller key="verticalScroller" hidden="YES" verticalHuggingPriority="750" doubleValue="1" horizontal="NO" id="niH-ef-3u4">
+                                    <rect key="frame" x="224" y="17" width="15" height="102"/>
+                                    <autoresizingMask key="autoresizingMask"/>
+                                </scroller>
+                                <tableHeaderView key="headerView" id="i7Y-mm-wbt">
+                                    <rect key="frame" x="0.0" y="0.0" width="241" height="23"/>
+                                    <autoresizingMask key="autoresizingMask"/>
+                                </tableHeaderView>
+                            </scrollView>
+                        </subviews>
+                        <constraints>
+                            <constraint firstItem="bbv-Sc-D6u" firstAttribute="width" secondItem="KgY-na-aeo" secondAttribute="width" id="7Z4-MF-d8X"/>
+                            <constraint firstAttribute="trailing" secondItem="bbv-Sc-D6u" secondAttribute="trailing" id="8zi-DB-Arl"/>
+                            <constraint firstAttribute="bottom" secondItem="KgY-na-aeo" secondAttribute="bottom" id="9PA-0t-J6t"/>
+                            <constraint firstAttribute="bottom" secondItem="bbv-Sc-D6u" secondAttribute="bottom" id="DyH-UO-W7V"/>
+                            <constraint firstItem="KgY-na-aeo" firstAttribute="top" secondItem="QQs-aQ-bLL" secondAttribute="top" id="dHj-B8-rTQ"/>
+                            <constraint firstItem="bbv-Sc-D6u" firstAttribute="top" secondItem="QQs-aQ-bLL" secondAttribute="top" id="jru-ru-Glf"/>
+                            <constraint firstItem="bbv-Sc-D6u" firstAttribute="leading" secondItem="KgY-na-aeo" secondAttribute="trailing" id="k9L-5q-U9i"/>
+                            <constraint firstItem="KgY-na-aeo" firstAttribute="leading" secondItem="QQs-aQ-bLL" secondAttribute="leading" id="ltP-IW-z7O"/>
+                        </constraints>
+                    </view>
+                    <connections>
+                        <outlet property="listView" destination="2qk-Mq-qrb" id="Ooq-Uw-euo"/>
+                    </connections>
+                </viewController>
+                <customObject id="gwz-FO-BJE" userLabel="First Responder" customClass="NSResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="91" y="-72"/>
+        </scene>
+        <!--Preview Controller-->
+        <scene sceneID="Yq9-WI-miJ">
+            <objects>
+                <viewController id="HDI-1H-Hpk" customClass="PreviewController" customModule="MetalShaderDemo" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" id="jcd-d2-ePg">
+                        <rect key="frame" x="0.0" y="0.0" width="450" height="300"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                        <subviews>
+                            <sceneView loops="NO" preferredRenderingAPI="-1" translatesAutoresizingMaskIntoConstraints="NO" id="fyz-VB-dSg">
+                                <rect key="frame" x="0.0" y="0.0" width="450" height="300"/>
+                            </sceneView>
+                        </subviews>
+                        <constraints>
+                            <constraint firstAttribute="trailing" secondItem="fyz-VB-dSg" secondAttribute="trailing" id="8cn-nK-wiF"/>
+                            <constraint firstAttribute="bottom" secondItem="fyz-VB-dSg" secondAttribute="bottom" id="In0-xw-LeQ"/>
+                            <constraint firstItem="fyz-VB-dSg" firstAttribute="top" secondItem="jcd-d2-ePg" secondAttribute="top" id="Sz5-CZ-Dbi"/>
+                            <constraint firstItem="fyz-VB-dSg" firstAttribute="leading" secondItem="jcd-d2-ePg" secondAttribute="leading" id="h14-53-ZZd"/>
+                        </constraints>
+                    </view>
+                    <connections>
+                        <outlet property="preview" destination="fyz-VB-dSg" id="QnT-XJ-DOO"/>
+                    </connections>
+                </viewController>
+                <customObject id="REX-Na-rwj" userLabel="First Responder" customClass="NSResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="91" y="289"/>
+        </scene>
+    </scenes>
+</document>

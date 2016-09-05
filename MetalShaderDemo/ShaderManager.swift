@@ -14,7 +14,7 @@ class ShaderManager {
         let name: String
         let vertexName: String
         let fragmentName: String
-        let Propertys: [ShaderProperty]
+        let propertys: [ShaderProperty]
     }
 
     static let sharedInstance = ShaderManager()
@@ -29,9 +29,9 @@ class ShaderManager {
     private init() {
         list = [
             Shader(name: "VertexColor", vertexName: "colorVertex", fragmentName: "colorFragment",
-                   Propertys: [ColorProperty(key: "custom", value: NSColor.red.rgba)]),
+                   propertys: [ColorProperty(key: "custom", value: NSColor.red.rgba)]),
             Shader(name: "TextureColor", vertexName: "textureVertex", fragmentName: "textureFragment",
-                   Propertys: [TextureProperty(key: "texture", textureName: "texture")])
+                   propertys: [TextureProperty(key: "texture", textureName: "texture")])
         ]
     }
 
@@ -41,7 +41,8 @@ class ShaderManager {
         return list[index].name
     }
     
-    @discardableResult func apply(index: Int) -> Bool {
+    @discardableResult
+    func apply(index: Int) -> Bool {
         guard list.indices.contains(index) else { return false }
         
         let shader = list[index]
@@ -56,7 +57,19 @@ class ShaderManager {
         guard let material = targetMaterial else { return false }
 
         material.program = program
-        shader.Propertys.forEach { material.setValue($0.data, forKey: $0.key) }
+        shader.propertys.forEach { material.setValue($0.data, forKey: $0.key) }
         return true
+    }
+    
+    @discardableResult
+    func changeProperty(name: String, value: Any) -> Bool {
+        let shader = list[activeIndex]
+        shader.propertys.filter { $0.key == name }.forEach { property in
+            switch property {
+            case (_ as ColorProperty): print("#")
+            default: return
+            }
+        }
+        return false
     }
 }

@@ -30,7 +30,8 @@ class ColorEditorView: NSBox {
             gText.stringValue = String(gSlider.integerValue)
             bText.stringValue = String(bSlider.integerValue)
             
-            valueText.stringValue = ""
+            valueText.stringValue = String(format: "R: %.02f G: %.02f B: %02.f",
+                                           color.x, color.y, color.z)
             colorButton.color = NSColor(calibratedRed: CGFloat(color.x), green: CGFloat(color.y),
                                         blue: CGFloat(color.z), alpha: CGFloat(color.w))
             
@@ -38,6 +39,15 @@ class ColorEditorView: NSBox {
                 || oldValue.z != color.z || oldValue.w != color.w {
                 changedColorCallback?(color)
             }
+        }
+    }
+    
+    var name: String {
+        get {
+            return title
+        }
+        set {
+            title = newValue
         }
     }
     

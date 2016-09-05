@@ -18,8 +18,10 @@ class ShaderListViewController: NSViewController, NSTableViewDataSource, NSTable
         super.viewDidLoad()
         // Do view setup here.
         
+        color.name = "VertexColor"
         color.color = float4(1, 0, 0, 1)
         color.changedColorCallback = { newColor in
+            ShaderManager.sharedInstance.changeProperty(name: "custom", value: newColor)
             print(newColor)
         }
     }

@@ -61,9 +61,9 @@ vertex VertexOut lambertVertex(VertexInput in [[ stage_in ]],
 }
 
 fragment half4 lambertFragment(VertexOut in [[ stage_in ]],
-                             texture2d<float> texture [[ texture(0) ]],
-                             constant LightData& light [[ buffer(2) ]],
-                             constant MaterialData& material [[ buffer(3) ]]) {
+                               texture2d<float> texture [[ texture(0) ]],
+                               constant LightData& light [[ buffer(2) ]],
+                               constant MaterialData& material [[ buffer(3) ]]) {
     
     auto lightColor = light.color;
     auto N = normalize(in.normal);
@@ -99,14 +99,12 @@ fragment half4 halfLambertFragment(VertexOut in [[ stage_in ]],
     
     float4 color = ambient + emmision;
     
-    if (NL > 0.f) {
-        constexpr sampler defaultSampler;
-        auto decal = texture.sample(defaultSampler, in.texcoord);
+    constexpr sampler defaultSampler;
+    auto decal = texture.sample(defaultSampler, in.texcoord);
         
-        auto halfNL = float4(float3(NL * 0.5 + 0.5), 1);
-        auto diffuse = lightColor * halfNL * halfNL * material.diffuse * decal;
-        color += diffuse;
-    }
+    auto halfNL = float4(float3(NL * 0.5 + 0.5), 1);
+    auto diffuse = lightColor * halfNL * halfNL * material.diffuse * decal;
+    color += diffuse;
     
     return half4(color);
 }

@@ -23,7 +23,7 @@ struct NodeBuffer {
 
 // 変数
 struct ColorBuffer {
-    float4 color;
+    float4 rgba;
 };
 
 struct VertexOut {
@@ -34,13 +34,13 @@ struct VertexOut {
 
 
 vertex VertexOut colorVertex(VertexInput in [[ stage_in ]],
-                               constant SCNSceneBuffer& scn_frame [[ buffer(0) ]],
-                               constant NodeBuffer& scn_node [[ buffer(1) ]],
-                               constant ColorBuffer& custom [[ buffer(2) ]]) {
+                             constant SCNSceneBuffer& scn_frame [[ buffer(0) ]],
+                             constant NodeBuffer& scn_node [[ buffer(1) ]],
+                             constant ColorBuffer& colorBuffer [[ buffer(2) ]]) {
     VertexOut out;
     out.position = scn_node.modelViewProjectionTransform * in.position;
     out.texcoord = in.texcoord;
-    out.color = custom.color;
+    out.color = colorBuffer.rgba;
     return out;
 }
 

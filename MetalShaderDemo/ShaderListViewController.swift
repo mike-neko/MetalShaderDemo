@@ -20,7 +20,7 @@ class ShaderListViewController: NSViewController, NSTableViewDataSource, NSTable
         
         color.color = float4(1, 0, 0, 1)
         color.key = "colorBuffer"
-        color.name = "VertexColor"
+        color.name = "Vertex Color"
         color.changedColorCallback = { newColor, key, name in
             ShaderManager.sharedInstance.changeProperty(key: key, name: name, value: newColor)
         }
@@ -52,6 +52,11 @@ class ShaderListViewController: NSViewController, NSTableViewDataSource, NSTable
     }
     
     func tableViewSelectionDidChange(_ notification: Notification) {
-        ShaderManager.sharedInstance.apply(index: listView.selectedRow)
+        let man = ShaderManager.sharedInstance
+        man.apply(index: listView.selectedRow)
+        if let material = man.materials.first {
+            material.rawData.diffuse = float4(1, 1, 0.5, 1)
+            ShaderManager.sharedInstance.changeProperty(property: material)
+        }
     }
 }

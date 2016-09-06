@@ -130,8 +130,8 @@
 			children = (
 				0E2352DF1D56519700A05B7F /* VertexColorShader.metal */,
 				0E2352E41D57117E00A05B7F /* TextureShader.metal */,
-				0E2352E91D57355A00A05B7F /* PhongShader.metal */,
 				0EE487C11D5B95C600E7D9C5 /* Lambert.metal */,
+				0E2352E91D57355A00A05B7F /* PhongShader.metal */,
 				0EE487C31D5CE30900E7D9C5 /* OrenNayar.metal */,
 				0EE487C51D5E1E4C00E7D9C5 /* BumpMapping.metal */,
 				0E3E1D7C1D60B2D000F6EC64 /* RimLightingShader.metal */,

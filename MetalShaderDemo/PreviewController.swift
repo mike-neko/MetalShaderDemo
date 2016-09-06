@@ -55,6 +55,10 @@ class PreviewController: NSViewController {
         preview.backgroundColor = NSColor.lightGray
         
         ShaderManager.sharedInstance.targetMaterial = targetMaterial
+        // TODO: 仮
+        ShaderManager.sharedInstance.light = LightBuffer.Data(lightPosition: float3(0, 1, 0),
+                                                              eyePosition: float3(0, 0, 15),
+                                                              color: float4(1, 1, 1, 0))
         
         
 //        loadShader()

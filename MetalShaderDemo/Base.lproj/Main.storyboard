@@ -523,17 +523,5 @@
             </objects>
             <point key="canvasLocation" x="859" y="375.5"/>
         </scene>
-        <!--Collection View Item-->
-        <scene sceneID="WJU-Nz-Bnt">
-            <objects>
-                <collectionViewItem id="8a4-e6-tbC" sceneMemberID="viewController">
-                    <view key="view" id="SdC-8v-hRi">
-                        <rect key="frame" x="0.0" y="0.0" width="100" height="100"/>
-                        <autoresizingMask key="autoresizingMask"/>
-                    </view>
-                </collectionViewItem>
-                <customObject id="KUb-oB-6Ni" userLabel="First Responder" customClass="NSResponder" sceneMemberID="firstResponder"/>
-            </objects>
-        </scene>
     </scenes>
 </document>

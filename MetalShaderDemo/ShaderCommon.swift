@@ -17,7 +17,7 @@ struct ShaderParameter {
 enum ShaderParameterType {
     
     case color((float4) -> Void)
-    case position
+    case position((float3) -> Void)
 //    case texture, textureList
     case normalizeValue
     case floatValue(min: Float, max: Float)
@@ -27,6 +27,10 @@ enum ShaderParameterType {
         switch self {
         case .color(let callback):
             guard let value = newValue as? float4 else { return false }
+            callback(value)
+            return true
+        case .position(let callback):
+            guard let value = newValue as? float3 else { return false }
             callback(value)
             return true
         default: return false
@@ -58,7 +62,8 @@ extension ShaderPropertyProtocol {
 class TextureProperty: ShaderPropertyType {
     let key: String
     var data: Any {
-        return SCNMaterialProperty(contents: textureName)
+        return textureName.isEmpty ? SCNMaterialProperty(contents: NSColor.clear)
+            : SCNMaterialProperty(contents: textureName)
     }
     var variables: [ShaderParameter] { return [] }
     
@@ -103,20 +108,55 @@ class ColorBuffer: ShaderPropertyProtocol {
     }
 }
 
-struct LightData {
-    var lightPosition: float3
-    var eyePosition: float3
-    var color: float4
+class LightBuffer: ShaderPropertyProtocol {
+    struct Data {
+        var lightPosition: float3
+        var eyePosition: float3
+        var color: float4
+    }
+
+    typealias ValueType = Data
+    
+    let key: String
+    var rawData = ValueType(lightPosition: float3(), eyePosition: float3(), color: float4())
+    
+    var variables: [ShaderParameter] {
+        return [
+            ShaderParameter(name: "Light Color", type: .color { self.rawData.color = $0 })
+        ]
+    }
+    
+    init(key: String) {
+        self.key = key
+    }
 }
 
-struct MaterialData {
-    var diffuse: float4
-    var specular: float4
-    var shininess: Float
-    var emission: float4
+class MaterialBuffer: ShaderPropertyProtocol {
+    struct Data {
+        var diffuse = float4(1, 1, 1, 1)
+        var specular = float4(1, 1, 1, 1)
+        var shininess = Float(10)
+        var emission = float4(0, 0, 0, 1)
+        
+        var roughness = Float(0)
+        
+        private let padding = [UInt8](repeating: 0, count: 12)
+    }
     
-    var roughness: Float
+    typealias ValueType = Data
     
-    private let padding = [UInt8](repeating: 0, count: 12)
+    let key: String
+    var rawData = ValueType()
+    
+    var variables: [ShaderParameter] {
+        return [
+            ShaderParameter(name: "Diffuse Color", type: .color { self.rawData.diffuse = $0 })
+        ]
+    }
+    
+    init(key: String) {
+        self.key = key
+    }
 }
+
 

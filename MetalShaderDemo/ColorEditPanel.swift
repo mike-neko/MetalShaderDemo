@@ -1,14 +1,14 @@
 //
-//  ColorEditorView.swift
+//  ColorEditPanel.swift
 //  MetalShaderDemo
 //
-//  Created by M.Ike on 2016/09/05.
+//  Created by M.Ike on 2016/09/07.
 //  Copyright © 2016年 M.Ike. All rights reserved.
 //
 
 import SceneKit
 
-class ColorEditorView: NSBox {
+class ColorEditPanel: NSCollectionViewItem {
     @IBOutlet private weak var rSlider: NSSlider!
     @IBOutlet private weak var gSlider: NSSlider!
     @IBOutlet private weak var bSlider: NSSlider!
@@ -32,8 +32,7 @@ class ColorEditorView: NSBox {
             colorButton.color = NSColor(calibratedRed: CGFloat(color.x), green: CGFloat(color.y),
                                         blue: CGFloat(color.z), alpha: CGFloat(1))
             
-            if oldValue.x != color.x || oldValue.y != color.y
-                || oldValue.z != color.z {
+            if oldValue.x != color.x || oldValue.y != color.y || oldValue.z != color.z {
                 changedColorCallback?(color, key, name)
             }
         }

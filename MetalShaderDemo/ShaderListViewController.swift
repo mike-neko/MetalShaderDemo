@@ -8,22 +8,23 @@
 
 import SceneKit
 
-class ShaderListViewController: NSViewController, NSTableViewDataSource, NSTableViewDelegate {
-    @IBOutlet weak var listView: NSTableView!
+class ShaderListViewController: NSViewController, NSTableViewDataSource, NSTableViewDelegate,
+                                NSCollectionViewDelegate, NSCollectionViewDataSource,
+                                NSCollectionViewDelegateFlowLayout {
     
-    @IBOutlet weak var propertyView: NSScrollView!
-    @IBOutlet weak var color: ColorEditorView!
-
+    private struct CellData {
+        let key: String
+        let data: ShaderParameter
+    }
+    
+    @IBOutlet weak var listView: NSTableView!
+    @IBOutlet weak var collectionView: NSCollectionView!
+    
+    private var parameters = [CellData]()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do view setup here.
-        
-        color.color = float3(1, 0, 0)
-        color.key = "colorBuffer"
-        color.name = "Vertex Color"
-        color.changedColorCallback = { newColor, key, name in
-            ShaderManager.sharedInstance.changeProperty(key: key, name: name, value: newColor)
-        }
     }
     
     override func viewWillAppear() {
@@ -31,12 +32,6 @@ class ShaderListViewController: NSViewController, NSTableViewDataSource, NSTable
         
         ShaderManager.sharedInstance.apply(index: 0)
         listView.selectRowIndexes(IndexSet(integer: 0), byExtendingSelection: false)
- 
-        let size = propertyView.bounds.size
-        color.frame = NSRect(origin: CGPoint(x: 0, y: size.height - color.bounds.size.height),
-                             size: CGSize(width: size.width, height: color.bounds.size.height))
-        
-        propertyView.addSubview(color)
    }
     
     override func viewDidAppear() {
@@ -57,9 +52,39 @@ class ShaderListViewController: NSViewController, NSTableViewDataSource, NSTable
         applyShader(index: listView.selectedRow)
     }
 
+    func collectionView(_ collectionView: NSCollectionView, numberOfItemsInSection section: Int) -> Int {
+        return parameters.count
+    }
+    
+    func collectionView(_ collectionView: NSCollectionView, itemForRepresentedObjectAt indexPath: IndexPath) -> NSCollectionViewItem {
+        let param = parameters[indexPath.item]
+        switch param.data.type {
+        case .rgbColor(_, let value):
+            if let item = collectionView.makeItem(withIdentifier: "ColorEditPanel", for: indexPath) as? ColorEditPanel {
+                item.color = value()
+                item.key = param.key
+                item.name = param.data.name
+                item.changedColorCallback = { newColor, key, name in
+                    ShaderManager.sharedInstance.changeProperty(key: key, name: name, value: newColor)
+                }
+                return item
+            }
+        default: break
+        }
+
+        return NSCollectionViewItem()
+    }
+    
+    func collectionView(_ collectionView: NSCollectionView, layout collectionViewLayout: NSCollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> NSSize {
+
+        return NSSize(width: collectionView.bounds.size.width, height: 130)
+    }
+    
     // MARK: -
     
     private func applyShader(index: Int) {
+        parameters.removeAll()
+        
         let man = ShaderManager.sharedInstance
         let result = man.apply(index: index)
         guard result.result else { return }
@@ -67,21 +92,29 @@ class ShaderListViewController: NSViewController, NSTableViewDataSource, NSTable
         result.properties.forEach {
             let key = $0.key
             $0.variables.forEach {
-                switch $0.type {
-                case .rgbColor(_, let value):
-                    color.color = value()
-                    color.key = key
-                    color.name = $0.name
-                    ShaderManager.sharedInstance.changeProperty(key: key, name: $0.name, value: color.color)
-                    // TODO: ???
-                    color.changedColorCallback = { newColor, key, name in
-                        ShaderManager.sharedInstance.changeProperty(key: key, name: name, value: newColor)
-                    }
-                default: break
-                }
+                parameters.append(CellData(key: key, data: $0))
             }
         }
         
+        collectionView.reloadData()
+//        result.properties.forEach {
+//            let key = $0.key
+//            $0.variables.forEach {
+//                switch $0.type {
+//                case .rgbColor(_, let value):
+//                    //                    color.color = value()
+//                    //                    color.key = key
+//                    //                    color.name = $0.name
+//                    //                    ShaderManager.sharedInstance.changeProperty(key: key, name: $0.name, value: color.color)
+//                    //                    // TODO: ???
+//                    //                    color.changedColorCallback = { newColor, key, name in
+//                    //                        ShaderManager.sharedInstance.changeProperty(key: key, name: name, value: newColor)
+//                    //                    }
+//                    break
+//                default: break
+//                }
+//            }
+//        }
         
         
         

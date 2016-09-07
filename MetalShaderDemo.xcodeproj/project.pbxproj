@@ -39,6 +39,10 @@
 		0EE740451D7C304300642B0E /* ShaderCommon.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0EE740441D7C304300642B0E /* ShaderCommon.swift */; };
 		0EE740491D7C859C00642B0E /* ColorEditorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0EE740481D7C859C00642B0E /* ColorEditorView.swift */; };
 		0EE7404B1D7F2B5F00642B0E /* SceneKitCommon.metal in Sources */ = {isa = PBXBuildFile; fileRef = 0EE7404A1D7F2B5F00642B0E /* SceneKitCommon.metal */; };
+		0EE7404E1D805B8900642B0E /* ColorEditPanel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0EE7404C1D805B8800642B0E /* ColorEditPanel.swift */; };
+		0EE7404F1D805B8900642B0E /* ColorEditPanel.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0EE7404D1D805B8900642B0E /* ColorEditPanel.xib */; };
+		0EE740521D805C6500642B0E /* NumberSliderPanel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0EE740501D805C6500642B0E /* NumberSliderPanel.swift */; };
+		0EE740531D805C6500642B0E /* NumberSliderPanel.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0EE740511D805C6500642B0E /* NumberSliderPanel.xib */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -76,6 +80,10 @@
 		0EE740441D7C304300642B0E /* ShaderCommon.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ShaderCommon.swift; sourceTree = "<group>"; };
 		0EE740481D7C859C00642B0E /* ColorEditorView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ColorEditorView.swift; sourceTree = "<group>"; };
 		0EE7404A1D7F2B5F00642B0E /* SceneKitCommon.metal */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.metal; path = SceneKitCommon.metal; sourceTree = "<group>"; };
+		0EE7404C1D805B8800642B0E /* ColorEditPanel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ColorEditPanel.swift; sourceTree = "<group>"; };
+		0EE7404D1D805B8900642B0E /* ColorEditPanel.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ColorEditPanel.xib; sourceTree = "<group>"; };
+		0EE740501D805C6500642B0E /* NumberSliderPanel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NumberSliderPanel.swift; sourceTree = "<group>"; };
+		0EE740511D805C6500642B0E /* NumberSliderPanel.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = NumberSliderPanel.xib; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -116,6 +124,10 @@
 				0EE740401D7C1C0100642B0E /* ShaderManager.swift */,
 				0EE740441D7C304300642B0E /* ShaderCommon.swift */,
 				0EE740481D7C859C00642B0E /* ColorEditorView.swift */,
+				0EE7404C1D805B8800642B0E /* ColorEditPanel.swift */,
+				0EE7404D1D805B8900642B0E /* ColorEditPanel.xib */,
+				0EE740501D805C6500642B0E /* NumberSliderPanel.swift */,
+				0EE740511D805C6500642B0E /* NumberSliderPanel.xib */,
 				0E2352EB1D5A1BFA00A05B7F /* Extensions */,
 				0E2352E81D571B8A00A05B7F /* Resources */,
 				0E2352E11D56519C00A05B7F /* Shaders */,
@@ -238,6 +250,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				0EE740531D805C6500642B0E /* NumberSliderPanel.xib in Resources */,
 				0EE058961D75D4A7002CA9C2 /* nx.jpg in Resources */,
 				0E2352CF1D5638D200A05B7F /* Assets.xcassets in Resources */,
 				0E2352D21D5638D200A05B7F /* MainMenu.xib in Resources */,
@@ -247,6 +260,7 @@
 				0E2352E71D571A9300A05B7F /* normal.png in Resources */,
 				0EE0589B1D75D4A7002CA9C2 /* pz.jpg in Resources */,
 				0EE058971D75D4A7002CA9C2 /* ny.jpg in Resources */,
+				0EE7404F1D805B8900642B0E /* ColorEditPanel.xib in Resources */,
 				0EE058991D75D4A7002CA9C2 /* px.jpg in Resources */,
 				0EE058981D75D4A7002CA9C2 /* nz.jpg in Resources */,
 				0E2352E31D57101F00A05B7F /* texture.png in Resources */,
@@ -264,6 +278,7 @@
 				0EE740411D7C1C0100642B0E /* ShaderManager.swift in Sources */,
 				0E2352C91D5638D200A05B7F /* GameView.swift in Sources */,
 				0E2352CB1D5638D200A05B7F /* GameViewController.swift in Sources */,
+				0EE740521D805C6500642B0E /* NumberSliderPanel.swift in Sources */,
 				0EE740431D7C229B00642B0E /* PreviewController.swift in Sources */,
 				0EE0588F1D75CDEE002CA9C2 /* CubemappingShader.metal in Sources */,
 				0EE0589F1D75E8E8002CA9C2 /* RefractionShader.metal in Sources */,
@@ -271,6 +286,7 @@
 				0E2352C71D5638D200A05B7F /* AppDelegate.swift in Sources */,
 				0E2352E01D56519700A05B7F /* VertexColorShader.metal in Sources */,
 				0E3E1D7D1D60B2D000F6EC64 /* RimLightingShader.metal in Sources */,
+				0EE7404E1D805B8900642B0E /* ColorEditPanel.swift in Sources */,
 				0E2352E51D57117E00A05B7F /* TextureShader.metal in Sources */,
 				0EE487C61D5E1E4C00E7D9C5 /* BumpMapping.metal in Sources */,
 				0EE7403F1D7C1A0800642B0E /* ShaderListViewController.swift in Sources */,

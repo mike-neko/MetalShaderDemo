@@ -10,6 +10,22 @@ import Cocoa
 import simd
 
 extension NSColor {
-    var rgb: float3 { return float3(Float(self.redComponent), Float(self.greenComponent), Float(self.blueComponent)) }
-    var rgba: float4 { return float4(Float(self.redComponent), Float(self.greenComponent), Float(self.blueComponent), Float(self.alphaComponent)) }
+    var rgb: float3 {
+        guard let color = self.usingColorSpace(NSColorSpace.genericRGB) else {
+            return float3(0)
+        }
+        return float3(Float(color.redComponent),
+                      Float(color.greenComponent),
+                      Float(color.blueComponent))
+    }
+    
+    var rgba: float4 {
+        guard let color = self.usingColorSpace(NSColorSpace.genericRGB) else {
+            return float4(0)
+        }
+        return float4(Float(color.redComponent),
+                      Float(color.greenComponent),
+                      Float(color.blueComponent),
+                      Float(color.alphaComponent))
+    }
 }

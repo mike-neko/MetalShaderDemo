@@ -61,6 +61,7 @@ class ShaderListViewController: NSViewController, NSTableViewDataSource, NSTable
         switch param.data.type {
         case .rgbColor(_, let value):
             if let item = collectionView.makeItem(withIdentifier: "ColorEditPanel", for: indexPath) as? ColorEditPanel {
+                item.changedColorCallback = nil     // コールバック無効
                 item.color = value()
                 item.key = param.key
                 item.name = param.data.name
@@ -95,34 +96,7 @@ class ShaderListViewController: NSViewController, NSTableViewDataSource, NSTable
                 parameters.append(CellData(key: key, data: $0))
             }
         }
-        
+
         collectionView.reloadData()
-//        result.properties.forEach {
-//            let key = $0.key
-//            $0.variables.forEach {
-//                switch $0.type {
-//                case .rgbColor(_, let value):
-//                    //                    color.color = value()
-//                    //                    color.key = key
-//                    //                    color.name = $0.name
-//                    //                    ShaderManager.sharedInstance.changeProperty(key: key, name: $0.name, value: color.color)
-//                    //                    // TODO: ???
-//                    //                    color.changedColorCallback = { newColor, key, name in
-//                    //                        ShaderManager.sharedInstance.changeProperty(key: key, name: name, value: newColor)
-//                    //                    }
-//                    break
-//                default: break
-//                }
-//            }
-//        }
-        
-        
-        
-        // TODO:
-//        guard let material = man.materials.first else { return }
-//        if let material = man.materials.first {
-//            material.rawData.diffuse = float3(1, 1, 0.5)
-//            ShaderManager.sharedInstance.changeProperty(property: material)
-//        }
     }
 }

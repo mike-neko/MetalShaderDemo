@@ -13,6 +13,7 @@
                 <outlet property="colorButton" destination="Kr1-Eq-aAa" id="RZK-Ku-YZ6"/>
                 <outlet property="gSlider" destination="i5V-gd-gRQ" id="eKS-mf-kdy"/>
                 <outlet property="gText" destination="a9E-K0-Hkl" id="WU6-5h-Lab"/>
+                <outlet property="parentBox" destination="X6u-iO-l5X" id="qoD-Rx-Qdf"/>
                 <outlet property="rSlider" destination="ixw-im-YV4" id="xUK-6S-NAq"/>
                 <outlet property="rText" destination="YwI-Se-oYk" id="LB9-Aj-9mn"/>
                 <outlet property="view" destination="meg-iN-423" id="yQr-oa-ZGv"/>
@@ -27,6 +28,7 @@
                 <outlet property="colorButton" destination="Kr1-Eq-aAa" id="CEL-DR-hk3"/>
                 <outlet property="gSlider" destination="i5V-gd-gRQ" id="g9i-e6-jpH"/>
                 <outlet property="gText" destination="a9E-K0-Hkl" id="7Y3-CU-IRM"/>
+                <outlet property="parentBox" destination="X6u-iO-l5X" id="CJQ-3T-cgp"/>
                 <outlet property="rSlider" destination="ixw-im-YV4" id="2HQ-lC-9a8"/>
                 <outlet property="rText" destination="YwI-Se-oYk" id="Qf4-2W-MOw"/>
             </connections>
@@ -35,7 +37,7 @@
             <rect key="frame" x="0.0" y="0.0" width="430" height="123"/>
             <autoresizingMask key="autoresizingMask" flexibleMinX="YES" widthSizable="YES" flexibleMaxX="YES" flexibleMinY="YES" heightSizable="YES" flexibleMaxY="YES"/>
             <subviews>
-                <box identifier="ColorEditor" title="Color" translatesAutoresizingMaskIntoConstraints="NO" id="X6u-iO-l5X" customClass="ColorEditorView" customModule="MetalShaderDemo" customModuleProvider="target">
+                <box identifier="ColorEditor" title="Color" translatesAutoresizingMaskIntoConstraints="NO" id="X6u-iO-l5X">
                     <rect key="frame" x="-3" y="-4" width="436" height="127"/>
                     <view key="contentView" id="dhv-3N-Y0A">
                         <rect key="frame" x="2" y="2" width="432" height="110"/>

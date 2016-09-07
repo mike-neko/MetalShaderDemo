@@ -9,6 +9,7 @@
 import SceneKit
 
 class ColorEditPanel: NSCollectionViewItem {
+    @IBOutlet private weak var parentBox: NSBox!
     @IBOutlet private weak var rSlider: NSSlider!
     @IBOutlet private weak var gSlider: NSSlider!
     @IBOutlet private weak var bSlider: NSSlider!
@@ -40,13 +41,13 @@ class ColorEditPanel: NSCollectionViewItem {
     
     var key: String = "" {
         didSet {
-            title = "\(key) - \(name)"
+            parentBox.title = "\(key) - \(name)"
         }
     }
     
     var name: String = "" {
         didSet {
-            title = "\(key) - \(name)"
+            parentBox.title = "\(key) - \(name)"
         }
     }
     

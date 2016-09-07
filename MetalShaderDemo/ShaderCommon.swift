@@ -123,9 +123,8 @@ class LightBuffer: ShaderPropertyProtocol {
     
     var variables: [ShaderParameter] {
         return [
-            // TODO:
-//            ShaderParameter(name: "Light Color",
-//                            type: .rgbColor({ self.rawData.color = $0 }, { self.rawData.color }))
+            ShaderParameter(name: "Light Color",
+                            type: .rgbColor({ self.rawData.color = $0 }, { self.rawData.color }))
         ]
     }
     
@@ -154,8 +153,12 @@ class MaterialBuffer: ShaderPropertyProtocol {
     var variables: [ShaderParameter] {
         return [
             ShaderParameter(name: "Diffuse Color",
-                            type: .rgbColor({ self.rawData.diffuse = $0 }, { self.rawData.diffuse }))
-        ]
+                            type: .rgbColor({ self.rawData.diffuse = $0 }, { self.rawData.diffuse })),
+            ShaderParameter(name: "Specular Color",
+                            type: .rgbColor({ self.rawData.specular = $0 }, { self.rawData.specular })),
+            ShaderParameter(name: "Emission Color",
+                            type: .rgbColor({ self.rawData.emission = $0 }, { self.rawData.emission }))
+       ]
     }
     
     init(key: String) {

@@ -55,7 +55,7 @@ class ShaderManager {
     func apply(index: Int) -> (result: Bool, properties: [ShaderPropertyType]) {
         guard list.indices.contains(index) else { return (result: false, properties: []) }
         let shader = list[index]
-        
+
         let program = SCNProgram()
         program.vertexFunctionName = shader.vertexName
         program.fragmentFunctionName = shader.fragmentName
@@ -77,8 +77,6 @@ class ShaderManager {
     
     @discardableResult
     func changeProperty(key: String, name: String, value: Any) -> Bool {
-//        print(key + " " + name + " \(value)")
-        
         guard let material = targetMaterial else { return false }
 
         var change = false

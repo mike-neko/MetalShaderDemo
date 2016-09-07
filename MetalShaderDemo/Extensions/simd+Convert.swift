@@ -22,3 +22,9 @@ extension float4 {
         self.init(Float(vector3.x), Float(vector3.y), Float(vector3.z), Float(w))
     }
 }
+
+extension SCNVector4 {
+    init(vector3: SCNVector3, w: CGFloat) {
+        self.init(Float(vector3.x), Float(vector3.y), Float(vector3.z), Float(w))
+    }
+}

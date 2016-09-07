@@ -15,8 +15,8 @@ struct ShaderParameter {
 }
 
 enum ShaderParameterType {
-    
-    case color((float4) -> Void)
+    case rgbColor((float3) -> Void, () -> float3)
+//    case color((float4) -> Void)
     case position((float3) -> Void)
 //    case texture, textureList
     case normalizeValue
@@ -25,8 +25,8 @@ enum ShaderParameterType {
     @discardableResult
     func update(newValue: Any) -> Bool {
         switch self {
-        case .color(let callback):
-            guard let value = newValue as? float4 else { return false }
+        case .rgbColor(let callback, _):
+            guard let value = newValue as? float3 else { return false }
             callback(value)
             return true
         case .position(let callback):
@@ -91,14 +91,15 @@ class TextureListProperty: ShaderPropertyType {
 }
 
 class ColorBuffer: ShaderPropertyProtocol {
-    typealias ValueType = float4
+    typealias ValueType = float3
     
     let key: String
     var rawData: ValueType
 
     var variables: [ShaderParameter] {
         return [
-            ShaderParameter(name: "Vertex Color", type: .color { self.rawData = $0 })
+            ShaderParameter(name: "Vertex Color",
+                            type: .rgbColor({ self.rawData = $0 }, { self.rawData }))
         ]
     }
     
@@ -112,17 +113,19 @@ class LightBuffer: ShaderPropertyProtocol {
     struct Data {
         var lightPosition: float3
         var eyePosition: float3
-        var color: float4
+        var color: float3
     }
 
     typealias ValueType = Data
     
     let key: String
-    var rawData = ValueType(lightPosition: float3(), eyePosition: float3(), color: float4())
+    var rawData = ValueType(lightPosition: float3(), eyePosition: float3(), color: float3())
     
     var variables: [ShaderParameter] {
         return [
-            ShaderParameter(name: "Light Color", type: .color { self.rawData.color = $0 })
+            // TODO:
+//            ShaderParameter(name: "Light Color",
+//                            type: .rgbColor({ self.rawData.color = $0 }, { self.rawData.color }))
         ]
     }
     
@@ -133,14 +136,14 @@ class LightBuffer: ShaderPropertyProtocol {
 
 class MaterialBuffer: ShaderPropertyProtocol {
     struct Data {
-        var diffuse = float4(1, 1, 1, 1)
-        var specular = float4(1, 1, 1, 1)
+        var diffuse = float3(1, 0.5, 1)
+        var specular = float3(1, 1, 1)
         var shininess = Float(10)
-        var emission = float4(0, 0, 0, 1)
+        var emission = float3(0, 0, 0)
         
-        var roughness = Float(0)
+//        var roughness = Float(0)
         
-        private let padding = [UInt8](repeating: 0, count: 12)
+//        private let padding = [UInt8](repeating: 0, count: 16)
     }
     
     typealias ValueType = Data
@@ -150,7 +153,8 @@ class MaterialBuffer: ShaderPropertyProtocol {
     
     var variables: [ShaderParameter] {
         return [
-            ShaderParameter(name: "Diffuse Color", type: .color { self.rawData.diffuse = $0 })
+            ShaderParameter(name: "Diffuse Color",
+                            type: .rgbColor({ self.rawData.diffuse = $0 }, { self.rawData.diffuse }))
         ]
     }
     

@@ -18,7 +18,7 @@ class ShaderListViewController: NSViewController, NSTableViewDataSource, NSTable
         super.viewDidLoad()
         // Do view setup here.
         
-        color.color = float4(1, 0, 0, 1)
+        color.color = float3(1, 0, 0)
         color.key = "colorBuffer"
         color.name = "Vertex Color"
         color.changedColorCallback = { newColor, key, name in
@@ -43,6 +43,8 @@ class ShaderListViewController: NSViewController, NSTableViewDataSource, NSTable
         super.viewDidAppear()
     }
     
+    // MARK: -
+    
     func numberOfRows(in tableView: NSTableView) -> Int {
         return ShaderManager.sharedInstance.count
     }
@@ -52,11 +54,42 @@ class ShaderListViewController: NSViewController, NSTableViewDataSource, NSTable
     }
     
     func tableViewSelectionDidChange(_ notification: Notification) {
+        applyShader(index: listView.selectedRow)
+    }
+
+    // MARK: -
+    
+    private func applyShader(index: Int) {
         let man = ShaderManager.sharedInstance
-        man.apply(index: listView.selectedRow)
-        if let material = man.materials.first {
-            material.rawData.diffuse = float4(1, 1, 0.5, 1)
-            ShaderManager.sharedInstance.changeProperty(property: material)
+        let result = man.apply(index: index)
+        guard result.result else { return }
+
+        result.properties.forEach {
+            let key = $0.key
+            $0.variables.forEach {
+                switch $0.type {
+                case .rgbColor(_, let value):
+                    color.color = value()
+                    color.key = key
+                    color.name = $0.name
+                    ShaderManager.sharedInstance.changeProperty(key: key, name: $0.name, value: color.color)
+                    // TODO: ???
+                    color.changedColorCallback = { newColor, key, name in
+                        ShaderManager.sharedInstance.changeProperty(key: key, name: name, value: newColor)
+                    }
+                default: break
+                }
+            }
         }
+        
+        
+        
+        
+        // TODO:
+//        guard let material = man.materials.first else { return }
+//        if let material = man.materials.first {
+//            material.rawData.diffuse = float3(1, 1, 0.5)
+//            ShaderManager.sharedInstance.changeProperty(property: material)
+//        }
     }
 }

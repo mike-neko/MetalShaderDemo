@@ -19,9 +19,9 @@ class ColorEditorView: NSBox {
     @IBOutlet private weak var valueText: NSTextField!
     @IBOutlet private weak var colorButton: NSColorWell!
     
-    var changedColorCallback: ((_ color: float4, _ key: String, _ name: String) -> Void)? = nil
+    var changedColorCallback: ((_ color: float3, _ key: String, _ name: String) -> Void)? = nil
     
-    var color: float4 = float4(1) {
+    var color: float3 = float3(1) {
         didSet {
             rSlider.integerValue = Int(color.x * 255)
             gSlider.integerValue = Int(color.y * 255)
@@ -33,10 +33,10 @@ class ColorEditorView: NSBox {
             valueText.stringValue = String(format: "R: %.02f G: %.02f B: %.02f",
                                            color.x, color.y, color.z)
             colorButton.color = NSColor(calibratedRed: CGFloat(color.x), green: CGFloat(color.y),
-                                        blue: CGFloat(color.z), alpha: CGFloat(color.w))
+                                        blue: CGFloat(color.z), alpha: CGFloat(1))
             
             if oldValue.x != color.x || oldValue.y != color.y
-                || oldValue.z != color.z || oldValue.w != color.w {
+                || oldValue.z != color.z {
                 changedColorCallback?(color, key, name)
             }
         }
@@ -55,10 +55,10 @@ class ColorEditorView: NSBox {
     }
     
     @IBAction func changeSlider(_ sender: NSSlider) {
-        color = float4(rSlider.floatValue / 255, gSlider.floatValue / 255, bSlider.floatValue / 255, 1)
+        color = float3(rSlider.floatValue / 255, gSlider.floatValue / 255, bSlider.floatValue / 255)
     }
     
     @IBAction func changeColorButton(_ sender: NSColorWell) {
-        color = sender.color.rgba
+        color = sender.color.rgb
     }
 }

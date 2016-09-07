@@ -39,11 +39,11 @@
                             <scrollView autohidesScrollers="YES" horizontalLineScroll="19" horizontalPageScroll="10" verticalLineScroll="19" verticalPageScroll="10" usesPredominantAxisScrolling="NO" translatesAutoresizingMaskIntoConstraints="NO" id="KgY-na-aeo">
                                 <rect key="frame" x="0.0" y="0.0" width="200" height="661"/>
                                 <clipView key="contentView" id="sc5-sg-lpm">
-                                    <rect key="frame" x="1" y="0.0" width="198" height="660"/>
+                                    <rect key="frame" x="1" y="1" width="198" height="659"/>
                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                     <subviews>
-                                        <tableView verticalHuggingPriority="750" allowsExpansionToolTips="YES" columnAutoresizingStyle="lastColumnOnly" columnSelection="YES" multipleSelection="NO" autosaveColumns="NO" headerView="i7Y-mm-wbt" id="2qk-Mq-qrb" customClass="ShaderListView" customModule="MetalShaderDemo" customModuleProvider="target">
-                                            <rect key="frame" x="0.0" y="0.0" width="198" height="637"/>
+                                        <tableView verticalHuggingPriority="750" allowsExpansionToolTips="YES" columnAutoresizingStyle="lastColumnOnly" columnSelection="YES" multipleSelection="NO" autosaveColumns="NO" id="2qk-Mq-qrb" customClass="ShaderListView" customModule="MetalShaderDemo" customModuleProvider="target">
+                                            <rect key="frame" x="0.0" y="0.0" width="198" height="659"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <size key="intercellSpacing" width="3" height="2"/>
                                             <color key="backgroundColor" name="controlBackgroundColor" catalog="System" colorSpace="catalog"/>
@@ -77,14 +77,10 @@
                                     <rect key="frame" x="1" y="283" width="198" height="16"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                 </scroller>
-                                <scroller key="verticalScroller" hidden="YES" verticalHuggingPriority="750" doubleValue="1" horizontal="NO" id="niH-ef-3u4">
+                                <scroller key="verticalScroller" hidden="YES" verticalHuggingPriority="750" horizontal="NO" id="niH-ef-3u4">
                                     <rect key="frame" x="224" y="17" width="15" height="102"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                 </scroller>
-                                <tableHeaderView key="headerView" id="i7Y-mm-wbt">
-                                    <rect key="frame" x="0.0" y="0.0" width="198" height="23"/>
-                                    <autoresizingMask key="autoresizingMask"/>
-                                </tableHeaderView>
                             </scrollView>
                             <scrollView horizontalLineScroll="10" horizontalPageScroll="10" verticalLineScroll="10" verticalPageScroll="10" usesPredominantAxisScrolling="NO" translatesAutoresizingMaskIntoConstraints="NO" id="n7b-HJ-PJQ">
                                 <rect key="frame" x="200" y="0.0" width="504" height="661"/>

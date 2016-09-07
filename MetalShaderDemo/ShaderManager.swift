@@ -26,7 +26,7 @@ class ShaderManager {
     weak var targetMaterial: SCNMaterial? = nil
     var changedActiveShaderCallback: ((Int, SCNProgram) -> Void)? = nil
     
-    var light = LightBuffer.Data(lightPosition: float3(), eyePosition: float3(), color: float4())
+    var light = LightBuffer.Data(lightPosition: float3(), eyePosition: float3(), color: float3())
     var materials: [MaterialBuffer] {
         get {
             return list[activeIndex].properties.flatMap { $0 as? MaterialBuffer }
@@ -36,10 +36,10 @@ class ShaderManager {
     private init() {
         list = [
             Shader(name: "VertexColor", vertexName: "colorVertex", fragmentName: "colorFragment",
-                   properties: [ColorBuffer(key: "colorBuffer", rawData: NSColor.red.rgba)]),
+                   properties: [ColorBuffer(key: "colorBuffer", rawData: NSColor.red.rgb)]),
             Shader(name: "TextureColor", vertexName: "textureVertex", fragmentName: "textureFragment",
                    properties: [TextureProperty(key: "texture", textureName: "texture")]),
-            Shader(name: "Lambert Half", vertexName: "lambertVertex", fragmentName: "halfLambertFragment",
+            Shader(name: "Lambert Half", vertexName: "phongVertex", fragmentName: "phongFragment",
                    properties: [LightBuffer(key: "light"),
                                 MaterialBuffer(key: "material"),
                                 TextureProperty(key: "texture", textureName: "")])
@@ -52,8 +52,8 @@ class ShaderManager {
     }
     
     @discardableResult
-    func apply(index: Int) -> Bool {
-        guard list.indices.contains(index) else { return false }
+    func apply(index: Int) -> (result: Bool, properties: [ShaderPropertyType]) {
+        guard list.indices.contains(index) else { return (result: false, properties: []) }
         let shader = list[index]
         
         let program = SCNProgram()
@@ -63,7 +63,7 @@ class ShaderManager {
         activeIndex = index
         changedActiveShaderCallback?(index, program)
 
-        guard let material = targetMaterial else { return false }
+        guard let material = targetMaterial else { return (result: false, properties: shader.properties) }
 
         material.program = program
         shader.properties.forEach {
@@ -72,11 +72,13 @@ class ShaderManager {
             }
             material.setValue($0.data, forKey: $0.key)
         }
-        return true
+        return (result: true, properties: shader.properties)
     }
     
     @discardableResult
     func changeProperty(key: String, name: String, value: Any) -> Bool {
+//        print(key + " " + name + " \(value)")
+        
         guard let material = targetMaterial else { return false }
 
         var change = false

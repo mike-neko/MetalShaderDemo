@@ -171,4 +171,28 @@ class MaterialBuffer: ShaderPropertyProtocol {
     }
 }
 
+class LambertMaterialBuffer: ShaderPropertyProtocol {
+    struct Data {
+        var diffuse = float3(1, 0.5, 1)
+        var emission = float3(0, 0, 0)
+    }
+    
+    typealias ValueType = Data
+    
+    let key: String
+    var rawData = ValueType()
+    
+    var variables: [ShaderParameter] {
+        return [
+            ShaderParameter(name: "Diffuse Color",
+                            type: .rgbColor(set: { self.rawData.diffuse = $0 }, get: { self.rawData.diffuse })),
+            ShaderParameter(name: "Emission Color",
+                            type: .rgbColor(set: { self.rawData.emission = $0 }, get: { self.rawData.emission }))
+        ]
+    }
+    
+    init(key: String) {
+        self.key = key
+    }
+}
 

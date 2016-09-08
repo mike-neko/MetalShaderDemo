@@ -6,20 +6,10 @@
 //  Copyright © 2016年 M.Ike. All rights reserved.
 //
 
-#include <metal_stdlib>
-using namespace metal;
-#include <SceneKit/scn_metal>
+#include "SceneKitCommon.metal"
 
-// 頂点属性
-struct VertexInput {
-    float4 position [[ attribute(SCNVertexSemanticPosition) ]];
-    float2 texcoord [[ attribute(SCNVertexSemanticTexcoord0) ]];
-};
-
-// モデルデータ
-struct NodeBuffer {
-    float4x4 modelViewProjectionTransform;
-};
+typedef GenericVertexInput VertexInput;
+typedef GenericNodeBuffer NodeBuffer;
 
 // 変数
 struct ColorBuffer {

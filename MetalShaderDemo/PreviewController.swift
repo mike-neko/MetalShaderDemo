@@ -39,7 +39,7 @@ class PreviewController: NSViewController {
         let ambientLightNode = SCNNode()
         ambientLightNode.light = SCNLight()
         ambientLightNode.light!.type = SCNLight.LightType.ambient
-        ambientLightNode.light!.color = NSColor(calibratedWhite: 0.1, alpha: 1)
+        ambientLightNode.light!.color = NSColor(calibratedWhite: 0.2, alpha: 1)
         scene.rootNode.addChildNode(ambientLightNode)
         
         // animate the 3d object

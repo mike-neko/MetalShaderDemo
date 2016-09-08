@@ -39,7 +39,11 @@ class ShaderManager {
                    properties: [ColorBuffer(key: "colorBuffer", rawData: NSColor.red.rgb)]),
             Shader(name: "TextureColor", vertexName: "textureVertex", fragmentName: "textureFragment",
                    properties: [TextureProperty(key: "texture", textureName: "texture")]),
-            Shader(name: "Lambert Half", vertexName: "phongVertex", fragmentName: "phongFragment",
+            Shader(name: "Lambert", vertexName: "lambertVertex", fragmentName: "lambertFragment",
+                   properties: [LightBuffer(key: "light"),
+                                MaterialBuffer(key: "material"),
+                                TextureProperty(key: "texture", textureName: "")]),
+            Shader(name: "Phong", vertexName: "phongVertex", fragmentName: "phongFragment",
                    properties: [LightBuffer(key: "light"),
                                 MaterialBuffer(key: "material"),
                                 TextureProperty(key: "texture", textureName: "")])

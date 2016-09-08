@@ -15,12 +15,12 @@ struct ShaderParameter {
 }
 
 enum ShaderParameterType {
-    case rgbColor((float3) -> Void, () -> float3)
+    case rgbColor(set: (float3) -> Void, get: () -> float3)
 //    case color((float4) -> Void)
     case position((float3) -> Void)
 //    case texture, textureList
-    case normalizeValue
-    case floatValue(min: Float, max: Float)
+    case normalizeValue(set: (Float) -> Void, get: () -> Float)
+    case floatValue(min: Float, max: Float, set: (Float) -> Void, get: () -> Float)
     
     @discardableResult
     func update(newValue: Any) -> Bool {
@@ -33,7 +33,10 @@ enum ShaderParameterType {
             guard let value = newValue as? float3 else { return false }
             callback(value)
             return true
-        default: return false
+        case .normalizeValue(let callback, _), .floatValue(_, _, let callback, _):
+            guard let value = newValue as? Float else { return false }
+            callback(value)
+            return true
         }
     }
 }
@@ -99,7 +102,7 @@ class ColorBuffer: ShaderPropertyProtocol {
     var variables: [ShaderParameter] {
         return [
             ShaderParameter(name: "Vertex Color",
-                            type: .rgbColor({ self.rawData = $0 }, { self.rawData }))
+                            type: .rgbColor(set: { self.rawData = $0 }, get: { self.rawData }))
         ]
     }
     
@@ -124,7 +127,7 @@ class LightBuffer: ShaderPropertyProtocol {
     var variables: [ShaderParameter] {
         return [
             ShaderParameter(name: "Light Color",
-                            type: .rgbColor({ self.rawData.color = $0 }, { self.rawData.color }))
+                            type: .rgbColor(set: { self.rawData.color = $0 }, get: { self.rawData.color }))
         ]
     }
     
@@ -153,11 +156,13 @@ class MaterialBuffer: ShaderPropertyProtocol {
     var variables: [ShaderParameter] {
         return [
             ShaderParameter(name: "Diffuse Color",
-                            type: .rgbColor({ self.rawData.diffuse = $0 }, { self.rawData.diffuse })),
+                            type: .rgbColor(set: { self.rawData.diffuse = $0 }, get: { self.rawData.diffuse })),
             ShaderParameter(name: "Specular Color",
-                            type: .rgbColor({ self.rawData.specular = $0 }, { self.rawData.specular })),
+                            type: .rgbColor(set: { self.rawData.specular = $0 }, get: { self.rawData.specular })),
+            ShaderParameter(name: "Specular Exponent",
+                            type: .floatValue(min: 1, max: 128, set: { self.rawData.shininess = $0 }, get: { self.rawData.shininess })),
             ShaderParameter(name: "Emission Color",
-                            type: .rgbColor({ self.rawData.emission = $0 }, { self.rawData.emission }))
+                            type: .rgbColor(set: { self.rawData.emission = $0 }, get: { self.rawData.emission }))
        ]
     }
     

@@ -15,7 +15,7 @@ class GameViewController: NSViewController {
         let program: SCNProgram
         let setup: (_ material: SCNMaterial) -> ()
         
-        init(name: String, vertexName: String, fragmentName: String, setup: ((_ material: SCNMaterial) -> ())) {
+        init(name: String, vertexName: String, fragmentName: String, setup: @escaping ((_ material: SCNMaterial) -> ())) {
             let program = SCNProgram()
             program.vertexFunctionName = vertexName
             program.fragmentFunctionName = fragmentName

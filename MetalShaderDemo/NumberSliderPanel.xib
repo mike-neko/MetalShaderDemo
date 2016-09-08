@@ -1,19 +1,122 @@
-<?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="11134" systemVersion="15F34" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES" customObjectInstantitationMethod="direct">
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="11198.2" systemVersion="16A313a" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES" customObjectInstantitationMethod="direct">
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="11134"/>
+        <deployment identifier="macosx"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="11198.2"/>
+        <capability name="box content view" minToolsVersion="7.0"/>
     </dependencies>
     <objects>
-        <customObject id="-2" userLabel="File's Owner" customClass="NumberSliderPanel" customModuleProvider="target">
+        <customObject id="-2" userLabel="File's Owner" customClass="NumberSliderPanel" customModule="MetalShaderDemo" customModuleProvider="target">
             <connections>
-                <outlet property="view" destination="Hz6-mo-xeY" id="0bl-1N-x8E"/>
+                <outlet property="maxText" destination="kbd-jt-16Z" id="CJW-oY-hU9"/>
+                <outlet property="minText" destination="2fP-ni-Tyh" id="kj4-oK-2hC"/>
+                <outlet property="nowText" destination="Jer-hT-tfd" id="QY1-hR-7G0"/>
+                <outlet property="parentBox" destination="FvY-fn-HLc" id="ENJ-AQ-xdV"/>
+                <outlet property="slider" destination="ykk-EB-Dhj" id="qDc-TO-Vws"/>
+                <outlet property="view" destination="KSG-hs-OcW" id="QEX-yf-M6h"/>
             </connections>
         </customObject>
         <customObject id="-1" userLabel="First Responder" customClass="FirstResponder"/>
         <customObject id="-3" userLabel="Application" customClass="NSObject"/>
-        <customView id="Hz6-mo-xeY">
-            <rect key="frame" x="0.0" y="0.0" width="480" height="272"/>
-            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+        <collectionViewItem id="tGo-yK-dgE" customClass="NumberSliderPanel" customModule="MetalShaderDemo" customModuleProvider="target">
+            <connections>
+                <outlet property="maxText" destination="kbd-jt-16Z" id="xtt-W3-u1L"/>
+                <outlet property="minText" destination="2fP-ni-Tyh" id="5QS-zq-Ge2"/>
+                <outlet property="nowText" destination="Jer-hT-tfd" id="2nW-2w-MHf"/>
+                <outlet property="parentBox" destination="FvY-fn-HLc" id="u1b-8N-KDX"/>
+                <outlet property="slider" destination="ykk-EB-Dhj" id="nf1-VR-DDH"/>
+            </connections>
+        </collectionViewItem>
+        <customView id="KSG-hs-OcW">
+            <rect key="frame" x="0.0" y="0.0" width="430" height="90"/>
+            <autoresizingMask key="autoresizingMask" flexibleMinX="YES" widthSizable="YES" flexibleMaxX="YES" flexibleMinY="YES" heightSizable="YES" flexibleMaxY="YES"/>
+            <subviews>
+                <box identifier="ColorEditor" title="Color" translatesAutoresizingMaskIntoConstraints="NO" id="FvY-fn-HLc">
+                    <rect key="frame" x="-3" y="-4" width="436" height="94"/>
+                    <view key="contentView" id="IR5-Li-uwc">
+                        <rect key="frame" x="2" y="2" width="432" height="77"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <customView translatesAutoresizingMaskIntoConstraints="NO" id="1Y7-YC-9U9">
+                                <rect key="frame" x="0.0" y="42" width="432" height="30"/>
+                                <subviews>
+                                    <textField verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="Jer-hT-tfd">
+                                        <rect key="frame" x="362" y="4" width="60" height="22"/>
+                                        <constraints>
+                                            <constraint firstAttribute="width" constant="60" id="LVn-ly-2h9"/>
+                                        </constraints>
+                                        <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" state="on" borderStyle="bezel" alignment="right" title="1.00" drawsBackground="YES" id="COF-UJ-PIx">
+                                            <font key="font" metaFont="system"/>
+                                            <color key="textColor" name="textColor" catalog="System" colorSpace="catalog"/>
+                                            <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
+                                        </textFieldCell>
+                                    </textField>
+                                    <slider verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="ykk-EB-Dhj" userLabel="Slider">
+                                        <rect key="frame" x="8" y="2" width="346" height="24"/>
+                                        <sliderCell key="cell" state="on" alignment="left" maxValue="255" doubleValue="1" tickMarkPosition="above" numberOfTickMarks="11" sliderType="linear" id="MWf-a4-T4R"/>
+                                        <connections>
+                                            <action selector="changeSlider:" target="tGo-yK-dgE" id="odo-0t-t7s"/>
+                                        </connections>
+                                    </slider>
+                                </subviews>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="30" id="4F9-aM-77i"/>
+                                    <constraint firstItem="ykk-EB-Dhj" firstAttribute="centerY" secondItem="1Y7-YC-9U9" secondAttribute="centerY" id="Tn6-8D-DUh"/>
+                                    <constraint firstItem="Jer-hT-tfd" firstAttribute="leading" secondItem="ykk-EB-Dhj" secondAttribute="trailing" constant="10" id="dTz-Ma-JH5"/>
+                                    <constraint firstAttribute="trailing" secondItem="Jer-hT-tfd" secondAttribute="trailing" constant="10" id="eqF-4B-80d"/>
+                                    <constraint firstItem="Jer-hT-tfd" firstAttribute="centerY" secondItem="1Y7-YC-9U9" secondAttribute="centerY" id="lie-cJ-ADg"/>
+                                    <constraint firstItem="ykk-EB-Dhj" firstAttribute="leading" secondItem="1Y7-YC-9U9" secondAttribute="leading" constant="10" id="o2G-J5-o3v"/>
+                                </constraints>
+                            </customView>
+                            <textField verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="2fP-ni-Tyh">
+                                <rect key="frame" x="10" y="10" width="60" height="22"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="60" id="WCe-SB-MtN"/>
+                                </constraints>
+                                <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" state="on" borderStyle="bezel" alignment="right" title="1.00" drawsBackground="YES" id="coO-5p-vW4">
+                                    <font key="font" metaFont="system"/>
+                                    <color key="textColor" name="textColor" catalog="System" colorSpace="catalog"/>
+                                    <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
+                                </textFieldCell>
+                            </textField>
+                            <textField verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="kbd-jt-16Z">
+                                <rect key="frame" x="292" y="10" width="60" height="22"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="22" id="pGF-fR-4TO"/>
+                                    <constraint firstAttribute="width" constant="60" id="qNO-gN-aSF"/>
+                                </constraints>
+                                <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" state="on" borderStyle="bezel" alignment="right" title="1.00" drawsBackground="YES" id="xZi-Po-v0l">
+                                    <font key="font" metaFont="system"/>
+                                    <color key="textColor" name="textColor" catalog="System" colorSpace="catalog"/>
+                                    <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
+                                </textFieldCell>
+                            </textField>
+                        </subviews>
+                        <constraints>
+                            <constraint firstAttribute="trailing" secondItem="kbd-jt-16Z" secondAttribute="trailing" constant="80" id="8cP-gT-QQs"/>
+                            <constraint firstItem="1Y7-YC-9U9" firstAttribute="top" secondItem="IR5-Li-uwc" secondAttribute="top" constant="5" id="B1C-1J-ERr"/>
+                            <constraint firstAttribute="bottom" secondItem="2fP-ni-Tyh" secondAttribute="bottom" constant="10" id="QnA-TE-0ov"/>
+                            <constraint firstItem="2fP-ni-Tyh" firstAttribute="leading" secondItem="IR5-Li-uwc" secondAttribute="leading" constant="10" id="W34-96-sN2"/>
+                            <constraint firstAttribute="bottom" secondItem="kbd-jt-16Z" secondAttribute="bottom" constant="10" id="XbE-SP-Q1s"/>
+                            <constraint firstItem="kbd-jt-16Z" firstAttribute="top" secondItem="1Y7-YC-9U9" secondAttribute="bottom" constant="10" id="dC5-QK-Rks"/>
+                            <constraint firstAttribute="trailing" secondItem="1Y7-YC-9U9" secondAttribute="trailing" id="fPu-EQ-f4b"/>
+                            <constraint firstItem="2fP-ni-Tyh" firstAttribute="top" secondItem="1Y7-YC-9U9" secondAttribute="bottom" constant="10" id="jUv-Cx-B2K"/>
+                            <constraint firstItem="1Y7-YC-9U9" firstAttribute="leading" secondItem="IR5-Li-uwc" secondAttribute="leading" id="riS-tx-qwP"/>
+                        </constraints>
+                    </view>
+                    <connections>
+                        <outlet property="rSlider" destination="ykk-EB-Dhj" id="Cld-sS-ilt"/>
+                        <outlet property="rText" destination="Jer-hT-tfd" id="BKC-p0-dfF"/>
+                    </connections>
+                </box>
+            </subviews>
+            <constraints>
+                <constraint firstItem="FvY-fn-HLc" firstAttribute="top" secondItem="KSG-hs-OcW" secondAttribute="top" id="GHJ-Q4-XDn"/>
+                <constraint firstAttribute="trailing" secondItem="FvY-fn-HLc" secondAttribute="trailing" id="b0u-pT-wnT"/>
+                <constraint firstItem="FvY-fn-HLc" firstAttribute="leading" secondItem="KSG-hs-OcW" secondAttribute="leading" id="jKQ-rw-JrX"/>
+                <constraint firstAttribute="bottom" secondItem="FvY-fn-HLc" secondAttribute="bottom" id="pAF-Cf-qCB"/>
+            </constraints>
+            <point key="canvasLocation" x="134" y="-827.5"/>
         </customView>
     </objects>
 </document>

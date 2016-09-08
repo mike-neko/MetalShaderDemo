@@ -70,6 +70,18 @@ class ShaderListViewController: NSViewController, NSTableViewDataSource, NSTable
                 }
                 return item
             }
+        case .floatValue(let minValue, let maxValue, _, let value):
+            if let item = collectionView.makeItem(withIdentifier: "NumberSliderPanel", for: indexPath) as? NumberSliderPanel {
+                item.changedValueCallback = nil     // コールバック無効
+                item.value = value()
+                item.range = (min: minValue, max: maxValue)
+                item.key = param.key
+                item.name = param.data.name
+                item.changedValueCallback = { newValue, key, name in
+                    ShaderManager.sharedInstance.changeProperty(key: key, name: name, value: newValue)
+                }
+                return item
+            }
         default: break
         }
 
@@ -78,7 +90,14 @@ class ShaderListViewController: NSViewController, NSTableViewDataSource, NSTable
     
     func collectionView(_ collectionView: NSCollectionView, layout collectionViewLayout: NSCollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> NSSize {
 
-        return NSSize(width: collectionView.bounds.size.width, height: 130)
+        let height: CGFloat
+        // TODO: magic number
+        switch parameters[indexPath.item].data.type {
+        case .rgbColor: height = 130
+        case .floatValue: height = 100
+        default: height = 0
+        }
+        return NSSize(width: collectionView.bounds.size.width, height: height)
     }
     
     // MARK: -

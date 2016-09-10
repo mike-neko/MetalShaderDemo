@@ -17,6 +17,8 @@
 		0E2352ED1D5A1C1100A05B7F /* NSColor+simd.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E2352EC1D5A1C1100A05B7F /* NSColor+simd.swift */; };
 		0E2352EF1D5A1C4800A05B7F /* simd+Convert.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E2352EE1D5A1C4800A05B7F /* simd+Convert.swift */; };
 		0E3E1D7D1D60B2D000F6EC64 /* RimLightingShader.metal in Sources */ = {isa = PBXBuildFile; fileRef = 0E3E1D7C1D60B2D000F6EC64 /* RimLightingShader.metal */; };
+		0EB3B25F1D83D2DC004C69DD /* LambertShader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0EB3B25E1D83D2DC004C69DD /* LambertShader.swift */; };
+		0EB3B2611D83D481004C69DD /* PhongShader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0EB3B2601D83D481004C69DD /* PhongShader.swift */; };
 		0EE0588F1D75CDEE002CA9C2 /* CubemappingShader.metal in Sources */ = {isa = PBXBuildFile; fileRef = 0EE0588E1D75CDEE002CA9C2 /* CubemappingShader.metal */; };
 		0EE058961D75D4A7002CA9C2 /* nx.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 0EE058901D75D4A7002CA9C2 /* nx.jpg */; };
 		0EE058971D75D4A7002CA9C2 /* ny.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 0EE058911D75D4A7002CA9C2 /* ny.jpg */; };
@@ -54,6 +56,8 @@
 		0E2352EC1D5A1C1100A05B7F /* NSColor+simd.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "NSColor+simd.swift"; sourceTree = "<group>"; };
 		0E2352EE1D5A1C4800A05B7F /* simd+Convert.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "simd+Convert.swift"; sourceTree = "<group>"; };
 		0E3E1D7C1D60B2D000F6EC64 /* RimLightingShader.metal */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.metal; path = RimLightingShader.metal; sourceTree = "<group>"; };
+		0EB3B25E1D83D2DC004C69DD /* LambertShader.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LambertShader.swift; sourceTree = "<group>"; };
+		0EB3B2601D83D481004C69DD /* PhongShader.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PhongShader.swift; sourceTree = "<group>"; };
 		0EE0588E1D75CDEE002CA9C2 /* CubemappingShader.metal */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.metal; path = CubemappingShader.metal; sourceTree = "<group>"; };
 		0EE058901D75D4A7002CA9C2 /* nx.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; name = nx.jpg; path = cubemap/nx.jpg; sourceTree = "<group>"; };
 		0EE058911D75D4A7002CA9C2 /* ny.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; name = ny.jpg; path = cubemap/ny.jpg; sourceTree = "<group>"; };
@@ -68,9 +72,9 @@
 		0EE487C51D5E1E4C00E7D9C5 /* BumpMappingShader.metal */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.metal; path = BumpMappingShader.metal; sourceTree = "<group>"; };
 		0EE7403A1D7C141400642B0E /* Main.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; name = Main.storyboard; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		0EE7403E1D7C1A0800642B0E /* ShaderListViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ShaderListViewController.swift; sourceTree = "<group>"; };
-		0EE740401D7C1C0100642B0E /* ShaderManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ShaderManager.swift; path = ../ShaderManager.swift; sourceTree = "<group>"; };
+		0EE740401D7C1C0100642B0E /* ShaderManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ShaderManager.swift; sourceTree = "<group>"; };
 		0EE740421D7C229B00642B0E /* PreviewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PreviewController.swift; sourceTree = "<group>"; };
-		0EE740441D7C304300642B0E /* ShaderCommon.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ShaderCommon.swift; path = ../ShaderCommon.swift; sourceTree = "<group>"; };
+		0EE740441D7C304300642B0E /* ShaderCommon.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ShaderCommon.swift; sourceTree = "<group>"; };
 		0EE7404A1D7F2B5F00642B0E /* SceneKitCommon.metal */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.metal; path = SceneKitCommon.metal; sourceTree = "<group>"; };
 		0EE7404C1D805B8800642B0E /* ColorEditPanel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ColorEditPanel.swift; sourceTree = "<group>"; };
 		0EE7404D1D805B8900642B0E /* ColorEditPanel.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ColorEditPanel.xib; sourceTree = "<group>"; };
@@ -130,16 +134,9 @@
 			children = (
 				0EE740401D7C1C0100642B0E /* ShaderManager.swift */,
 				0EE740441D7C304300642B0E /* ShaderCommon.swift */,
-				0E2352DF1D56519700A05B7F /* VertexColorShader.metal */,
-				0E2352E41D57117E00A05B7F /* TextureShader.metal */,
-				0EE487C11D5B95C600E7D9C5 /* LambertShader.metal */,
-				0EE7404A1D7F2B5F00642B0E /* SceneKitCommon.metal */,
-				0E2352E91D57355A00A05B7F /* PhongShader.metal */,
-				0EE487C31D5CE30900E7D9C5 /* OrenNayarShader.metal */,
-				0EE487C51D5E1E4C00E7D9C5 /* BumpMappingShader.metal */,
-				0E3E1D7C1D60B2D000F6EC64 /* RimLightingShader.metal */,
-				0EE0588E1D75CDEE002CA9C2 /* CubemappingShader.metal */,
-				0EE0589E1D75E8E8002CA9C2 /* RefractionShader.metal */,
+				0EB3B25E1D83D2DC004C69DD /* LambertShader.swift */,
+				0EB3B2601D83D481004C69DD /* PhongShader.swift */,
+				0EB3B25D1D83D249004C69DD /* metal */,
 			);
 			name = Shaders;
 			path = Shaderes;
@@ -162,6 +159,23 @@
 				0E2352EE1D5A1C4800A05B7F /* simd+Convert.swift */,
 			);
 			path = Extensions;
+			sourceTree = "<group>";
+		};
+		0EB3B25D1D83D249004C69DD /* metal */ = {
+			isa = PBXGroup;
+			children = (
+				0EE7404A1D7F2B5F00642B0E /* SceneKitCommon.metal */,
+				0E2352DF1D56519700A05B7F /* VertexColorShader.metal */,
+				0E2352E41D57117E00A05B7F /* TextureShader.metal */,
+				0EE487C11D5B95C600E7D9C5 /* LambertShader.metal */,
+				0E2352E91D57355A00A05B7F /* PhongShader.metal */,
+				0EE487C31D5CE30900E7D9C5 /* OrenNayarShader.metal */,
+				0EE487C51D5E1E4C00E7D9C5 /* BumpMappingShader.metal */,
+				0E3E1D7C1D60B2D000F6EC64 /* RimLightingShader.metal */,
+				0EE0588E1D75CDEE002CA9C2 /* CubemappingShader.metal */,
+				0EE0589E1D75E8E8002CA9C2 /* RefractionShader.metal */,
+			);
+			path = metal;
 			sourceTree = "<group>";
 		};
 		0EE0588D1D75CD42002CA9C2 /* cubemap */ = {
@@ -265,11 +279,13 @@
 				0EE740411D7C1C0100642B0E /* ShaderManager.swift in Sources */,
 				0EE740521D805C6500642B0E /* NumberSliderPanel.swift in Sources */,
 				0EE740431D7C229B00642B0E /* PreviewController.swift in Sources */,
+				0EB3B2611D83D481004C69DD /* PhongShader.swift in Sources */,
 				0EE0588F1D75CDEE002CA9C2 /* CubemappingShader.metal in Sources */,
 				0EE0589F1D75E8E8002CA9C2 /* RefractionShader.metal in Sources */,
 				0EE487C41D5CE30900E7D9C5 /* OrenNayarShader.metal in Sources */,
 				0E2352C71D5638D200A05B7F /* AppDelegate.swift in Sources */,
 				0E2352E01D56519700A05B7F /* VertexColorShader.metal in Sources */,
+				0EB3B25F1D83D2DC004C69DD /* LambertShader.swift in Sources */,
 				0E3E1D7D1D60B2D000F6EC64 /* RimLightingShader.metal in Sources */,
 				0EE7404E1D805B8900642B0E /* ColorEditPanel.swift in Sources */,
 				0E2352E51D57117E00A05B7F /* TextureShader.metal in Sources */,

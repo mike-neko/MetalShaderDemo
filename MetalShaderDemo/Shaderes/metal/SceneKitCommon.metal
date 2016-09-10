@@ -30,15 +30,12 @@ struct GenericLightData {
     float3 color;
 };
 
-//struct GenericMaterialData {
-//    float4 diffuse;
-//    float4 specular;
-//    float shininess;
-//    float4 emmision;
-//
-//    // CookTorrance(microfacet)
-//    float roughness;
-//};
+struct GenericMaterialData {
+    float3 diffuse;
+    float3 specular;
+    float shininess;
+    float3 emmision;
+};
 
 struct GenericVertexOut {
     float4 position [[position]];

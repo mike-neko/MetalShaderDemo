@@ -13,10 +13,17 @@ typedef GenericNodeBuffer NodeBuffer;
 typedef GenericLightData LightData;
 typedef GenericVertexOut VertexOut;
 
-struct LambertMaterialData {
+/*
+ Lambert
+ struct GenericMaterialData {
     float3 diffuse;
+//    float3 specular;
+//    float shininess;
     float3 emmision;
-};
+ };
+*/
+typedef GenericMaterialData MaterialData;
+
 
 vertex VertexOut lambertVertex(VertexInput in [[ stage_in ]],
                                constant SCNSceneBuffer& scn_frame [[ buffer(0) ]],
@@ -35,7 +42,7 @@ vertex VertexOut lambertVertex(VertexInput in [[ stage_in ]],
 fragment half4 lambertFragment(VertexOut in [[ stage_in ]],
                                texture2d<float> texture [[ texture(0) ]],
                                constant LightData& light [[ buffer(2) ]],
-                               constant LambertMaterialData& material [[ buffer(3) ]]) {
+                               constant MaterialData& material [[ buffer(3) ]]) {
     
     auto lightColor = light.color;
     auto N = normalize(in.normal);
@@ -56,7 +63,7 @@ fragment half4 lambertFragment(VertexOut in [[ stage_in ]],
 fragment half4 halfLambertFragment(VertexOut in [[ stage_in ]],
                                    texture2d<float> texture [[ texture(0) ]],
                                    constant LightData& light [[ buffer(2) ]],
-                                   constant LambertMaterialData& material [[ buffer(3) ]]) {
+                                   constant MaterialData& material [[ buffer(3) ]]) {
     
     auto lightColor = light.color;
     auto N = normalize(in.normal);

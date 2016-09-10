@@ -13,13 +13,16 @@ typedef GenericNodeBuffer NodeBuffer;
 typedef GenericLightData LightData;
 typedef GenericVertexOut VertexOut;
 
-
-struct PhongMaterialData {
+/*
+ Phong
+ struct GenericMaterialData {
     float3 diffuse;
-    float3 specular;    // 0...1
+    float3 specular;
     float shininess;    // 1...128 Specular Exponent
     float3 emmision;
-};
+ };
+ */
+typedef GenericMaterialData MaterialData;
 
 
 vertex VertexOut phongVertex(VertexInput in [[ stage_in ]],
@@ -39,7 +42,7 @@ vertex VertexOut phongVertex(VertexInput in [[ stage_in ]],
 fragment half4 phongFragment(VertexOut in [[ stage_in ]],
                              texture2d<float> texture [[ texture(0) ]],
                              constant LightData& light [[ buffer(2) ]],
-                             constant PhongMaterialData& material [[ buffer(3) ]]) {
+                             constant MaterialData& material [[ buffer(3) ]]) {
     
     auto lightColor = light.color;
     auto N = normalize(in.normal);
@@ -80,7 +83,7 @@ fragment half4 phongFragment(VertexOut in [[ stage_in ]],
 fragment half4 blinnPhongFragment(VertexOut in [[ stage_in ]],
                                   texture2d<float> texture [[ texture(0) ]],
                                   constant LightData& light [[ buffer(2) ]],
-                                  constant PhongMaterialData& material [[ buffer(3) ]]) {
+                                  constant MaterialData& material [[ buffer(3) ]]) {
     return half4(1);
 //    auto lightColor = light.color;
 //    auto N = normalize(in.normal);

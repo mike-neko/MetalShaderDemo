@@ -30,7 +30,7 @@ class ColorEditPanel: NSCollectionViewItem {
             gText.stringValue = String(format: "%.02f", color.y)
             bText.stringValue = String(format: "%.02f", color.z)
             
-            colorButton.color = NSColor(calibratedRed: CGFloat(color.x), green: CGFloat(color.y),
+            colorButton.color = NSColor(red: CGFloat(color.x), green: CGFloat(color.y),
                                         blue: CGFloat(color.z), alpha: CGFloat(1))
             
             if oldValue.x != color.x || oldValue.y != color.y || oldValue.z != color.z {

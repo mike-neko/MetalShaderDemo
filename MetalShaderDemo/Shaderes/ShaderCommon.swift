@@ -8,6 +8,45 @@
 
 import SceneKit
 
+// mac
+typealias Color = NSColor
+// ios
+// typealias Color = UIColor
+
+
+// MARK: -
+struct ShaderDefault {
+    static let diffuseColor = Color(red: 203, green: 0, blue: 45).rgb
+    static let lightColor = Color.white.rgb
+    static let specularColor = ShaderDefault.lightColor
+    static let emissionColor = Color.black.rgb
+    
+}
+
+struct ShaderConst {
+    // プロパティ名
+    static let vertexColor = "Vertex Color"
+    static let lightColor = "Light Color"
+    
+    static let diffuseColor = "Diffuse Color"
+    static let specularColor = "Specular Color"
+    static let emissionColor = "Emission Color"
+    
+    // キー（パラメータ名）
+    static let colorKey = "colorBuffer"
+    static let textureKey = "texture"
+    static let lightKey = "light"
+    static let materialKey = "material"
+}
+
+// MARK: -
+struct Shader {
+    let name: String
+    let vertexName: String
+    let fragmentName: String
+    let properties: [ShaderPropertyType]
+}
+
 // MARK: -
 struct ShaderParameter {
     var name: String
@@ -65,14 +104,14 @@ extension ShaderPropertyProtocol {
 class TextureProperty: ShaderPropertyType {
     let key: String
     var data: Any {
-        return textureName.isEmpty ? SCNMaterialProperty(contents: NSColor.clear)
+        return textureName.isEmpty ? SCNMaterialProperty(contents: Color.clear)
             : SCNMaterialProperty(contents: textureName)
     }
     var variables: [ShaderParameter] { return [] }
     
     var textureName: String
     
-    init(key: String, textureName: String) {
+    init(key: String = ShaderConst.textureKey, textureName: String) {
         self.key = key
         self.textureName = textureName
     }
@@ -101,12 +140,12 @@ class ColorBuffer: ShaderPropertyProtocol {
 
     var variables: [ShaderParameter] {
         return [
-            ShaderParameter(name: "Vertex Color",
+            ShaderParameter(name: ShaderConst.vertexColor,
                             type: .rgbColor(set: { self.rawData = $0 }, get: { self.rawData }))
         ]
     }
     
-    init(key: String, rawData: ValueType) {
+    init(key: String = ShaderConst.colorKey, rawData: ValueType) {
         self.key = key
         self.rawData = rawData
     }
@@ -114,38 +153,37 @@ class ColorBuffer: ShaderPropertyProtocol {
 
 class LightBuffer: ShaderPropertyProtocol {
     struct Data {
-        var lightPosition: float3
-        var eyePosition: float3
-        var color: float3
+        var lightPosition = float3(0)
+        var eyePosition = float3(0)
+        var color = ShaderDefault.lightColor
     }
 
     typealias ValueType = Data
     
     let key: String
-    var rawData = ValueType(lightPosition: float3(), eyePosition: float3(), color: float3())
+    var rawData = ValueType()
     
     var variables: [ShaderParameter] {
         return [
-            ShaderParameter(name: "Light Color",
+            ShaderParameter(name: ShaderConst.lightColor,
                             type: .rgbColor(set: { self.rawData.color = $0 }, get: { self.rawData.color }))
         ]
     }
     
-    init(key: String) {
+    init(key: String = ShaderConst.lightKey) {
         self.key = key
     }
 }
 
 class MaterialBuffer: ShaderPropertyProtocol {
     struct Data {
-        var diffuse = float3(1, 0.5, 1)
-        var specular = float3(1, 1, 1)
-        var shininess = Float(10)
-        var emission = float3(0, 0, 0)
+        var diffuse = ShaderDefault.diffuseColor
+        var specular = ShaderDefault.specularColor
+        var shininess = Float(0)
+        var emission = ShaderDefault.emissionColor
         
-//        var roughness = Float(0)
-        
-//        private let padding = [UInt8](repeating: 0, count: 16)
+        //        var roughness = Float(0)
+        //        private let padding = [UInt8](repeating: 0, count: 16)
     }
     
     typealias ValueType = Data
@@ -154,45 +192,10 @@ class MaterialBuffer: ShaderPropertyProtocol {
     var rawData = ValueType()
     
     var variables: [ShaderParameter] {
-        return [
-            ShaderParameter(name: "Diffuse Color",
-                            type: .rgbColor(set: { self.rawData.diffuse = $0 }, get: { self.rawData.diffuse })),
-            ShaderParameter(name: "Specular Color",
-                            type: .rgbColor(set: { self.rawData.specular = $0 }, get: { self.rawData.specular })),
-            ShaderParameter(name: "Specular Exponent",
-                            type: .floatValue(min: 1, max: 128, set: { self.rawData.shininess = $0 }, get: { self.rawData.shininess })),
-            ShaderParameter(name: "Emission Color",
-                            type: .rgbColor(set: { self.rawData.emission = $0 }, get: { self.rawData.emission }))
-       ]
+        return []
     }
     
-    init(key: String) {
+    init(key: String = ShaderConst.materialKey) {
         self.key = key
     }
 }
-
-class LambertMaterialBuffer: ShaderPropertyProtocol {
-    struct Data {
-        var diffuse = float3(1, 0.5, 1)
-        var emission = float3(0, 0, 0)
-    }
-    
-    typealias ValueType = Data
-    
-    let key: String
-    var rawData = ValueType()
-    
-    var variables: [ShaderParameter] {
-        return [
-            ShaderParameter(name: "Diffuse Color",
-                            type: .rgbColor(set: { self.rawData.diffuse = $0 }, get: { self.rawData.diffuse })),
-            ShaderParameter(name: "Emission Color",
-                            type: .rgbColor(set: { self.rawData.emission = $0 }, get: { self.rawData.emission }))
-        ]
-    }
-    
-    init(key: String) {
-        self.key = key
-    }
-}
-

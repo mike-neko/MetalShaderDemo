@@ -10,13 +10,6 @@ import SceneKit
 
 // シェーダを管理するクラス
 class ShaderManager {
-    private struct Shader {
-        let name: String
-        let vertexName: String
-        let fragmentName: String
-        let properties: [ShaderPropertyType]
-    }
-
     static let sharedInstance = ShaderManager()
     
     private let list: [Shader]
@@ -26,7 +19,7 @@ class ShaderManager {
     weak var targetMaterial: SCNMaterial? = nil
     var changedActiveShaderCallback: ((Int, SCNProgram) -> Void)? = nil
     
-    var light = LightBuffer.Data(lightPosition: float3(), eyePosition: float3(), color: float3())
+    var light = LightBuffer.Data()
     var materials: [MaterialBuffer] {
         get {
             return list[activeIndex].properties.flatMap { $0 as? MaterialBuffer }
@@ -36,21 +29,13 @@ class ShaderManager {
     private init() {
         list = [
             Shader(name: "VertexColor", vertexName: "colorVertex", fragmentName: "colorFragment",
-                   properties: [ColorBuffer(key: "colorBuffer", rawData: NSColor.red.rgb)]),
+                   properties: [ColorBuffer(rawData: ShaderDefault.diffuseColor)]),
             Shader(name: "TextureColor", vertexName: "textureVertex", fragmentName: "textureFragment",
-                   properties: [TextureProperty(key: "texture", textureName: "texture")]),
-            Shader(name: "Lambert", vertexName: "lambertVertex", fragmentName: "lambertFragment",
-                   properties: [LightBuffer(key: "light"),
-                                LambertMaterialBuffer(key: "material"),
-                                TextureProperty(key: "texture", textureName: "")]),
-            Shader(name: "Lambert(Half)", vertexName: "lambertVertex", fragmentName: "halfLambertFragment",
-                   properties: [LightBuffer(key: "light"),
-                                LambertMaterialBuffer(key: "material"),
-                                TextureProperty(key: "texture", textureName: "")]),
-           Shader(name: "Phong", vertexName: "phongVertex", fragmentName: "phongFragment",
-                   properties: [LightBuffer(key: "light"),
-                                MaterialBuffer(key: "material"),
-                                TextureProperty(key: "texture", textureName: "")])
+                   properties: [TextureProperty(textureName: "texture")]),
+            
+            Shader.lambert, Shader.halfLambert,
+           
+            Shader.phong
         ]
     }
 

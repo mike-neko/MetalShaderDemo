@@ -10,6 +10,13 @@ import Cocoa
 import simd
 
 extension NSColor {
+    convenience init(red: Int, green: Int, blue: Int, alpha: Int = 255) {
+        self.init(red: CGFloat(red) / CGFloat(255),
+                  green: CGFloat(green) / CGFloat(255),
+                  blue: CGFloat(blue) / CGFloat(255),
+                  alpha: CGFloat(alpha) / CGFloat(255))
+    }
+    
     var rgb: float3 {
         guard let color = self.usingColorSpace(NSColorSpace.genericRGB) else {
             return float3(0)

@@ -1,5 +1,5 @@
 //
-//  Lambert.metal
+//  LambertShader.metal
 //  MetalShaderDemo
 //
 //  Created by M.Ike on 2016/08/11.

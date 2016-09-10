@@ -1,5 +1,5 @@
 //
-//  OrenNayar.metal
+//  OrenNayarShader.metal
 //  MetalShaderDemo
 //
 //  Created by M.Ike on 2016/08/12.

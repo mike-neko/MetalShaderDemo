@@ -17,6 +17,8 @@ class PreviewController: NSViewController {
         
         let scene = SCNScene()
         
+
+//        let geometry = SCNSphere(radius: 3)
         let geometry = SCNTorus(ringRadius: 3, pipeRadius: 1)
         targetMaterial = geometry.firstMaterial
         let torus = SCNNode(geometry: geometry)
@@ -32,14 +34,14 @@ class PreviewController: NSViewController {
         let light = SCNNode()
         light.light = SCNLight()
         light.light!.type = SCNLight.LightType.omni
-        light.position = SCNVector3(x: 0, y: 1, z: 0)
+        light.position = SCNVector3(x: 0.5, y: 1, z: 0.5)
         scene.rootNode.addChildNode(light)
         
         // create and add an ambient light to the scene
         let ambientLightNode = SCNNode()
         ambientLightNode.light = SCNLight()
         ambientLightNode.light!.type = SCNLight.LightType.ambient
-        ambientLightNode.light!.color = Color(white: 0.1, alpha: 1)
+        ambientLightNode.light!.color = Color(white: 0.2, alpha: 1)
         scene.rootNode.addChildNode(ambientLightNode)
         
         // animate the 3d object
@@ -52,7 +54,7 @@ class PreviewController: NSViewController {
         preview.scene = scene
         preview.allowsCameraControl = true
         preview.showsStatistics = true
-        preview.backgroundColor = Color.black
+        preview.backgroundColor = Color.gray
         
         ShaderManager.sharedInstance.targetMaterial = targetMaterial
         // 座標変換省略

@@ -56,7 +56,7 @@ struct ShaderParameter {
 enum ShaderParameterType {
     case rgbColor(set: (float3) -> Void, get: () -> float3)
 //    case color((float4) -> Void)
-    case position((float3) -> Void)
+//    case position((float3) -> Void)
 //    case texture, textureList
     case normalizeValue(set: (Float) -> Void, get: () -> Float)
     case floatValue(min: Float, max: Float, set: (Float) -> Void, get: () -> Float)
@@ -65,10 +65,6 @@ enum ShaderParameterType {
     func update(newValue: Any) -> Bool {
         switch self {
         case .rgbColor(let callback, _):
-            guard let value = newValue as? float3 else { return false }
-            callback(value)
-            return true
-        case .position(let callback):
             guard let value = newValue as? float3 else { return false }
             callback(value)
             return true

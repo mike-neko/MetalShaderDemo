@@ -68,16 +68,16 @@ fragment half4 halfLambertFragment(VertexOut in [[ stage_in ]],
     auto lightColor = light.color;
     auto N = normalize(in.normal);
     auto L = normalize(in.light);
-    auto NL = saturate(dot(N, L));
-    auto halfNL = NL * 0.5 + 0.5;
-    halfNL *= halfNL;
+    auto NL = dot(N, L);
+    NL = NL * 0.5 + 0.5;
+    NL = saturate(NL * NL);
     
     auto ambient = in.ambient;
     auto emmision = material.emmision;
     
     constexpr sampler defaultSampler;
     auto decal = texture.sample(defaultSampler, in.texcoord);
-    auto diffuse = material.diffuse * decal.rgb * (halfNL * lightColor + ambient.rgb);
+    auto diffuse = material.diffuse * decal.rgb * (NL * lightColor + ambient.rgb);
     
     auto color = half3(diffuse + emmision);
     return half4(color, 1);

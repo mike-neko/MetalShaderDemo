@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="11198.2" systemVersion="16A313a" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES" customObjectInstantitationMethod="direct">
+<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="11201" systemVersion="16A319" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES" customObjectInstantitationMethod="direct">
     <dependencies>
         <deployment identifier="macosx"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="11198.2"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="11201"/>
         <capability name="box content view" minToolsVersion="7.0"/>
     </dependencies>
     <objects>
@@ -55,7 +55,7 @@
                                         <rect key="frame" x="8" y="2" width="346" height="24"/>
                                         <sliderCell key="cell" state="on" alignment="left" maxValue="255" doubleValue="1" tickMarkPosition="above" numberOfTickMarks="11" sliderType="linear" id="MWf-a4-T4R"/>
                                         <connections>
-                                            <action selector="changeSlider:" target="tGo-yK-dgE" id="odo-0t-t7s"/>
+                                            <action selector="changeSlider:" target="-2" id="Rdc-gg-zt8"/>
                                         </connections>
                                     </slider>
                                 </subviews>

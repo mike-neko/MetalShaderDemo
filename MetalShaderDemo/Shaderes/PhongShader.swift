@@ -21,7 +21,6 @@ import SceneKit
 extension Shader {
     static let phong = Shader(name: "Phong", vertexName: "phongVertex", fragmentName: "phongFragment",
                               properties: [LightBuffer(), PhongMaterialBuffer(), TextureProperty(textureName: "")])
-
     
 }
 
@@ -45,4 +44,3 @@ class PhongMaterialBuffer: MaterialBuffer {
         rawData.shininess = 10
     }
 }
-

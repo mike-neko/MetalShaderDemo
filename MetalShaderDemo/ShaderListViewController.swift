@@ -82,7 +82,18 @@ class ShaderListViewController: NSViewController, NSTableViewDataSource, NSTable
                 }
                 return item
             }
-        default: break
+        case .normalizeValue(_, let value):
+            if let item = collectionView.makeItem(withIdentifier: "NumberSliderPanel", for: indexPath) as? NumberSliderPanel {
+                item.changedValueCallback = nil     // コールバック無効
+                item.value = value()
+                item.range = (min: 0, max: 1)
+                item.key = param.key
+                item.name = param.data.name
+                item.changedValueCallback = { newValue, key, name in
+                    ShaderManager.sharedInstance.changeProperty(key: key, name: name, value: newValue)
+                }
+                return item
+            }
         }
 
         return NSCollectionViewItem()
@@ -94,8 +105,7 @@ class ShaderListViewController: NSViewController, NSTableViewDataSource, NSTable
         // TODO: magic number
         switch parameters[indexPath.item].data.type {
         case .rgbColor: height = 130
-        case .floatValue: height = 100
-        default: height = 0
+        case .normalizeValue, .floatValue: height = 100
         }
         return NSSize(width: collectionView.bounds.size.width, height: height)
     }

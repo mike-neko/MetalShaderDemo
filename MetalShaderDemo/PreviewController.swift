@@ -39,7 +39,7 @@ class PreviewController: NSViewController {
         let ambientLightNode = SCNNode()
         ambientLightNode.light = SCNLight()
         ambientLightNode.light!.type = SCNLight.LightType.ambient
-        ambientLightNode.light!.color = NSColor(calibratedWhite: 0.2, alpha: 1)
+        ambientLightNode.light!.color = Color(white: 0.1, alpha: 1)
         scene.rootNode.addChildNode(ambientLightNode)
         
         // animate the 3d object
@@ -52,28 +52,12 @@ class PreviewController: NSViewController {
         preview.scene = scene
         preview.allowsCameraControl = true
         preview.showsStatistics = true
-        preview.backgroundColor = NSColor.lightGray
+        preview.backgroundColor = Color.black
         
         ShaderManager.sharedInstance.targetMaterial = targetMaterial
-        // TODO: 仮
-        ShaderManager.sharedInstance.light = LightBuffer.Data(lightPosition: float3(0, 1, 0),
-                                                              eyePosition: float3(0, 0, 15),
-                                                              color: float4(1, 1, 1, 0))
-        
-        
-//        loadShader()
-//        shaderList.enumerated().forEach { index, shader in
-//            let menu = NSMenuItem(title: shader.name, action: #selector(tapShaderMenu), keyEquivalent: "")
-//            menu.tag = index
-//            //            shaderMenu.addItem(menu)
-//        }
-//        
-//        // TEST:
-//        //torus.rotation = SCNVector4(x: CGFloat(0), y: CGFloat(0), z: CGFloat(1), w: CGFloat(M_PI) / 2)
-//        //        torusNode.geometry!.firstMaterial!.diffuse.contents = NSImage(named: "texture")
-//        //torus.rotation = SCNVector4(x: CGFloat(0), y: CGFloat(0), z: CGFloat(1), w: CGFloat(M_PI) / 2)
-//        applyShader(index: 3, target: torusNode.geometry!.firstMaterial!)
-//        applyShader(index: 5, target: base.geometry!.firstMaterial!)
+        // 座標変換省略
+        ShaderManager.sharedInstance.light.lightPosition = float3(0) - float3(light.position)
+        ShaderManager.sharedInstance.light.eyePosition = float3(camera.position)
     }
     
 }

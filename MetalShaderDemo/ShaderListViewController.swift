@@ -111,6 +111,16 @@ class ShaderListViewController: NSViewController, NSTableViewDataSource, NSTable
     }
     
     // MARK: -
+
+    @IBAction func tapAnimaitionPlaySegment(sender: NSSegmentedControl) {
+        let name = (sender.selectedSegment == 0) ? PreviewController.NeedPlayNotification
+                                                 : PreviewController.NeedStopNotification
+        
+        NotificationCenter.default.post(name: NSNotification.Name(rawValue: name),
+                                        object: nil)
+    }
+    
+    // MARK: -
     
     private func applyShader(index: Int) {
         parameters.removeAll()

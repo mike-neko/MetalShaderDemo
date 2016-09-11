@@ -9,6 +9,9 @@
 import SceneKit
 
 class PreviewController: NSViewController {
+    static let NeedPlayNotification = "NeedPlayNotification"
+    static let NeedStopNotification = "NeedStopNotification"
+    
     @IBOutlet weak var preview: SCNView!
     private weak var targetMaterial: SCNMaterial!
 
@@ -16,7 +19,6 @@ class PreviewController: NSViewController {
         super.viewDidLoad()
         
         let scene = SCNScene()
-        
 
 //        let geometry = SCNSphere(radius: 3)
         let geometry = SCNTorus(ringRadius: 3, pipeRadius: 1)
@@ -49,7 +51,7 @@ class PreviewController: NSViewController {
         animation.toValue = NSValue(scnVector4: SCNVector4(x: CGFloat(1), y: CGFloat(0), z: CGFloat(1), w: CGFloat(M_PI)*2))
         animation.duration = 3
         animation.repeatCount = MAXFLOAT //repeat forever
-        torus.addAnimation(animation, forKey: nil)
+        torus.addAnimation(animation, forKey: "rotation")
         
         preview.scene = scene
         preview.allowsCameraControl = true
@@ -60,6 +62,29 @@ class PreviewController: NSViewController {
         // 座標変換省略
         ShaderManager.sharedInstance.light.lightPosition = float3(0) - float3(light.position)
         ShaderManager.sharedInstance.light.eyePosition = float3(camera.position)
+        
+        let nc = NotificationCenter.default
+        nc.addObserver(self,
+                       selector: #selector(PreviewController.playAnimation),
+                       name: NSNotification.Name(rawValue: PreviewController.NeedPlayNotification),
+                       object: nil)
+        nc.addObserver(self,
+                       selector: #selector(PreviewController.stopAnimation),
+                       name: NSNotification.Name(rawValue: PreviewController.NeedStopNotification),
+                       object: nil)
+    }
+ 
+    deinit {
+        NotificationCenter.default.removeObserver(self)
     }
     
+    // MARK: -
+    
+    func playAnimation() {
+        preview.scene?.isPaused = false
+    }
+    
+    func stopAnimation() {
+        preview.scene?.isPaused = true
+    }
 }

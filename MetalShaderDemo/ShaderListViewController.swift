@@ -11,10 +11,16 @@ import SceneKit
 class ShaderListViewController: NSViewController, NSTableViewDataSource, NSTableViewDelegate {
 
     @IBOutlet weak var listView: NSTableView!
+    @IBOutlet weak var geometryList: NSComboBox!
     
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do view setup here.
+        
+        PreviewController.Geometry.all.forEach {
+            geometryList.addItem(withObjectValue: $0.rawValue)
+        }
+        geometryList.selectItem(at: 0)
     }
     
     override func viewWillAppear() {
@@ -50,5 +56,10 @@ class ShaderListViewController: NSViewController, NSTableViewDataSource, NSTable
         let name = (sender.selectedSegment == 0) ? NotificationKey.NeedPlay
                                                  : NotificationKey.NeedStop
         NotificationCenter.default.post(NotificationKey.notifcation(name: name))
+    }
+    
+    @IBAction func changeGeometry(sender: NSComboBox) {
+        NotificationCenter.default.post(NotificationKey.notifcation(name: NotificationKey.ChangeGeometry,
+                                                                    key: sender.stringValue))
     }
 }

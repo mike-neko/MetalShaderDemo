@@ -161,7 +161,7 @@
                                     </subviews>
                                 </clipView>
                                 <constraints>
-                                    <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="200" id="DwF-Eu-neM"/>
+                                    <constraint firstAttribute="width" constant="200" id="DwF-Eu-neM"/>
                                     <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="100" id="VXa-Ta-Lmf"/>
                                 </constraints>
                                 <scroller key="horizontalScroller" hidden="YES" verticalHuggingPriority="750" horizontal="YES" id="OaA-c0-8Bx">
@@ -206,18 +206,54 @@
                                     <constraint firstAttribute="height" constant="40" id="ubc-AI-oxP"/>
                                 </constraints>
                             </customView>
+                            <customView translatesAutoresizingMaskIntoConstraints="NO" id="OiE-r0-pKw">
+                                <rect key="frame" x="0.0" y="120" width="200" height="40"/>
+                                <subviews>
+                                    <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="cvi-kc-XGe">
+                                        <rect key="frame" x="8" y="12" width="72" height="17"/>
+                                        <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="Geometory" id="ZV1-Wv-wM6">
+                                            <font key="font" metaFont="system"/>
+                                            <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
+                                            <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
+                                        </textFieldCell>
+                                    </textField>
+                                    <comboBox verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="brD-1K-YHp">
+                                        <rect key="frame" x="98" y="7" width="95" height="26"/>
+                                        <comboBoxCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" sendsActionOnEndEditing="YES" borderStyle="bezel" drawsBackground="YES" completes="NO" numberOfVisibleItems="5" id="RWA-z0-P5s">
+                                            <font key="font" metaFont="system"/>
+                                            <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
+                                            <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
+                                        </comboBoxCell>
+                                        <connections>
+                                            <action selector="changeGeometryWithSender:" target="hXB-dJ-d6L" id="2mz-qD-Vvu"/>
+                                        </connections>
+                                    </comboBox>
+                                </subviews>
+                                <constraints>
+                                    <constraint firstItem="cvi-kc-XGe" firstAttribute="centerY" secondItem="OiE-r0-pKw" secondAttribute="centerY" id="JSG-I4-M2p"/>
+                                    <constraint firstAttribute="trailing" secondItem="brD-1K-YHp" secondAttribute="trailing" constant="10" id="UXN-Gf-sb8"/>
+                                    <constraint firstAttribute="height" constant="40" id="f4c-xD-rwt"/>
+                                    <constraint firstItem="brD-1K-YHp" firstAttribute="centerY" secondItem="cvi-kc-XGe" secondAttribute="centerY" id="heD-i3-5GE"/>
+                                    <constraint firstItem="cvi-kc-XGe" firstAttribute="leading" secondItem="OiE-r0-pKw" secondAttribute="leading" constant="10" id="ktM-F0-mQv"/>
+                                    <constraint firstItem="brD-1K-YHp" firstAttribute="leading" secondItem="cvi-kc-XGe" secondAttribute="trailing" constant="20" id="wZc-WU-g12"/>
+                                </constraints>
+                            </customView>
                         </subviews>
                         <constraints>
+                            <constraint firstAttribute="trailing" secondItem="OiE-r0-pKw" secondAttribute="trailing" id="1lg-X1-EgI"/>
+                            <constraint firstItem="OiE-r0-pKw" firstAttribute="leading" secondItem="ZQp-SS-ULH" secondAttribute="leading" id="72F-Qv-3Ww"/>
                             <constraint firstItem="Ym2-IS-GVh" firstAttribute="top" secondItem="s5T-qe-Bap" secondAttribute="bottom" id="DA6-MQ-0Oc"/>
                             <constraint firstItem="s5T-qe-Bap" firstAttribute="leading" secondItem="ZQp-SS-ULH" secondAttribute="leading" id="HjK-cE-CqT"/>
                             <constraint firstAttribute="trailing" secondItem="Ym2-IS-GVh" secondAttribute="trailing" id="J85-AV-ckO"/>
                             <constraint firstItem="Ym2-IS-GVh" firstAttribute="leading" secondItem="ZQp-SS-ULH" secondAttribute="leading" id="NvH-FW-vf4"/>
                             <constraint firstAttribute="bottom" secondItem="s5T-qe-Bap" secondAttribute="bottom" constant="200" id="VcS-mw-Y81"/>
+                            <constraint firstItem="OiE-r0-pKw" firstAttribute="top" secondItem="Ym2-IS-GVh" secondAttribute="bottom" id="asD-LI-oiC"/>
                             <constraint firstAttribute="trailing" secondItem="s5T-qe-Bap" secondAttribute="trailing" id="cHL-KJ-ggu"/>
                             <constraint firstItem="s5T-qe-Bap" firstAttribute="top" secondItem="ZQp-SS-ULH" secondAttribute="top" id="gMb-3J-m2s"/>
                         </constraints>
                     </view>
                     <connections>
+                        <outlet property="geometryList" destination="brD-1K-YHp" id="liO-e1-Wcu"/>
                         <outlet property="listView" destination="3LB-dn-lFP" id="xgr-De-zax"/>
                     </connections>
                 </viewController>

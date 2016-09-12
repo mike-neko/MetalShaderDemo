@@ -20,8 +20,8 @@ struct GenericVertexInput {
 // モデルデータ
 struct GenericNodeBuffer {
     float4x4 modelViewProjectionTransform;
+    float4x4 modelViewTransform;
     float4x4 normalTransform; // Inverse transpose of modelViewTransform
-    float4x4 inverseModelTransform;
 };
 
 struct GenericLightData {

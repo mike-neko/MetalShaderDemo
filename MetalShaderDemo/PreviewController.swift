@@ -9,8 +9,16 @@
 import SceneKit
 
 class PreviewController: NSViewController {
-    static let NeedPlayNotification = "NeedPlayNotification"
-    static let NeedStopNotification = "NeedStopNotification"
+    
+    private let ModelNodeName = "model"
+    
+    enum Geometry: String {
+        case torus, box, sphere
+        
+        static let all = [
+            torus, box, sphere
+        ]
+    }
     
     @IBOutlet weak var preview: SCNView!
     private weak var targetMaterial: SCNMaterial!
@@ -19,13 +27,12 @@ class PreviewController: NSViewController {
         super.viewDidLoad()
         
         let scene = SCNScene()
-
-//        let geometry = SCNSphere(radius: 3)
-        let geometry = SCNTorus(ringRadius: 3, pipeRadius: 1)
-        targetMaterial = geometry.firstMaterial
-        let torus = SCNNode(geometry: geometry)
-        torus.name = "torus"
-        scene.rootNode.addChildNode(torus)
+        preview.scene = scene
+        preview.allowsCameraControl = true
+        preview.showsStatistics = true
+        preview.backgroundColor = Color.gray
+        
+        applyGeometry(type: .torus)
         
         let camera = SCNNode()
         camera.camera = SCNCamera()
@@ -46,19 +53,6 @@ class PreviewController: NSViewController {
         ambientLightNode.light!.color = Color(white: 0.2, alpha: 1)
         scene.rootNode.addChildNode(ambientLightNode)
         
-        // animate the 3d object
-        let animation = CABasicAnimation(keyPath: "rotation")
-        animation.toValue = NSValue(scnVector4: SCNVector4(x: CGFloat(1), y: CGFloat(0), z: CGFloat(1), w: CGFloat(M_PI)*2))
-        animation.duration = 3
-        animation.repeatCount = MAXFLOAT //repeat forever
-        torus.addAnimation(animation, forKey: "rotation")
-        
-        preview.scene = scene
-        preview.allowsCameraControl = true
-        preview.showsStatistics = true
-        preview.backgroundColor = Color.gray
-        
-        ShaderManager.sharedInstance.targetMaterial = targetMaterial
         // 座標変換省略
         ShaderManager.sharedInstance.light.lightPosition = float3(0) - float3(light.position)
         ShaderManager.sharedInstance.light.eyePosition = float3(camera.position)
@@ -66,16 +60,57 @@ class PreviewController: NSViewController {
         let nc = NotificationCenter.default
         nc.addObserver(self,
                        selector: #selector(PreviewController.playAnimation),
-                       name: NSNotification.Name(rawValue: PreviewController.NeedPlayNotification),
+                       name: NSNotification.Name(rawValue: NotificationKey.NeedPlay),
                        object: nil)
         nc.addObserver(self,
                        selector: #selector(PreviewController.stopAnimation),
-                       name: NSNotification.Name(rawValue: PreviewController.NeedStopNotification),
+                       name: NSNotification.Name(rawValue: NotificationKey.NeedStop),
+                       object: nil)
+        nc.addObserver(self,
+                       selector: #selector(PreviewController.changeGeometry),
+                       name: NSNotification.Name(rawValue: NotificationKey.ChangeGeometry),
                        object: nil)
     }
  
     deinit {
         NotificationCenter.default.removeObserver(self)
+    }
+    
+    @discardableResult
+    private func applyGeometry(type: Geometry) -> Bool {
+        guard let scene = preview.scene else { return false }
+        
+        let geometry: SCNGeometry
+        switch type {
+        case .torus:
+            geometry = SCNTorus(ringRadius: 3, pipeRadius: 1)
+        case .box:
+            geometry = SCNBox(width: 5, height: 5, length: 5, chamferRadius: 0)
+        case .sphere:
+            geometry = SCNSphere(radius: 3)
+        }
+        
+        if let old = scene.rootNode.childNode(withName: ModelNodeName, recursively: true) {
+            old.removeFromParentNode()
+        }
+        
+        let model = SCNNode(geometry: geometry)
+        model.name = ModelNodeName
+        scene.rootNode.addChildNode(model)
+
+        // animate the 3d object
+        let animation = CABasicAnimation(keyPath: "rotation")
+        animation.toValue = NSValue(scnVector4: SCNVector4(x: CGFloat(1), y: CGFloat(0), z: CGFloat(1), w: CGFloat(M_PI)*2))
+        animation.duration = 3
+        animation.repeatCount = MAXFLOAT //repeat forever
+        model.addAnimation(animation, forKey: "rotation")
+        
+        targetMaterial = geometry.firstMaterial
+        let man = ShaderManager.sharedInstance
+        man.targetMaterial = targetMaterial
+        man.apply(index: man.activeIndex)
+        
+        return true
     }
     
     // MARK: -
@@ -86,5 +121,14 @@ class PreviewController: NSViewController {
     
     func stopAnimation() {
         preview.scene?.isPaused = true
+    }
+
+    func stopAnimation2() {
+        preview.scene?.isPaused = true
+    }
+    func changeGeometry(notification: NSNotification) {
+        guard let key = notification.object as? String,
+            let type = Geometry(rawValue: key) else { return }
+        applyGeometry(type: type)
     }
 }

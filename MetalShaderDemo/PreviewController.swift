@@ -9,8 +9,6 @@
 import SceneKit
 
 class PreviewController: NSViewController {
-    static let NeedPlayNotification = "NeedPlayNotification"
-    static let NeedStopNotification = "NeedStopNotification"
     
     private let ModelNodeName = "model"
     
@@ -57,11 +55,11 @@ class PreviewController: NSViewController {
         let nc = NotificationCenter.default
         nc.addObserver(self,
                        selector: #selector(PreviewController.playAnimation),
-                       name: NSNotification.Name(rawValue: PreviewController.NeedPlayNotification),
+                       name: NSNotification.Name(rawValue: NotificationKey.NeedPlay),
                        object: nil)
         nc.addObserver(self,
                        selector: #selector(PreviewController.stopAnimation),
-                       name: NSNotification.Name(rawValue: PreviewController.NeedStopNotification),
+                       name: NSNotification.Name(rawValue: NotificationKey.NeedStop),
                        object: nil)
     }
  

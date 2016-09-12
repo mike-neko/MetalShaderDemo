@@ -19,6 +19,8 @@
 		0E3E1D7D1D60B2D000F6EC64 /* RimLightingShader.metal in Sources */ = {isa = PBXBuildFile; fileRef = 0E3E1D7C1D60B2D000F6EC64 /* RimLightingShader.metal */; };
 		0EB3B25F1D83D2DC004C69DD /* LambertShader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0EB3B25E1D83D2DC004C69DD /* LambertShader.swift */; };
 		0EB3B2611D83D481004C69DD /* PhongShader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0EB3B2601D83D481004C69DD /* PhongShader.swift */; };
+		0EC54A721D86F4810032CAF6 /* PropertyViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0EC54A711D86F4810032CAF6 /* PropertyViewController.swift */; };
+		0EC54A741D86FBBA0032CAF6 /* NotificationCommon.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0EC54A731D86FBBA0032CAF6 /* NotificationCommon.swift */; };
 		0EE0588F1D75CDEE002CA9C2 /* CubemappingShader.metal in Sources */ = {isa = PBXBuildFile; fileRef = 0EE0588E1D75CDEE002CA9C2 /* CubemappingShader.metal */; };
 		0EE058961D75D4A7002CA9C2 /* nx.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 0EE058901D75D4A7002CA9C2 /* nx.jpg */; };
 		0EE058971D75D4A7002CA9C2 /* ny.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 0EE058911D75D4A7002CA9C2 /* ny.jpg */; };
@@ -58,6 +60,8 @@
 		0E3E1D7C1D60B2D000F6EC64 /* RimLightingShader.metal */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.metal; path = RimLightingShader.metal; sourceTree = "<group>"; };
 		0EB3B25E1D83D2DC004C69DD /* LambertShader.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LambertShader.swift; sourceTree = "<group>"; };
 		0EB3B2601D83D481004C69DD /* PhongShader.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PhongShader.swift; sourceTree = "<group>"; };
+		0EC54A711D86F4810032CAF6 /* PropertyViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PropertyViewController.swift; sourceTree = "<group>"; };
+		0EC54A731D86FBBA0032CAF6 /* NotificationCommon.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NotificationCommon.swift; sourceTree = "<group>"; };
 		0EE0588E1D75CDEE002CA9C2 /* CubemappingShader.metal */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.metal; path = CubemappingShader.metal; sourceTree = "<group>"; };
 		0EE058901D75D4A7002CA9C2 /* nx.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; name = nx.jpg; path = cubemap/nx.jpg; sourceTree = "<group>"; };
 		0EE058911D75D4A7002CA9C2 /* ny.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; name = ny.jpg; path = cubemap/ny.jpg; sourceTree = "<group>"; };
@@ -115,8 +119,10 @@
 				0E2352C61D5638D200A05B7F /* AppDelegate.swift */,
 				0EE7403E1D7C1A0800642B0E /* ShaderListViewController.swift */,
 				0EE740421D7C229B00642B0E /* PreviewController.swift */,
+				0EC54A711D86F4810032CAF6 /* PropertyViewController.swift */,
 				0EE7404C1D805B8800642B0E /* ColorEditPanel.swift */,
 				0EE740501D805C6500642B0E /* NumberSliderPanel.swift */,
+				0EC54A731D86FBBA0032CAF6 /* NotificationCommon.swift */,
 				0E2352E11D56519C00A05B7F /* Shaders */,
 				0E2352EB1D5A1BFA00A05B7F /* Extensions */,
 				0E2352E81D571B8A00A05B7F /* Resources */,
@@ -284,6 +290,7 @@
 				0EE0589F1D75E8E8002CA9C2 /* RefractionShader.metal in Sources */,
 				0EE487C41D5CE30900E7D9C5 /* OrenNayarShader.metal in Sources */,
 				0E2352C71D5638D200A05B7F /* AppDelegate.swift in Sources */,
+				0EC54A741D86FBBA0032CAF6 /* NotificationCommon.swift in Sources */,
 				0E2352E01D56519700A05B7F /* VertexColorShader.metal in Sources */,
 				0EB3B25F1D83D2DC004C69DD /* LambertShader.swift in Sources */,
 				0E3E1D7D1D60B2D000F6EC64 /* RimLightingShader.metal in Sources */,
@@ -294,6 +301,7 @@
 				0E2352ED1D5A1C1100A05B7F /* NSColor+simd.swift in Sources */,
 				0E2352EF1D5A1C4800A05B7F /* simd+Convert.swift in Sources */,
 				0EE740451D7C304300642B0E /* ShaderCommon.swift in Sources */,
+				0EC54A721D86F4810032CAF6 /* PropertyViewController.swift in Sources */,
 				0EE487C21D5B95C600E7D9C5 /* LambertShader.metal in Sources */,
 				0E2352EA1D57355A00A05B7F /* PhongShader.metal in Sources */,
 			);

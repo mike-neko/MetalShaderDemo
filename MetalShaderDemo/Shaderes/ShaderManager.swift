@@ -37,7 +37,9 @@ class ShaderManager {
            
             Shader.phong, Shader.blinnPhong,
             
-            Shader.bump
+            Shader.bump,
+            
+            Shader.orenNayar
         ]
     }
 

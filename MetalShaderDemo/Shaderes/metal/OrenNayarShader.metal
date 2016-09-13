@@ -6,68 +6,44 @@
 //  Copyright © 2016年 M.Ike. All rights reserved.
 //
 
-#include <metal_stdlib>
-using namespace metal;
-#include <SceneKit/scn_metal>
+#include "SceneKitCommon.metal"
 
-// 頂点属性
-struct VertexInput {
-    float3 position [[ attribute(SCNVertexSemanticPosition) ]];
-    float2 texcoord [[ attribute(SCNVertexSemanticTexcoord0) ]];
-    float3 normal   [[ attribute(SCNVertexSemanticNormal) ]];
-};
+typedef GenericVertexInput VertexInput;
+typedef GenericNodeBuffer NodeBuffer;
+typedef GenericLightData LightData;
+typedef GenericVertexOut VertexOut;
 
-// モデルデータ
-struct NodeBuffer {
-    float4x4 modelViewProjectionTransform;
-    float4x4 inverseModelTransform;
-};
-
-struct LightData {
-    float3 lightPosition;
-    float3 eyePosition;
-    float4 color;
-};
-
-struct MaterialData {
-    float4 diffuse;
-    float4 specular;
-    float shininess;
-    float4 emmision;
-    
-    float roughness;
-};
-
-struct VertexOut {
-    float4 position [[position]];
-    float2 texcoord;
-    float4 ambient;
-    float3 normal;
-    float3 light;
-    float3 eye;
-};
+/*
+ OrenNayar
+ struct GenericMaterialData {
+    float3 diffuse;
+    float3 specular;
+    float shininess;        // 0...1 roughness (0 = Lambert)
+    float3 emmision;
+ };
+ */
+typedef GenericMaterialData MaterialData;
 
 vertex VertexOut orenNayarVertex(VertexInput in [[ stage_in ]],
-                             constant SCNSceneBuffer& scn_frame [[ buffer(0) ]],
-                             constant NodeBuffer& scn_node [[ buffer(1) ]],
-                             constant LightData& light [[ buffer(2) ]]) {
+                                 constant SCNSceneBuffer& scn_frame [[ buffer(0) ]],
+                                 constant NodeBuffer& scn_node [[ buffer(1) ]],
+                                 constant LightData& light [[ buffer(2) ]]) {
     VertexOut out;
-    out.position = scn_node.modelViewProjectionTransform * float4(in.position, 1);
+    out.position = scn_node.modelViewProjectionTransform * in.position;
     out.texcoord = in.texcoord;
     out.ambient = scn_frame.ambientLightingColor;
-    out.normal = in.normal;
-    out.light = (scn_node.inverseModelTransform * float4(normalize(light.lightPosition), 0)).xyz;
-    auto eyepos = light.eyePosition - in.position;
-    out.eye = (scn_node.inverseModelTransform * float4(normalize(eyepos), 0)).xyz;
+    out.normal = (scn_node.normalTransform * in.normal).xyz;
+    out.light = -light.lightWorldPosition.xyz;
+    out.eye = light.eyeWorldPosition.xyz - (scn_node.modelViewTransform * in.position).xyz;
     return out;
 }
 
 fragment half4 orenNayarFragment(VertexOut in [[ stage_in ]],
-                             texture2d<float> texture [[ texture(0) ]],
-                             constant LightData& light [[ buffer(2) ]],
-                             constant MaterialData& material [[ buffer(3) ]]) {
+                                 texture2d<float> texture [[ texture(0) ]],
+                                 constant LightData& light [[ buffer(2) ]],
+                                 constant MaterialData& material [[ buffer(3) ]]) {
     
-    auto roughness = material.roughness;
+    auto roughness = material.shininess;
     auto lightColor = light.color;
     auto N = normalize(in.normal);
     auto L = normalize(in.light);
@@ -78,9 +54,7 @@ fragment half4 orenNayarFragment(VertexOut in [[ stage_in ]],
     auto ambient = in.ambient;
     auto emmision = material.emmision;
     
-    float4 color = ambient + emmision;
-    
-    auto angleVN = acos(NL);
+    auto angleVN = acos(NV);
     auto angleLN = acos(NL);
     auto gamma = dot(V - N * NV, L - N * NV);
     
@@ -93,13 +67,8 @@ fragment half4 orenNayarFragment(VertexOut in [[ stage_in ]],
     
     constexpr sampler defaultSampler;
     auto decal = texture.sample(defaultSampler, in.texcoord);
+    auto diffuse = material.diffuse * decal.rgb * (L1 * lightColor + ambient.rgb);
     
-    auto diffuse = lightColor * L1 * material.diffuse * decal;
-
-    color += diffuse;
-    return half4(color);
+    auto color = half3(diffuse + emmision);
+    return half4(color, 1);
 }
-
-
-
-

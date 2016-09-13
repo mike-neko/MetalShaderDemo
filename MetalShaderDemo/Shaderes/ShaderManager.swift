@@ -36,6 +36,8 @@ class ShaderManager {
             Shader.lambert, Shader.halfLambert,
            
             Shader.phong, Shader.blinnPhong,
+            
+            Shader.bump
         ]
     }
 

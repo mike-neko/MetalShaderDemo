@@ -32,6 +32,10 @@ extension Shader {
     static let blinnPhong = Shader(name: "Blinn Phong(CookTorrance)", vertexName: "phongVertex", fragmentName: "cookTorranceFragment",
                               properties: [LightBuffer(), BlinnPhongMaterialBuffer(), TextureProperty(textureName: "")])
     
+    static let bump = Shader(name: "BumpMapping", vertexName: "bumpVertex", fragmentName: "bumpFragment",
+                              properties: [LightBuffer(), PhongBumpMaterialBuffer(), TextureProperty(textureName: "texture"),
+                                           TextureProperty(key: "normalmap", textureName: "normal"), ])
+    
 }
 
 class PhongMaterialBuffer: MaterialBuffer {
@@ -76,4 +80,28 @@ class BlinnPhongMaterialBuffer: MaterialBuffer {
         rawData.shininess = 0.3
     }
 }
+
+class PhongBumpMaterialBuffer: MaterialBuffer {
+    override var variables: [ShaderParameter] {
+        return [
+            ShaderParameter(name: ShaderConst.diffuseColor,
+                            type: .rgbColor(set: { self.rawData.diffuse = $0 }, get: { self.rawData.diffuse })),
+            ShaderParameter(name: ShaderConst.specularColor,
+                            type: .rgbColor(set: { self.rawData.specular = $0 }, get: { self.rawData.specular })),
+            ShaderParameter(name: "Specular Exponent",
+                            type: .floatValue(min: 1, max: 128, set: { self.rawData.shininess = $0 }, get: { self.rawData.shininess })),
+            ShaderParameter(name: ShaderConst.emissionColor,
+                            type: .rgbColor(set: { self.rawData.emission = $0 }, get: { self.rawData.emission }))
+        ]
+    }
+    
+    override init(key: String = ShaderConst.materialKey) {
+        super.init(key: key)
+        
+        rawData.diffuse = Color.white.rgb
+        rawData.specular = rawData.diffuse
+        rawData.shininess = 120
+    }
+}
+
 

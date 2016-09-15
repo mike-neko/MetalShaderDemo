@@ -34,7 +34,7 @@ extension Shader {
     
     static let bump = Shader(name: "BumpMapping", vertexName: "bumpVertex", fragmentName: "bumpFragment",
                               properties: [LightBuffer(), PhongBumpMaterialBuffer(), TextureProperty(textureName: "texture"),
-                                           TextureProperty(key: "normalmap", textureName: "normal"), ])
+                                           TextureProperty(key: ShaderConst.normalmapKey, textureName: "normal"), ])
     
 }
 

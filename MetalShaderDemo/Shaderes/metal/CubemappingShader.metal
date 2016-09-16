@@ -6,86 +6,69 @@
 //  Copyright © 2016年 M.Ike. All rights reserved.
 //
 
-#include <metal_stdlib>
-using namespace metal;
-#include <SceneKit/scn_metal>
+#include "SceneKitCommon.metal"
 
-// 頂点属性
-struct VertexInput {
-    float3 position [[ attribute(SCNVertexSemanticPosition) ]];
-    float2 texcoord [[ attribute(SCNVertexSemanticTexcoord0) ]];
-    float3 normal   [[ attribute(SCNVertexSemanticNormal) ]];
-};
+typedef GenericVertexInput VertexInput;
+typedef GenericNodeBuffer NodeBuffer;
+typedef GenericLightData LightData;
+typedef GenericVertexOut VertexOut;
+typedef GenericMaterialData MaterialData;
 
-// モデルデータ
-struct NodeBuffer {
-    float4x4 modelViewProjectionTransform;
-    float4x4 inverseModelTransform;
-};
-
-struct LightData {
-    float3 lightPosition;
-    float3 eyePosition;
-    float4 color;
-};
-
-struct MaterialData {
-    float4 diffuse;
-    float4 specular;
-    float shininess;
-    float4 emmision;
-    
-    // CookTorrance(microfacet)
-    float roughness;
-};
-
-struct VertexOut {
-    float4 position [[position]];
-    float2 texcoord;
-    float4 ambient;
-    float3 normal;
-    float3 light;
-    float3 eye;
-};
 
 vertex VertexOut cubemapVertex(VertexInput in [[ stage_in ]],
                                constant SCNSceneBuffer& scn_frame [[ buffer(0) ]],
                                constant NodeBuffer& scn_node [[ buffer(1) ]],
                                constant LightData& light [[ buffer(2) ]]) {
     VertexOut out;
-    out.position = scn_node.modelViewProjectionTransform * float4(in.position, 1);
+    out.position = scn_node.modelViewProjectionTransform * in.position;
     out.texcoord = in.texcoord;
     out.ambient = scn_frame.ambientLightingColor;
-    out.normal = (scn_node.modelViewProjectionTransform * float4(in.normal, 0)).xyz;
-    out.light = (scn_node.inverseModelTransform * float4(normalize(light.lightPosition), 0)).xyz;
-    auto eyepos = light.eyePosition - in.position;
-    out.eye = (scn_node.inverseModelTransform * float4(normalize(eyepos), 0)).xyz;
+//    out.normal = (scn_frame.inverseViewTransform * (scn_node.normalTransform * in.normal)).xyz;    // view space
+//    out.light = -light.lightWorldPosition.xyz;
+//    out.eye = (-light.eyeWorldPosition).xyz;
+
+
+    out.position = scn_node.modelViewProjectionTransform * in.position;
+    
+    // Calculate the normal from the perspective of the camera
+    out.normal = (normalize(scn_node.modelViewTransform * float4(in.normal.xyz, 0.0f))).xyz;
+    
+    // Calculate the view vector from the perspective of the camera
+    float3 vertex_position_cameraspace = (scn_node.modelViewTransform * in.position ).xyz;
+    out.eye = light.eyeWorldPosition.xyz - vertex_position_cameraspace;
+    
+    // Calculate the direction of the light from the position of the camera
+    float3 light_position_cameraspace = (scn_frame.viewTransform * float4(light.lightWorldPosition.xyz,1.0f)).xyz;
+    out.light = light_position_cameraspace + out.eye;
+    
     return out;
 }
 
 fragment half4 cubemapFragment(VertexOut in [[ stage_in ]],
-                               texturecube<float> texture [[ texture(0) ]],
+                               texturecube<float> cubemap [[ texture(0) ]],
                                texture2d<float> normalmap [[ texture(1) ]],
                                constant LightData& light [[ buffer(2) ]],
                                constant MaterialData& material [[ buffer(3) ]]) {
     
+    auto lightColor = light.color;
     auto N = normalize(in.normal);
+    auto L = normalize(in.light);
     auto V = normalize(in.eye);
+    auto H = normalize(L + V);
+    auto NL = saturate(dot(N, L));
+    auto NH = saturate(dot(N, H));
     
     auto ambient = in.ambient;
     auto emmision = material.emmision;
     
-    float4 color = ambient + emmision;
-    
     auto uv = reflect(V, N);
     constexpr sampler cubeSampler(filter::linear, mip_filter::linear);
-    auto env = texture.sample(cubeSampler, uv);
-
-    auto diffuse = material.diffuse * env;
-    color += diffuse;
+    auto env = cubemap.sample(cubeSampler, uv).rgb;
+    auto diffuse = material.diffuse * env * (NL * lightColor + ambient.rgb);
     
-    return half4(color);
+    auto shininess = sign(NL) * pow(NH, material.shininess);
+    auto specular = NL * shininess * material.specular * lightColor;
+    
+    auto color = half3(diffuse + specular + emmision);
+    return half4(color, 1);
 }
-
-
-

@@ -37,6 +37,8 @@ struct ShaderConst {
     static let textureKey = "texture"
     static let lightKey = "light"
     static let materialKey = "material"
+    static let normalmapKey = "normalmap"
+    static let cubemapKey = "cubemap"
 }
 
 // MARK: -

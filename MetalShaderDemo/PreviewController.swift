@@ -123,9 +123,6 @@ class PreviewController: NSViewController {
         preview.scene?.isPaused = true
     }
 
-    func stopAnimation2() {
-        preview.scene?.isPaused = true
-    }
     func changeGeometry(notification: NSNotification) {
         guard let key = notification.object as? String,
             let type = Geometry(rawValue: key) else { return }

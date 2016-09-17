@@ -41,9 +41,9 @@ vertex VertexOut phongVertex(VertexInput in [[ stage_in ]],
     out.position = scn_node.modelViewProjectionTransform * in.position;
     out.texcoord = in.texcoord;
     out.ambient = scn_frame.ambientLightingColor;
-    out.normal = (scn_node.normalTransform * in.normal).xyz;
-    out.light = -light.lightWorldPosition.xyz;
-    out.eye = light.eyeWorldPosition.xyz - (scn_node.modelViewTransform * in.position).xyz;
+    out.normal = in.normal.xyz;
+    out.light = (scn_node.inverseModelTransform * light.lightWorldPosition).xyz;
+    out.eye = (scn_node.inverseModelTransform * light.eyeWorldPosition).xyz;
     return out;
 }
 
@@ -101,9 +101,9 @@ fragment half4 cookTorranceFragment(VertexOut in [[ stage_in ]],
     auto NL = saturate(dot(N, L));
     auto NH = saturate(dot(N, H));
     auto R = -L + 2.0f * NL * N; // =reflect(-L, N)
-    auto VR = max(dot(V, R), 0.001);
+    auto VR = max(dot(V, R), 0.01);
     auto VH = saturate(dot(V, H));
-    auto NV = saturate(dot(N, V));
+    auto NV = saturate(dot(N, V) + 0.001);
     
     auto ambient = in.ambient;
     auto emmision = material.emmision;
@@ -119,10 +119,11 @@ fragment half4 cookTorranceFragment(VertexOut in [[ stage_in ]],
     auto gb = 2 * NH * NV / VH;
     auto gc = 2 * NH * NL / VH;
     auto ga = min(1.0, min(gb, gc));
-    auto fresnel = 1.0 - pow(NV, 5);    // ????
+    auto fresnel = 1.0 - pow(NV, 5);
     auto shininess = D * ga * fresnel / NV;
     auto specular = shininess * material.specular * lightColor;
     
     auto color = half3(diffuse + specular + emmision);
+//    return half4(half3(NV), 1);
     return half4(color, 1);
 }

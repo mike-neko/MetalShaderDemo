@@ -23,24 +23,10 @@ vertex VertexOut cubemapVertex(VertexInput in [[ stage_in ]],
     out.position = scn_node.modelViewProjectionTransform * in.position;
     out.texcoord = in.texcoord;
     out.ambient = scn_frame.ambientLightingColor;
-//    out.normal = (scn_frame.inverseViewTransform * (scn_node.normalTransform * in.normal)).xyz;    // view space
-//    out.light = -light.lightWorldPosition.xyz;
-//    out.eye = (-light.eyeWorldPosition).xyz;
-
-
-    out.position = scn_node.modelViewProjectionTransform * in.position;
-    
-    // Calculate the normal from the perspective of the camera
-    out.normal = (normalize(scn_node.modelViewTransform * float4(in.normal.xyz, 0.0f))).xyz;
-    
-    // Calculate the view vector from the perspective of the camera
-    float3 vertex_position_cameraspace = (scn_node.modelViewTransform * in.position ).xyz;
-    out.eye = light.eyeWorldPosition.xyz - vertex_position_cameraspace;
-    
-    // Calculate the direction of the light from the position of the camera
-    float3 light_position_cameraspace = (scn_frame.viewTransform * float4(light.lightWorldPosition.xyz,1.0f)).xyz;
-    out.light = light_position_cameraspace + out.eye;
-    
+    out.normal = (scn_node.normalTransform *  in.normal).xyz;
+    out.light = light.lightWorldPosition.xyz;
+    auto worldPos = scn_node.modelTransform * in.position;
+    out.eye = (worldPos - light.eyeWorldPosition).xyz;
     return out;
 }
 

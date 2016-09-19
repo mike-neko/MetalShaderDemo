@@ -28,6 +28,8 @@ class ShaderManager {
     
     private init() {
         list = [
+            Shader.cubemapping,
+            
             Shader(name: "VertexColor", vertexName: "colorVertex", fragmentName: "colorFragment",
                    properties: [ColorBuffer(rawData: ShaderDefault.diffuseColor)]),
             Shader(name: "TextureColor", vertexName: "textureVertex", fragmentName: "textureFragment",

@@ -35,14 +35,14 @@ vertex VertexOut bumpVertex(VertexInput in [[ stage_in ]],
     out.texcoord = in.texcoord;
     out.ambient = scn_frame.ambientLightingColor;
     
-    auto N = in.normal.xyz;
+    auto N = (scn_node.normalTransform * in.normal).xyz;
 // auto tangent = normalize(in.tangent);    // Error!!
     auto T = normalize(cross(N, float3(0, 1, 0)));
     auto B = cross(N, T);
 
-    auto L = (scn_node.inverseModelTransform * light.lightWorldPosition).xyz;
+    auto L = (scn_frame.inverseViewTransform * light.lightWorldPosition).xyz;
     auto worldPos = scn_node.modelTransform * in.position;
-    auto eye = (scn_node.inverseModelTransform * light.eyeWorldPosition - worldPos).xyz;
+    auto eye = (light.eyeWorldPosition - worldPos).xyz;
     
     out.normal = N;
     out.light = float3(dot(L, T), dot(L, B), dot(L, N));

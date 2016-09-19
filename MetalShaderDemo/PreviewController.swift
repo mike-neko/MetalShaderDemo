@@ -43,7 +43,7 @@ class PreviewController: NSViewController {
         let light = SCNNode()
         light.light = SCNLight()
         light.light!.type = SCNLight.LightType.omni
-        light.position = SCNVector3(x: 0, y: 1, z: 0.5)
+        light.position = SCNVector3(x: 0.5, y: 1, z: 0.5)
         scene.rootNode.addChildNode(light)
         
         // create and add an ambient light to the scene

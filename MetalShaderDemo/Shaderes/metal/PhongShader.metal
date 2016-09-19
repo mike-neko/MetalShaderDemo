@@ -75,20 +75,6 @@ fragment half4 phongFragment(VertexOut in [[ stage_in ]],
     return half4(color, 1);
 }
 
-/*
- float3 Ln = normalize(IN.LightVec);
- float3 Vn = normalize(IN.WorldView);
- float3 Nn = normalize(IN.WorldNormal);
- float3 Hn = normalize(Vn + Ln);
- float4 litV = lit(dot(Ln,Nn),dot(Hn,Nn),SpecExpon);
- float3 diffContrib = litV.y * LampColor;
- float3 specContrib = litV.y * litV.z * Ks * LampColor;
- float3 diffuseColor = tex2D(ColorSampler,IN.UV).rgb;
- float3 result = specContrib+(diffuseColor*(diffContrib+AmbiColor));
- // return as float4
- return float4(result,1);
- */
-
 fragment half4 cookTorranceFragment(VertexOut in [[ stage_in ]],
                                     texture2d<float> texture [[ texture(0) ]],
                                     constant LightData& light [[ buffer(2) ]],
@@ -102,9 +88,9 @@ fragment half4 cookTorranceFragment(VertexOut in [[ stage_in ]],
     auto NL = saturate(dot(N, L));
     auto NH = saturate(dot(N, H));
     auto R = -L + 2.0f * NL * N; // =reflect(-L, N)
-    auto VR = max(dot(V, R), 0.01);
+    auto VR = saturate(dot(V, R));
     auto VH = saturate(dot(V, H));
-    auto NV = saturate(dot(N, V) + 0.001);
+    auto NV = max(dot(N, V), 0.01);
     
     auto ambient = in.ambient;
     auto emmision = material.emmision;

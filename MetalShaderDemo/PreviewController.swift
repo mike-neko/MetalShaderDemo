@@ -43,7 +43,7 @@ class PreviewController: NSViewController {
         let light = SCNNode()
         light.light = SCNLight()
         light.light!.type = SCNLight.LightType.omni
-        light.position = SCNVector3(x: 0.5, y: 1, z: 0.5)
+        light.position = SCNVector3(x: 0, y: 1, z: 0.5)
         scene.rootNode.addChildNode(light)
         
         // create and add an ambient light to the scene
@@ -54,7 +54,7 @@ class PreviewController: NSViewController {
         scene.rootNode.addChildNode(ambientLightNode)
         
         // 座標変換省略
-        ShaderManager.sharedInstance.light.lightPosition = float3(0) - float3(light.position)
+        ShaderManager.sharedInstance.light.lightPosition = float3(light.position)
         ShaderManager.sharedInstance.light.eyePosition = float3(camera.position)
         
         let nc = NotificationCenter.default

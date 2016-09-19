@@ -34,7 +34,8 @@ vertex VertexOut orenNayarVertex(VertexInput in [[ stage_in ]],
     out.ambient = scn_frame.ambientLightingColor;
     out.normal = in.normal.xyz;
     out.light = (scn_node.inverseModelTransform * light.lightWorldPosition).xyz;
-    out.eye = (scn_node.inverseModelTransform * light.eyeWorldPosition).xyz;
+    auto worldPos = scn_node.modelTransform * in.position;
+    out.eye = (scn_node.inverseModelTransform * light.eyeWorldPosition - worldPos).xyz;
     return out;
 }
 

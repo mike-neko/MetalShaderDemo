@@ -54,7 +54,7 @@ class PreviewController: NSViewController {
         scene.rootNode.addChildNode(ambientLightNode)
         
         // 座標変換省略
-        ShaderManager.sharedInstance.light.lightPosition = float3(0) - float3(light.position)
+        ShaderManager.sharedInstance.light.lightPosition = float3(light.position)
         ShaderManager.sharedInstance.light.eyePosition = float3(camera.position)
         
         let nc = NotificationCenter.default

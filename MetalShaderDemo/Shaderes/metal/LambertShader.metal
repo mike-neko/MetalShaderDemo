@@ -33,9 +33,10 @@ vertex VertexOut lambertVertex(VertexInput in [[ stage_in ]],
     out.position = scn_node.modelViewProjectionTransform * in.position;
     out.texcoord = in.texcoord;
     out.ambient = scn_frame.ambientLightingColor;
-    out.normal = (scn_node.normalTransform * in.normal).xyz;
-    out.light = -light.lightWorldPosition.xyz;
-    out.eye = light.eyeWorldPosition.xyz - (scn_node.modelViewTransform * in.position).xyz;
+    out.normal = in.normal.xyz;
+    out.light = (scn_node.inverseModelTransform * light.lightWorldPosition).xyz;
+    auto worldPos = scn_node.modelTransform * in.position;
+    out.eye = (scn_node.inverseModelTransform * light.eyeWorldPosition - worldPos).xyz;
     return out;
 }
 

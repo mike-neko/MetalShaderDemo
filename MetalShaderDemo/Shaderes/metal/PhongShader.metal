@@ -41,9 +41,10 @@ vertex VertexOut phongVertex(VertexInput in [[ stage_in ]],
     out.position = scn_node.modelViewProjectionTransform * in.position;
     out.texcoord = in.texcoord;
     out.ambient = scn_frame.ambientLightingColor;
-    out.normal = (scn_node.normalTransform * in.normal).xyz;
-    out.light = -light.lightWorldPosition.xyz;
-    out.eye = light.eyeWorldPosition.xyz - (scn_node.modelViewTransform * in.position).xyz;
+    out.normal = in.normal.xyz;
+    out.light = (scn_node.inverseModelTransform * light.lightWorldPosition).xyz;
+    auto worldPos = scn_node.modelTransform * in.position;
+    out.eye = (scn_node.inverseModelTransform * light.eyeWorldPosition - worldPos).xyz;
     return out;
 }
 
@@ -74,20 +75,6 @@ fragment half4 phongFragment(VertexOut in [[ stage_in ]],
     return half4(color, 1);
 }
 
-/*
- float3 Ln = normalize(IN.LightVec);
- float3 Vn = normalize(IN.WorldView);
- float3 Nn = normalize(IN.WorldNormal);
- float3 Hn = normalize(Vn + Ln);
- float4 litV = lit(dot(Ln,Nn),dot(Hn,Nn),SpecExpon);
- float3 diffContrib = litV.y * LampColor;
- float3 specContrib = litV.y * litV.z * Ks * LampColor;
- float3 diffuseColor = tex2D(ColorSampler,IN.UV).rgb;
- float3 result = specContrib+(diffuseColor*(diffContrib+AmbiColor));
- // return as float4
- return float4(result,1);
- */
-
 fragment half4 cookTorranceFragment(VertexOut in [[ stage_in ]],
                                     texture2d<float> texture [[ texture(0) ]],
                                     constant LightData& light [[ buffer(2) ]],
@@ -101,9 +88,9 @@ fragment half4 cookTorranceFragment(VertexOut in [[ stage_in ]],
     auto NL = saturate(dot(N, L));
     auto NH = saturate(dot(N, H));
     auto R = -L + 2.0f * NL * N; // =reflect(-L, N)
-    auto VR = max(dot(V, R), 0.001);
+    auto VR = saturate(dot(V, R));
     auto VH = saturate(dot(V, H));
-    auto NV = saturate(dot(N, V));
+    auto NV = max(dot(N, V), 0.01);
     
     auto ambient = in.ambient;
     auto emmision = material.emmision;
@@ -119,10 +106,11 @@ fragment half4 cookTorranceFragment(VertexOut in [[ stage_in ]],
     auto gb = 2 * NH * NV / VH;
     auto gc = 2 * NH * NL / VH;
     auto ga = min(1.0, min(gb, gc));
-    auto fresnel = 1.0 - pow(NV, 5);    // ????
+    auto fresnel = 1.0 - pow(NV, 5);
     auto shininess = D * ga * fresnel / NV;
     auto specular = shininess * material.specular * lightColor;
     
     auto color = half3(diffuse + specular + emmision);
+//    return half4(half3(NV), 1);
     return half4(color, 1);
 }

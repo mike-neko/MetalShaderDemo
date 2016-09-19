@@ -34,12 +34,10 @@ class ShaderManager {
                    properties: [TextureProperty(textureName: "texture")]),
             
             Shader.lambert, Shader.halfLambert,
-           
             Shader.phong, Shader.blinnPhong,
+            Shader.orenNayar,
             
-            Shader.bump,
-            
-            Shader.orenNayar
+            Shader.bumpMapping,
         ]
     }
 

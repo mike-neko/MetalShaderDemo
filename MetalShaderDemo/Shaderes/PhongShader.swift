@@ -24,6 +24,15 @@ import SceneKit
     float shininess;    // 0...1 Highlight Eccentricity（1...光沢大）
     float3 emmision;
  };
+ 
+ BumpMapping
+ struct GenericMaterialData {
+    float3 diffuse;
+    float3 specular;
+    float shininess;    // 1...128 Specular Exponent（1...光沢大）
+    float3 emmision;
+ };
+ 
  */
 
 extension Shader {
@@ -32,9 +41,9 @@ extension Shader {
     static let blinnPhong = Shader(name: "Blinn Phong(CookTorrance)", vertexName: "phongVertex", fragmentName: "cookTorranceFragment",
                               properties: [LightBuffer(), BlinnPhongMaterialBuffer(), TextureProperty(textureName: "")])
     
-    static let bump = Shader(name: "BumpMapping", vertexName: "bumpVertex", fragmentName: "bumpFragment",
-                              properties: [LightBuffer(), PhongBumpMaterialBuffer(), TextureProperty(textureName: "texture"),
-                                           TextureProperty(key: ShaderConst.normalmapKey, textureName: "normal"), ])
+    static let bumpMapping = Shader(name: "BumpMapping", vertexName: "bumpVertex", fragmentName: "bumpFragment",
+                                    properties: [LightBuffer(), PhongBumpMaterialBuffer(), TextureProperty(textureName: "texture"),
+                                                 TextureProperty(key: ShaderConst.normalmapKey, textureName: "normal"), ])
     
 }
 

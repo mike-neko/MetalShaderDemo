@@ -180,8 +180,8 @@ class MaterialBuffer: ShaderPropertyProtocol {
         var shininess = Float(0)
         var emission = ShaderDefault.emissionColor
         
-        //        var roughness = Float(0)
-        //        private let padding = [UInt8](repeating: 0, count: 16)
+        var scale = Float(0)
+        private let padding = [UInt8](repeating: 0, count: 12)
     }
     
     typealias ValueType = Data

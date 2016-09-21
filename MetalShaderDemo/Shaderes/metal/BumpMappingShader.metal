@@ -14,6 +14,13 @@ typedef GenericLightData LightData;
 typedef GenericVertexOut VertexOut;
 
 /*
+ BumpMapping
+ struct GenericMaterialData {
+    float3 diffuse;
+    float3 specular;
+    float shininess;    // 1...128 Specular Exponent（1...光沢大）
+    float3 emmision;
+ };
  */
 typedef GenericMaterialData MaterialData;
 
@@ -29,15 +36,15 @@ vertex VertexOut bumpVertex(VertexInput in [[ stage_in ]],
     out.ambient = scn_frame.ambientLightingColor;
     
     auto N = (scn_node.normalTransform * in.normal).xyz;
-    out.normal = N;
-    
-    // auto tangent = normalize(in.tangent);    // Error!!
+// auto tangent = normalize(in.tangent);    // Error!!
     auto T = normalize(cross(N, float3(0, 1, 0)));
     auto B = cross(N, T);
+
+    auto L = (scn_frame.inverseViewTransform * light.lightWorldPosition).xyz;
+    auto worldPos = scn_node.modelTransform * in.position;
+    auto eye = (light.eyeWorldPosition - worldPos).xyz;
     
-    auto L = -light.lightWorldPosition.xyz;
-    auto eye = light.eyeWorldPosition.xyz - (scn_node.modelViewTransform * in.position).xyz;
-    
+    out.normal = N;
     out.light = float3(dot(L, T), dot(L, B), dot(L, N));
     out.eye = float3(dot(eye, T), dot(eye, B), dot(eye, N));
     return out;
@@ -50,8 +57,8 @@ fragment half4 bumpFragment(VertexOut in [[ stage_in ]],
                             constant MaterialData& material [[ buffer(3) ]]) {
     
     constexpr sampler defaultSampler;
-    auto normal = normalmap.sample(defaultSampler, in.texcoord);
-    auto N = normalize(normal * 2 - 1).xyz;
+    auto normal = (normalmap.sample(defaultSampler, in.texcoord) - 0.5).rgb;
+    auto N = normalize(normal);
     auto L = normalize(in.light);
     auto V = normalize(in.eye);
     auto H = normalize(L + V);

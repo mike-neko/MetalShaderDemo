@@ -32,10 +32,10 @@ vertex VertexOut orenNayarVertex(VertexInput in [[ stage_in ]],
     out.position = scn_node.modelViewProjectionTransform * in.position;
     out.texcoord = in.texcoord;
     out.ambient = scn_frame.ambientLightingColor;
-    out.normal = in.normal.xyz;
-    out.light = (scn_node.inverseModelTransform * light.lightWorldPosition).xyz;
+    out.normal = (scn_node.normalTransform * in.normal).xyz;
+    out.light = (scn_frame.inverseViewTransform * light.lightWorldPosition).xyz;
     auto worldPos = scn_node.modelTransform * in.position;
-    out.eye = (scn_node.inverseModelTransform * light.eyeWorldPosition - worldPos).xyz;
+    out.eye = (light.eyeWorldPosition - worldPos).xyz;
     return out;
 }
 
@@ -64,7 +64,7 @@ fragment half4 orenNayarFragment(VertexOut in [[ stage_in ]],
     auto B = 0.45 * (roughness2 / (roughness2 + 0.09));
     auto C = sin(max(angleVN, angleLN)) * tan(min(angleVN, angleLN));
     
-    auto L1 = max(0.0, NL) * (A + B * max(0.0, gamma) * C);
+    auto L1 = saturate(NL * (A + B * max(0.0, gamma) * C));
     
     constexpr sampler defaultSampler;
     auto decal = texture.sample(defaultSampler, in.texcoord);

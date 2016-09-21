@@ -41,6 +41,8 @@ struct GenericMaterialData {
     float3 specular;
     float shininess;
     float3 emmision;
+    
+    float scale;
 };
 
 struct GenericVertexOut {

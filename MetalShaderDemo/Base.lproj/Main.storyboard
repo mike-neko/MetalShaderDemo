@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.Cocoa.Storyboard.XIB" version="3.0" toolsVersion="11201" systemVersion="16A319" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES" initialViewController="AJB-1y-IPJ">
+<document type="com.apple.InterfaceBuilder3.Cocoa.Storyboard.XIB" version="3.0" toolsVersion="11201" systemVersion="16A323" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES" initialViewController="AJB-1y-IPJ">
     <dependencies>
         <deployment identifier="macosx"/>
         <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="11201"/>
@@ -185,12 +185,12 @@
                                         </textFieldCell>
                                     </textField>
                                     <segmentedControl verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="lDA-pQ-nEG">
-                                        <rect key="frame" x="89" y="8" width="71" height="24"/>
+                                        <rect key="frame" x="89" y="8" width="102" height="24"/>
                                         <segmentedCell key="cell" borderStyle="border" alignment="left" style="rounded" trackingMode="selectOne" id="EmE-bO-yzT">
                                             <font key="font" metaFont="system"/>
                                             <segments>
-                                                <segment label="Play" width="32" selected="YES"/>
-                                                <segment label="Stop" width="32" tag="1"/>
+                                                <segment label="Play" selected="YES"/>
+                                                <segment label="Stop" tag="1"/>
                                             </segments>
                                         </segmentedCell>
                                         <connections>
@@ -238,18 +238,54 @@
                                     <constraint firstItem="brD-1K-YHp" firstAttribute="leading" secondItem="cvi-kc-XGe" secondAttribute="trailing" constant="20" id="wZc-WU-g12"/>
                                 </constraints>
                             </customView>
+                            <customView translatesAutoresizingMaskIntoConstraints="NO" id="Dvy-OF-KSA">
+                                <rect key="frame" x="0.0" y="80" width="200" height="40"/>
+                                <subviews>
+                                    <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="ybk-eh-wag">
+                                        <rect key="frame" x="8" y="12" width="84" height="17"/>
+                                        <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="Backgeround" id="drM-v4-Ibf">
+                                            <font key="font" metaFont="system"/>
+                                            <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
+                                            <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
+                                        </textFieldCell>
+                                    </textField>
+                                    <segmentedControl verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="vO2-3B-B8u">
+                                        <rect key="frame" x="98" y="8" width="92" height="24"/>
+                                        <segmentedCell key="cell" borderStyle="border" alignment="left" style="rounded" trackingMode="selectOne" id="HZ2-ln-xwz">
+                                            <font key="font" metaFont="system"/>
+                                            <segments>
+                                                <segment label="OFF" selected="YES"/>
+                                                <segment label="ON" tag="1"/>
+                                            </segments>
+                                        </segmentedCell>
+                                        <connections>
+                                            <action selector="tapBackgroundSegmentWithSender:" target="hXB-dJ-d6L" id="if8-ZV-gkV"/>
+                                        </connections>
+                                    </segmentedControl>
+                                </subviews>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="40" id="MJM-Z1-lGg"/>
+                                    <constraint firstItem="ybk-eh-wag" firstAttribute="centerY" secondItem="Dvy-OF-KSA" secondAttribute="centerY" id="Nr1-u7-pY2"/>
+                                    <constraint firstItem="ybk-eh-wag" firstAttribute="leading" secondItem="Dvy-OF-KSA" secondAttribute="leading" constant="10" id="Vdy-MF-zxo"/>
+                                    <constraint firstItem="vO2-3B-B8u" firstAttribute="leading" secondItem="ybk-eh-wag" secondAttribute="trailing" constant="10" id="eIt-CY-4My"/>
+                                    <constraint firstItem="vO2-3B-B8u" firstAttribute="centerY" secondItem="ybk-eh-wag" secondAttribute="centerY" id="y9Q-dj-4tw"/>
+                                </constraints>
+                            </customView>
                         </subviews>
                         <constraints>
                             <constraint firstAttribute="trailing" secondItem="OiE-r0-pKw" secondAttribute="trailing" id="1lg-X1-EgI"/>
                             <constraint firstItem="OiE-r0-pKw" firstAttribute="leading" secondItem="ZQp-SS-ULH" secondAttribute="leading" id="72F-Qv-3Ww"/>
+                            <constraint firstItem="Dvy-OF-KSA" firstAttribute="top" secondItem="OiE-r0-pKw" secondAttribute="bottom" id="ChD-du-fUb"/>
                             <constraint firstItem="Ym2-IS-GVh" firstAttribute="top" secondItem="s5T-qe-Bap" secondAttribute="bottom" id="DA6-MQ-0Oc"/>
                             <constraint firstItem="s5T-qe-Bap" firstAttribute="leading" secondItem="ZQp-SS-ULH" secondAttribute="leading" id="HjK-cE-CqT"/>
                             <constraint firstAttribute="trailing" secondItem="Ym2-IS-GVh" secondAttribute="trailing" id="J85-AV-ckO"/>
                             <constraint firstItem="Ym2-IS-GVh" firstAttribute="leading" secondItem="ZQp-SS-ULH" secondAttribute="leading" id="NvH-FW-vf4"/>
+                            <constraint firstItem="Dvy-OF-KSA" firstAttribute="leading" secondItem="ZQp-SS-ULH" secondAttribute="leading" id="USV-yx-bYV"/>
                             <constraint firstAttribute="bottom" secondItem="s5T-qe-Bap" secondAttribute="bottom" constant="200" id="VcS-mw-Y81"/>
                             <constraint firstItem="OiE-r0-pKw" firstAttribute="top" secondItem="Ym2-IS-GVh" secondAttribute="bottom" id="asD-LI-oiC"/>
                             <constraint firstAttribute="trailing" secondItem="s5T-qe-Bap" secondAttribute="trailing" id="cHL-KJ-ggu"/>
                             <constraint firstItem="s5T-qe-Bap" firstAttribute="top" secondItem="ZQp-SS-ULH" secondAttribute="top" id="gMb-3J-m2s"/>
+                            <constraint firstAttribute="trailing" secondItem="Dvy-OF-KSA" secondAttribute="trailing" id="tqu-dI-E7G"/>
                         </constraints>
                     </view>
                     <connections>

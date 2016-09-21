@@ -62,4 +62,9 @@ class ShaderListViewController: NSViewController, NSTableViewDataSource, NSTable
         NotificationCenter.default.post(NotificationKey.notifcation(name: NotificationKey.ChangeGeometry,
                                                                     key: sender.stringValue))
     }
+
+    @IBAction func tapBackgroundSegment(sender: NSSegmentedControl) {
+        NotificationCenter.default.post(NotificationKey.notifcation(name: NotificationKey.ChangeBackground,
+                                                                    on: (sender.selectedSegment == 1)))
+    }
 }

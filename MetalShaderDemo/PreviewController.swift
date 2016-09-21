@@ -70,6 +70,10 @@ class PreviewController: NSViewController {
                        selector: #selector(PreviewController.changeGeometry),
                        name: NSNotification.Name(rawValue: NotificationKey.ChangeGeometry),
                        object: nil)
+        nc.addObserver(self,
+                       selector: #selector(PreviewController.changeBackground),
+                       name: NSNotification.Name(rawValue: NotificationKey.ChangeBackground),
+                       object: nil)
     }
  
     deinit {
@@ -123,12 +127,15 @@ class PreviewController: NSViewController {
         preview.scene?.isPaused = true
     }
 
-    func stopAnimation2() {
-        preview.scene?.isPaused = true
-    }
     func changeGeometry(notification: NSNotification) {
         guard let key = notification.object as? String,
             let type = Geometry(rawValue: key) else { return }
         applyGeometry(type: type)
+    }
+
+    func changeBackground(notification: NSNotification) {
+        guard let on = notification.object as? Bool else { return }
+        preview.scene?.background.contents
+            = on ? ["px", "nx", "py", "ny", "pz", "nz"] : nil
     }
 }

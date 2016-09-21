@@ -19,13 +19,23 @@ class ShaderManager {
     weak var targetMaterial: SCNMaterial? = nil
     var changedActiveShaderCallback: ((Int, SCNProgram) -> Void)? = nil
     
-    var light = LightBuffer.Data()
     var materials: [MaterialBuffer] {
         get {
             return list[activeIndex].properties.flatMap { $0 as? MaterialBuffer }
         }
     }
-    
+
+    var light = LightBuffer.Data() {
+        didSet {
+            list[activeIndex].properties.forEach {
+                if let buf = $0 as? LightBuffer {
+                    buf.rawData = light
+                    targetMaterial?.setValue($0.data, forKey: $0.key)
+                }
+            }
+        }
+    }
+
     private init() {
         list = [
             Shader.cubemapping,
@@ -100,5 +110,4 @@ class ShaderManager {
         }
         return change
     }
-
 }

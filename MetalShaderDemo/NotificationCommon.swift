@@ -15,6 +15,8 @@ struct NotificationKey {
     static let ChangeShader = "ChangeShaderNotification"    // arg..index
    
     static let ChangeGeometry = "ChangeGeometryNotification"    // arg..index
+
+    static let ChangeBackground = "ChangeBackground"    // arg..on/off
     
     static func notifcation(name: String) -> Notification {
         var notifcation = Notification(name: Notification.Name(rawValue: name))
@@ -31,6 +33,12 @@ struct NotificationKey {
     static func notifcation(name: String, key: String) -> Notification {
         var notifcation = Notification(name: Notification.Name(rawValue: name))
         notifcation.object = key
+        return notifcation
+    }
+
+    static func notifcation(name: String, on: Bool) -> Notification {
+        var notifcation = Notification(name: Notification.Name(rawValue: name))
+        notifcation.object = on
         return notifcation
     }
 }

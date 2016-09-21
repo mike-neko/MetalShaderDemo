@@ -23,8 +23,8 @@ vertex VertexOut cubemapVertex(VertexInput in [[ stage_in ]],
     out.position = scn_node.modelViewProjectionTransform * in.position;
     out.texcoord = in.texcoord;
     out.ambient = scn_frame.ambientLightingColor;
-    out.normal = (scn_node.normalTransform *  in.normal).xyz;
-    out.light = light.lightWorldPosition.xyz;
+    out.normal = (scn_node.normalTransform * in.normal).xyz;
+    out.light = (scn_frame.inverseViewTransform * light.lightWorldPosition).xyz;
     auto worldPos = scn_node.modelTransform * in.position;
     out.eye = (worldPos - light.eyeWorldPosition).xyz;
     return out;

@@ -64,7 +64,7 @@ fragment half4 orenNayarFragment(VertexOut in [[ stage_in ]],
     auto B = 0.45 * (roughness2 / (roughness2 + 0.09));
     auto C = sin(max(angleVN, angleLN)) * tan(min(angleVN, angleLN));
     
-    auto L1 = max(0.0, NL) * (A + B * max(0.0, gamma) * C);
+    auto L1 = saturate(NL * (A + B * max(0.0, gamma) * C));
     
     constexpr sampler defaultSampler;
     auto decal = texture.sample(defaultSampler, in.texcoord);

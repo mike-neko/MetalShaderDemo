@@ -43,7 +43,7 @@ class ShaderManager {
             Shader(name: "VertexColor", vertexName: "colorVertex", fragmentName: "colorFragment",
                    properties: [ColorBuffer(rawData: ShaderDefault.diffuseColor)]),
             Shader(name: "TextureColor", vertexName: "textureVertex", fragmentName: "textureFragment",
-                   properties: [TextureProperty(textureName: "texture")]),
+                   properties: [TextureProperty(textureName: "brick_texture")]),
             
             Shader.lambert, Shader.halfLambert,
             Shader.phong, Shader.blinnPhong,

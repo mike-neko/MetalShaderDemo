@@ -42,8 +42,8 @@ extension Shader {
                               properties: [LightBuffer(), BlinnPhongMaterialBuffer(), TextureProperty(textureName: "")])
     
     static let bumpMapping = Shader(name: "BumpMapping", vertexName: "bumpVertex", fragmentName: "bumpFragment",
-                                    properties: [LightBuffer(), PhongBumpMaterialBuffer(), TextureProperty(textureName: "texture"),
-                                                 TextureProperty(key: ShaderConst.normalmapKey, textureName: "normal"), ])
+                                    properties: [LightBuffer(), PhongBumpMaterialBuffer(), TextureProperty(textureName: "brick_texture"),
+                                                 TextureProperty(key: ShaderConst.normalmapKey, textureName: "brick_normal"), ])
     
 }
 

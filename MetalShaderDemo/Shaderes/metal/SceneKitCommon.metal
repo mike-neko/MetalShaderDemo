@@ -19,9 +19,15 @@ struct GenericVertexInput {
 
 // モデルデータ
 struct GenericNodeBuffer {
-    float4x4 modelViewProjectionTransform;
+    float4x4 modelTransform;
+    float4x4 inverseModelTransform;
     float4x4 modelViewTransform;
+    float4x4 inverseModelViewTransform;
     float4x4 normalTransform; // Inverse transpose of modelViewTransform
+    float4x4 modelViewProjectionTransform;
+    float4x4 inverseModelViewProjectionTransform;
+    float2x3 boundingBox;
+    float2x3 worldBoundingBox;
 };
 
 struct GenericLightData {
@@ -35,6 +41,8 @@ struct GenericMaterialData {
     float3 specular;
     float shininess;
     float3 emmision;
+    
+    float scale;
 };
 
 struct GenericVertexOut {

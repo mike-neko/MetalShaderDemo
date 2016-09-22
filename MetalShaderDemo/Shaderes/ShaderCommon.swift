@@ -37,6 +37,8 @@ struct ShaderConst {
     static let textureKey = "texture"
     static let lightKey = "light"
     static let materialKey = "material"
+    static let normalmapKey = "normalmap"
+    static let cubemapKey = "cubemap"
 }
 
 // MARK: -
@@ -178,8 +180,8 @@ class MaterialBuffer: ShaderPropertyProtocol {
         var shininess = Float(0)
         var emission = ShaderDefault.emissionColor
         
-        //        var roughness = Float(0)
-        //        private let padding = [UInt8](repeating: 0, count: 16)
+        var scale = Float(0)
+        private let padding = [UInt8](repeating: 0, count: 12)
     }
     
     typealias ValueType = Data

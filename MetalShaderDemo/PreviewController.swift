@@ -8,7 +8,7 @@
 
 import SceneKit
 
-class PreviewController: NSViewController {
+class PreviewController: NSViewController, SCNSceneRendererDelegate {
     
     private let ModelNodeName = "model"
     
@@ -25,6 +25,8 @@ class PreviewController: NSViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        preview.delegate = self
         
         let scene = SCNScene()
         preview.scene = scene
@@ -54,7 +56,7 @@ class PreviewController: NSViewController {
         scene.rootNode.addChildNode(ambientLightNode)
         
         // 座標変換省略
-        ShaderManager.sharedInstance.light.lightPosition = float3(0) - float3(light.position)
+        ShaderManager.sharedInstance.light.lightPosition = float3(light.position)
         ShaderManager.sharedInstance.light.eyePosition = float3(camera.position)
         
         let nc = NotificationCenter.default
@@ -115,6 +117,12 @@ class PreviewController: NSViewController {
         man.apply(index: man.activeIndex)
         
         return true
+    }
+    
+    func renderer(_ renderer: SCNSceneRenderer, updateAtTime time: TimeInterval) {
+        if let camera = renderer.pointOfView {
+            ShaderManager.sharedInstance.light.eyePosition = float3(camera.position)
+        }
     }
     
     // MARK: -

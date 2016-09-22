@@ -43,6 +43,7 @@
 		0EE7404F1D805B8900642B0E /* ColorEditPanel.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0EE7404D1D805B8900642B0E /* ColorEditPanel.xib */; };
 		0EE740521D805C6500642B0E /* NumberSliderPanel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0EE740501D805C6500642B0E /* NumberSliderPanel.swift */; };
 		0EE740531D805C6500642B0E /* NumberSliderPanel.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0EE740511D805C6500642B0E /* NumberSliderPanel.xib */; };
+		0EF51E4D1D88532B0000AC98 /* CubemapShader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0EF51E4C1D88532B0000AC98 /* CubemapShader.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -84,6 +85,7 @@
 		0EE7404D1D805B8900642B0E /* ColorEditPanel.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ColorEditPanel.xib; sourceTree = "<group>"; };
 		0EE740501D805C6500642B0E /* NumberSliderPanel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NumberSliderPanel.swift; sourceTree = "<group>"; };
 		0EE740511D805C6500642B0E /* NumberSliderPanel.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = NumberSliderPanel.xib; sourceTree = "<group>"; };
+		0EF51E4C1D88532B0000AC98 /* CubemapShader.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CubemapShader.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -142,6 +144,7 @@
 				0EE740441D7C304300642B0E /* ShaderCommon.swift */,
 				0EB3B25E1D83D2DC004C69DD /* LambertShader.swift */,
 				0EB3B2601D83D481004C69DD /* PhongShader.swift */,
+				0EF51E4C1D88532B0000AC98 /* CubemapShader.swift */,
 				0EB3B25D1D83D249004C69DD /* metal */,
 			);
 			name = Shaders;
@@ -299,6 +302,7 @@
 				0EE487C61D5E1E4C00E7D9C5 /* BumpMappingShader.metal in Sources */,
 				0EE7403F1D7C1A0800642B0E /* ShaderListViewController.swift in Sources */,
 				0E2352ED1D5A1C1100A05B7F /* NSColor+simd.swift in Sources */,
+				0EF51E4D1D88532B0000AC98 /* CubemapShader.swift in Sources */,
 				0E2352EF1D5A1C4800A05B7F /* simd+Convert.swift in Sources */,
 				0EE740451D7C304300642B0E /* ShaderCommon.swift in Sources */,
 				0EC54A721D86F4810032CAF6 /* PropertyViewController.swift in Sources */,

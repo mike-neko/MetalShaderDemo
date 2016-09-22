@@ -12,11 +12,54 @@ class PreviewController: NSViewController, SCNSceneRendererDelegate {
     
     private let ModelNodeName = "model"
     
-    enum Geometry: String {
+    enum Model: String {
         case torus, box, sphere
+        case head
+
+        func makeModel() -> (node: SCNNode, material: SCNMaterial)? {
+            let geometry: SCNGeometry
+            switch self {
+            case .torus:
+                geometry = SCNTorus(ringRadius: 3, pipeRadius: 1)
+            case .box:
+                geometry = SCNBox(width: 5, height: 5, length: 5, chamferRadius: 0)
+            case .sphere:
+                geometry = SCNSphere(radius: 3)
+            case .head:
+                guard let root = SCNScene(named: "head.dae")?.rootNode,
+                      let model = root.childNode(withName: "model", recursively: true)?.geometry else {
+                        return nil
+                }
+                geometry = model
+            }
+            
+            guard let material = geometry.firstMaterial else {
+                return nil
+            }
+            return (node: SCNNode(geometry: geometry), material: material)
+        }
         
-        static let all = [
-            torus, box, sphere
+        var texture: String? {
+            switch self {
+            case .torus, .box, .sphere:
+                return "brick_texture.png"
+            case .head:
+                return nil
+            }
+        }
+        
+        var normal: String? {
+            switch self {
+            case .torus, .box, .sphere:
+                return "brick_texture.png"
+            case .head:
+                return "brick_normal.png"
+            }
+        }
+
+        static let names = [
+            torus, box, sphere,
+            head
         ]
     }
     
@@ -34,7 +77,7 @@ class PreviewController: NSViewController, SCNSceneRendererDelegate {
         preview.showsStatistics = true
         preview.backgroundColor = Color.gray
         
-        applyGeometry(type: .torus)
+        applyModel(type: .torus)
         
         let camera = SCNNode()
         camera.camera = SCNCamera()
@@ -69,8 +112,8 @@ class PreviewController: NSViewController, SCNSceneRendererDelegate {
                        name: NSNotification.Name(rawValue: NotificationKey.NeedStop),
                        object: nil)
         nc.addObserver(self,
-                       selector: #selector(PreviewController.changeGeometry),
-                       name: NSNotification.Name(rawValue: NotificationKey.ChangeGeometry),
+                       selector: #selector(PreviewController.changeModel),
+                       name: NSNotification.Name(rawValue: NotificationKey.ChangeModel),
                        object: nil)
         nc.addObserver(self,
                        selector: #selector(PreviewController.changeBackground),
@@ -83,35 +126,33 @@ class PreviewController: NSViewController, SCNSceneRendererDelegate {
     }
     
     @discardableResult
-    private func applyGeometry(type: Geometry) -> Bool {
+    private func applyModel(type: Model) -> Bool {
         guard let scene = preview.scene else { return false }
         
-        let geometry: SCNGeometry
-        switch type {
-        case .torus:
-            geometry = SCNTorus(ringRadius: 3, pipeRadius: 1)
-        case .box:
-            geometry = SCNBox(width: 5, height: 5, length: 5, chamferRadius: 0)
-        case .sphere:
-            geometry = SCNSphere(radius: 3)
-        }
+        guard let model = type.makeModel() else { return false }
         
         if let old = scene.rootNode.childNode(withName: ModelNodeName, recursively: true) {
             old.removeFromParentNode()
         }
         
-        let model = SCNNode(geometry: geometry)
-        model.name = ModelNodeName
-        scene.rootNode.addChildNode(model)
+        let node = model.node
+        node.name = ModelNodeName
+        scene.rootNode.addChildNode(node)
 
         // animate the 3d object
         let animation = CABasicAnimation(keyPath: "rotation")
-        animation.toValue = NSValue(scnVector4: SCNVector4(x: CGFloat(1), y: CGFloat(0), z: CGFloat(1), w: CGFloat(M_PI)*2))
+        if case .head = type {
+            animation.toValue = NSValue(scnVector4: SCNVector4(x: CGFloat(0), y: CGFloat(1), z: CGFloat(0), w: CGFloat(M_PI)*2))
+            node.position = SCNVector3(0, 2, 0)
+            node.scale = SCNVector3(18, 18, 18)
+        } else {
+            animation.toValue = NSValue(scnVector4: SCNVector4(x: CGFloat(1), y: CGFloat(0), z: CGFloat(1), w: CGFloat(M_PI)*2))
+        }
         animation.duration = 3
         animation.repeatCount = MAXFLOAT //repeat forever
-        model.addAnimation(animation, forKey: "rotation")
-        
-        targetMaterial = geometry.firstMaterial
+        node.addAnimation(animation, forKey: "rotation")
+       
+        targetMaterial = model.material
         let man = ShaderManager.sharedInstance
         man.targetMaterial = targetMaterial
         man.apply(index: man.activeIndex)
@@ -135,10 +176,10 @@ class PreviewController: NSViewController, SCNSceneRendererDelegate {
         preview.scene?.isPaused = true
     }
 
-    func changeGeometry(notification: NSNotification) {
+    func changeModel(notification: NSNotification) {
         guard let key = notification.object as? String,
-            let type = Geometry(rawValue: key) else { return }
-        applyGeometry(type: type)
+            let type = Model(rawValue: key) else { return }
+        applyModel(type: type)
     }
 
     func changeBackground(notification: NSNotification) {

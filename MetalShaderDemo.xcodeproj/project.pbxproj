@@ -16,6 +16,8 @@
 		0E2352EF1D5A1C4800A05B7F /* simd+Convert.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E2352EE1D5A1C4800A05B7F /* simd+Convert.swift */; };
 		0E2D3E741D93D88A002CE933 /* brick_normal.png in Resources */ = {isa = PBXBuildFile; fileRef = 0E2D3E721D93D88A002CE933 /* brick_normal.png */; };
 		0E2D3E751D93D88A002CE933 /* brick_texture.png in Resources */ = {isa = PBXBuildFile; fileRef = 0E2D3E731D93D88A002CE933 /* brick_texture.png */; };
+		0E2D3E791D93D98B002CE933 /* head.dae in Resources */ = {isa = PBXBuildFile; fileRef = 0E2D3E771D93D98B002CE933 /* head.dae */; };
+		0E2D3E7A1D93D98B002CE933 /* Infinite-Scan_License.txt in Resources */ = {isa = PBXBuildFile; fileRef = 0E2D3E781D93D98B002CE933 /* Infinite-Scan_License.txt */; };
 		0E3E1D7D1D60B2D000F6EC64 /* RimLightingShader.metal in Sources */ = {isa = PBXBuildFile; fileRef = 0E3E1D7C1D60B2D000F6EC64 /* RimLightingShader.metal */; };
 		0EB3B25F1D83D2DC004C69DD /* LambertShader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0EB3B25E1D83D2DC004C69DD /* LambertShader.swift */; };
 		0EB3B2611D83D481004C69DD /* PhongShader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0EB3B2601D83D481004C69DD /* PhongShader.swift */; };
@@ -58,6 +60,8 @@
 		0E2352EE1D5A1C4800A05B7F /* simd+Convert.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "simd+Convert.swift"; sourceTree = "<group>"; };
 		0E2D3E721D93D88A002CE933 /* brick_normal.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = brick_normal.png; path = brick/brick_normal.png; sourceTree = "<group>"; };
 		0E2D3E731D93D88A002CE933 /* brick_texture.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = brick_texture.png; path = brick/brick_texture.png; sourceTree = "<group>"; };
+		0E2D3E771D93D98B002CE933 /* head.dae */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml.dae; name = head.dae; path = head/head.dae; sourceTree = "<group>"; };
+		0E2D3E781D93D98B002CE933 /* Infinite-Scan_License.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = "Infinite-Scan_License.txt"; path = "head/Infinite-Scan_License.txt"; sourceTree = "<group>"; };
 		0E3E1D7C1D60B2D000F6EC64 /* RimLightingShader.metal */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.metal; path = RimLightingShader.metal; sourceTree = "<group>"; };
 		0EB3B25E1D83D2DC004C69DD /* LambertShader.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LambertShader.swift; sourceTree = "<group>"; };
 		0EB3B2601D83D481004C69DD /* PhongShader.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PhongShader.swift; sourceTree = "<group>"; };
@@ -154,6 +158,7 @@
 		0E2352E81D571B8A00A05B7F /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				0E2D3E761D93D93D002CE933 /* head */,
 				0E2D3E711D93D87E002CE933 /* brick */,
 				0EE0588D1D75CD42002CA9C2 /* cubemap */,
 			);
@@ -176,6 +181,15 @@
 				0E2D3E731D93D88A002CE933 /* brick_texture.png */,
 			);
 			name = brick;
+			sourceTree = "<group>";
+		};
+		0E2D3E761D93D93D002CE933 /* head */ = {
+			isa = PBXGroup;
+			children = (
+				0E2D3E771D93D98B002CE933 /* head.dae */,
+				0E2D3E781D93D98B002CE933 /* Infinite-Scan_License.txt */,
+			);
+			name = head;
 			sourceTree = "<group>";
 		};
 		0EB3B25D1D83D249004C69DD /* metal */ = {
@@ -279,6 +293,8 @@
 				0EE0589B1D75D4A7002CA9C2 /* pz.jpg in Resources */,
 				0EE058971D75D4A7002CA9C2 /* ny.jpg in Resources */,
 				0EE7404F1D805B8900642B0E /* ColorEditPanel.xib in Resources */,
+				0E2D3E791D93D98B002CE933 /* head.dae in Resources */,
+				0E2D3E7A1D93D98B002CE933 /* Infinite-Scan_License.txt in Resources */,
 				0EE058991D75D4A7002CA9C2 /* px.jpg in Resources */,
 				0EE058981D75D4A7002CA9C2 /* nz.jpg in Resources */,
 				0E2D3E751D93D88A002CE933 /* brick_texture.png in Resources */,

@@ -17,7 +17,7 @@ class ShaderListViewController: NSViewController, NSTableViewDataSource, NSTable
         super.viewDidLoad()
         // Do view setup here.
         
-        PreviewController.Geometry.all.forEach {
+        PreviewController.Model.names.forEach {
             geometryList.addItem(withObjectValue: $0.rawValue)
         }
         geometryList.selectItem(at: 0)
@@ -59,7 +59,7 @@ class ShaderListViewController: NSViewController, NSTableViewDataSource, NSTable
     }
     
     @IBAction func changeGeometry(sender: NSComboBox) {
-        NotificationCenter.default.post(NotificationKey.notifcation(name: NotificationKey.ChangeGeometry,
+        NotificationCenter.default.post(NotificationKey.notifcation(name: NotificationKey.ChangeModel,
                                                                     key: sender.stringValue))
     }
 

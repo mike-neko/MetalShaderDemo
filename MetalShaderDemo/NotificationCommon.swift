@@ -14,7 +14,7 @@ struct NotificationKey {
     
     static let ChangeShader = "ChangeShaderNotification"    // arg..index
    
-    static let ChangeGeometry = "ChangeGeometryNotification"    // arg..index
+    static let ChangeModel = "ChangeModelNotification"    // arg..index
 
     static let ChangeBackground = "ChangeBackground"    // arg..on/off
     

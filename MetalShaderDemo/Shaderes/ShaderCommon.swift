@@ -32,6 +32,8 @@ struct ShaderConst {
     static let specularColor = "Specular Color"
     static let emissionColor = "Emission Color"
     
+    static let specularExponent = "Specular Exponent"
+
     // キー（パラメータ名）
     static let colorKey = "colorBuffer"
     static let textureKey = "texture"

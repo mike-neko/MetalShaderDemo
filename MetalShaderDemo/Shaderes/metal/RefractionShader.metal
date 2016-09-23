@@ -13,15 +13,19 @@ typedef GenericNodeBuffer NodeBuffer;
 typedef GenericLightData LightData;
 typedef GenericVertexOut VertexOut;
 
-struct MaterialData {
+/*
+ Refraction
+ struct GenericMaterialData {
     float3 diffuse;
     float3 specular;
-    float shininess;
+    float shininess;        // 1...128 Specular Exponent（1...光沢大）
     float3 emmision;
-    
-    // Refraction(eta)
-    float eta;
-};
+ 
+    float scale;            // 0...1 eta
+ };
+ */
+typedef GenericMaterialData MaterialData;
+
 
 vertex VertexOut refractionVertex(VertexInput in [[ stage_in ]],
                                   constant SCNSceneBuffer& scn_frame [[ buffer(0) ]],
@@ -31,15 +35,15 @@ vertex VertexOut refractionVertex(VertexInput in [[ stage_in ]],
     out.position = scn_node.modelViewProjectionTransform * in.position;
     out.texcoord = in.texcoord;
     out.ambient = scn_frame.ambientLightingColor;
-    out.normal = in.normal.xyz;
-    out.light = (scn_node.inverseModelTransform * light.lightWorldPosition).xyz;
+    out.normal = (scn_node.normalTransform * in.normal).xyz;
+    out.light = (scn_frame.inverseViewTransform * light.lightWorldPosition).xyz;
     auto worldPos = scn_node.modelTransform * in.position;
-    out.eye = (scn_node.inverseModelTransform * light.eyeWorldPosition - worldPos).xyz;
+    out.eye = (light.eyeWorldPosition - worldPos).xyz;
     return out;
 }
 
 fragment half4 refractionFragment(VertexOut in [[ stage_in ]],
-                                  texturecube<float> texture [[ texture(0) ]],
+                                  texturecube<float> cubemap [[ texture(0) ]],
                                   texture2d<float> normalmap [[ texture(1) ]],
                                   constant LightData& light [[ buffer(2) ]],
                                   constant MaterialData& material [[ buffer(3) ]]) {
@@ -55,9 +59,9 @@ fragment half4 refractionFragment(VertexOut in [[ stage_in ]],
     auto ambient = in.ambient;
     auto emmision = material.emmision;
     
-    auto uv = refract(V, N, saturate(material.eta));
+    auto uv = refract(-V, N, saturate(material.scale));
     constexpr sampler cubeSampler(filter::linear, mip_filter::linear);
-    auto env = texture.sample(cubeSampler, uv).rgb;
+    auto env = cubemap.sample(cubeSampler, uv).rgb;
     auto diffuse = material.diffuse * env * (NL * lightColor + ambient.rgb);
     
     auto shininess = sign(NL) * pow(NH, material.shininess);

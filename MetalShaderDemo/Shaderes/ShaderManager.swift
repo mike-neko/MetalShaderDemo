@@ -50,6 +50,7 @@ class ShaderManager {
             Shader.bumpMapping,
             
             Shader.cubemapping,
+            Shader.refraction,
         ]
     }
 

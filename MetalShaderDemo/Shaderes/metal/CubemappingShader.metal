@@ -12,6 +12,16 @@ typedef GenericVertexInput VertexInput;
 typedef GenericNodeBuffer NodeBuffer;
 typedef GenericLightData LightData;
 typedef GenericVertexOut VertexOut;
+
+/*
+ Cubemap
+ struct GenericMaterialData {
+    float3 diffuse;
+    float3 specular;
+    float shininess;    // 1...128 Specular Exponent（1...光沢大）
+    float3 emmision;
+ };
+*/
 typedef GenericMaterialData MaterialData;
 
 

@@ -38,6 +38,7 @@ class ShaderManager {
 
     private init() {
         list = [
+            Shader.refraction,
             Shader.cubemapping,
             
             Shader(name: "VertexColor", vertexName: "colorVertex", fragmentName: "colorFragment",

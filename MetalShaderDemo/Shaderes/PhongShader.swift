@@ -54,7 +54,7 @@ class PhongMaterialBuffer: MaterialBuffer {
                             type: .rgbColor(set: { self.rawData.diffuse = $0 }, get: { self.rawData.diffuse })),
             ShaderParameter(name: ShaderConst.specularColor,
                             type: .rgbColor(set: { self.rawData.specular = $0 }, get: { self.rawData.specular })),
-            ShaderParameter(name: "Specular Exponent",
+            ShaderParameter(name: ShaderConst.specularExponent,
                             type: .floatValue(min: 1, max: 128, set: { self.rawData.shininess = $0 }, get: { self.rawData.shininess })),
             ShaderParameter(name: ShaderConst.emissionColor,
                             type: .rgbColor(set: { self.rawData.emission = $0 }, get: { self.rawData.emission }))
@@ -97,7 +97,7 @@ class PhongBumpMaterialBuffer: MaterialBuffer {
                             type: .rgbColor(set: { self.rawData.diffuse = $0 }, get: { self.rawData.diffuse })),
             ShaderParameter(name: ShaderConst.specularColor,
                             type: .rgbColor(set: { self.rawData.specular = $0 }, get: { self.rawData.specular })),
-            ShaderParameter(name: "Specular Exponent",
+            ShaderParameter(name: ShaderConst.specularExponent,
                             type: .floatValue(min: 1, max: 128, set: { self.rawData.shininess = $0 }, get: { self.rawData.shininess })),
             ShaderParameter(name: ShaderConst.emissionColor,
                             type: .rgbColor(set: { self.rawData.emission = $0 }, get: { self.rawData.emission }))
